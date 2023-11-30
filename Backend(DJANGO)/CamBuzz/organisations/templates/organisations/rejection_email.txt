@@ -1,0 +1,8 @@
+Dear {{ organisation.name }},
+
+Regrettably, we must inform you that your application to register an organizational account with CamBuzz under the name '{{ organisation.name }}' has been rejected.
+
+We appreciate your interest in CamBuzz, and we encourage you to reach out if you have any further inquiries.
+
+Best regards,
+The Administrative Team

@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     'accounts',
     'vehiclepooling',
     'foodrecommendation',
+    'authentication',
+    'organisations',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -45,7 +47,8 @@ INSTALLED_APPS = [
     'corsheaders',
 ]
 
-AUTH_USER_MODEL = 'accounts.CustomUser'
+AUTH_USER_MODEL = 'authentication.AdminUser'
+# AUTH_USER_MODEL = 'accounts.CustomUser'
 
 
 MIDDLEWARE = [
@@ -64,7 +67,7 @@ ROOT_URLCONF = 'CamBuzz.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -159,3 +162,10 @@ REST_FRAMEWORK = {
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5500",
 ]
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'cambuzz03@gmail.com'  # Your Gmail address
+EMAIL_HOST_PASSWORD = 'gxjz sgdd qzsz jkew'  # Your Gmail password or app-specific password

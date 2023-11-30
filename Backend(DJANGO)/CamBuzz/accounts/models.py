@@ -92,3 +92,7 @@ class CustomUser(AbstractUser):
         # Delete the user account
         self.delete()
 
+
+# Add related_name to avoid clashes
+CustomUser._meta.get_field('groups').remote_field.related_name = 'customuser_groups'
+CustomUser._meta.get_field('user_permissions').remote_field.related_name = 'customuser_user_permissions'
