@@ -9,7 +9,7 @@ from django.contrib.auth.hashers import make_password, check_password
 from django.core.exceptions import ValidationError
 
 class Organisation(AbstractUser):
-    name = models.CharField(max_length=255)
+    first_name = models.CharField(max_length=255)
     photo = models.ImageField(upload_to='organisation_photos/', blank=True, null=True)
     about = models.TextField()
     email = models.EmailField(unique=True)
@@ -27,12 +27,17 @@ class Organisation(AbstractUser):
     
     def get_absolute_url(self):
         return reverse('organisations:organisation_detail', args=[str(self.id)])
-    password = models.CharField(max_length=128)
-    def set_password(self, raw_password):
-        self.password = make_password(raw_password)
+    
+    # Override save method to properly hash the password using set_password
+    def save(self, *args, **kwargs):
+        if not self.id:
+            # Set is_active to False when creating a new instance
+            self.is_active = False
 
-    def check_password(self, raw_password):
-        return check_password(raw_password, self.password)
+            # Use set_password to hash the password
+            self.set_password(self.password)
+
+        super().save(*args, **kwargs)
 
 # Add related_name to avoid clashes
 Organisation._meta.get_field('groups').remote_field.related_name = 'organisation_groups'
@@ -54,7 +59,7 @@ class OrganisationRegistrationRequest(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=PENDING)
 
     def __str__(self):
-        return f"{self.organisation.name} - {self.get_status_display()}"
+        return f"{self.organisation.first_name} - {self.get_status_display()}"
 
     def get_absolute_url(self):
         return reverse('organisations:registration_request_detail', args=[str(self.id)])
@@ -70,7 +75,7 @@ class OrganisationRegistrationRequest(models.Model):
         if self.status == self.APPROVED:
             raise ValidationError('This registration request has already been approved.')
 
-        if not self.organisation.name or not self.organisation.email:
+        if not self.organisation.first_name or not self.organisation.email:
             raise ValidationError('Organization must provide a name and email before approval.')
         
         # Update the status to 'approved'
@@ -89,7 +94,7 @@ class OrganisationRegistrationRequest(models.Model):
         # Check if the request is already rejected
         if self.status == self.REJECTED:
             raise ValidationError('This registration request has already been rejected.')
-        if not self.organisation.name or not self.organisation.email:
+        if not self.organisation.first_name or not self.organisation.email:
             raise ValidationError('Organization must provide a name and email before approval.')
         
         self.status = self.REJECTED

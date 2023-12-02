@@ -11,5 +11,5 @@ class OrganisationRegistrationRequestSerializer(serializers.ModelSerializer):
 class OrganisationRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Organisation
-        fields = ['name', 'photo', 'about', 'email', 'website_link', 'linkedin_profile_link', 'instagram_username', 'facebook', 'username', 'password']
+        fields = ['first_name', 'photo', 'about', 'email', 'website_link', 'linkedin_profile_link', 'instagram_username', 'facebook', 'username', 'password']
 

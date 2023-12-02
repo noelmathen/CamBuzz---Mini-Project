@@ -1,6 +1,6 @@
-Dear {{ organisation.name }},
+Dear {{ organisation.first_name }},
 
-We are delighted to inform you that your application to register an organizational account with CamBuzz under the name '{{ organisation.name }}' has been successfully approved.
+We are delighted to inform you that your application to register an organizational account with CamBuzz under the name '{{ organisation.first_name }}' has been successfully approved.
 
 We appreciate your choice in selecting CamBuzz.
 

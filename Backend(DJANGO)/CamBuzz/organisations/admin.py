@@ -36,10 +36,10 @@ class OrganisationRegistrationRequestAdmin(admin.ModelAdmin):
             request_obj = OrganisationRegistrationRequest.objects.get(id=request_id)
             # Check if the request is already rejected
             if request_obj.status == OrganisationRegistrationRequest.APPROVED:
-                self.message_user(request, f'Registration request for {str(request_obj.organisation.name)} has already been approved.', level='ERROR')
+                self.message_user(request, f'Registration request for {str(request_obj.organisation.first_name)} has already been approved.', level='ERROR')
             else:
                 request_obj.approve_view(request)
-                self.message_user(request, f'Registration request for {str(request_obj.organisation.name)} has been appoved successfully.')
+                self.message_user(request, f'Registration request for {str(request_obj.organisation.first_name)} has been appoved successfully.')
 
         except OrganisationRegistrationRequest.DoesNotExist:
             self.message_user(request, 'Error: Registration request not found.', level='ERROR')
@@ -52,10 +52,10 @@ class OrganisationRegistrationRequestAdmin(admin.ModelAdmin):
             request_obj = OrganisationRegistrationRequest.objects.get(id=request_id)
             # Check if the request is already rejected
             if request_obj.status == OrganisationRegistrationRequest.REJECTED:
-                self.message_user(request, f'Registration request for {str(request_obj.organisation.name)} has already been rejected.', level='ERROR')
+                self.message_user(request, f'Registration request for {str(request_obj.organisation.first_name)} has already been rejected.', level='ERROR')
             else:
                 request_obj.reject_view(request)
-                self.message_user(request, f'Registration request for {str(request_obj.organisation.name)} has been rejected successfully.')
+                self.message_user(request, f'Registration request for {str(request_obj.organisation.first_name)} has been rejected successfully.')
 
         except OrganisationRegistrationRequest.DoesNotExist:
             self.message_user(request, 'Error: Registration request not found.', level='ERROR')
