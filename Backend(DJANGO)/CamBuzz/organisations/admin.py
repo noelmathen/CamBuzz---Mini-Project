@@ -10,7 +10,11 @@ from django.http import HttpResponseRedirect
 admin.site.register(Organisation)
 
 class OrganisationRegistrationRequestAdmin(admin.ModelAdmin):
-    list_display = ['organisation', 'status', 'approve_action', 'reject_action']
+    list_display = ['get_organisation_name', 'status', 'approve_action', 'reject_action']
+
+    def get_organisation_name(self, obj):
+        return obj.organisation.user.first_name  # Assuming 'first_name' is the name field
+    get_organisation_name.short_description = 'Organisation Name'
 
     def approve_action(self, obj):
         return format_html('<a class="button" href="{}">Approve</a>', obj.get_approve_url())
@@ -36,10 +40,10 @@ class OrganisationRegistrationRequestAdmin(admin.ModelAdmin):
             request_obj = OrganisationRegistrationRequest.objects.get(id=request_id)
             # Check if the request is already rejected
             if request_obj.status == OrganisationRegistrationRequest.APPROVED:
-                self.message_user(request, f'Registration request for {str(request_obj.organisation.first_name)} has already been approved.', level='ERROR')
+                self.message_user(request, f'Registration request for {str(request_obj.organisation.user.first_name)} has already been approved.', level='ERROR')
             else:
                 request_obj.approve_view(request)
-                self.message_user(request, f'Registration request for {str(request_obj.organisation.first_name)} has been appoved successfully.')
+                self.message_user(request, f'Registration request for {str(request_obj.organisation.user.first_name)} has been appoved successfully.')
 
         except OrganisationRegistrationRequest.DoesNotExist:
             self.message_user(request, 'Error: Registration request not found.', level='ERROR')
@@ -52,10 +56,10 @@ class OrganisationRegistrationRequestAdmin(admin.ModelAdmin):
             request_obj = OrganisationRegistrationRequest.objects.get(id=request_id)
             # Check if the request is already rejected
             if request_obj.status == OrganisationRegistrationRequest.REJECTED:
-                self.message_user(request, f'Registration request for {str(request_obj.organisation.first_name)} has already been rejected.', level='ERROR')
+                self.message_user(request, f'Registration request for {str(request_obj.organisation.user.first_name)} has already been rejected.', level='ERROR')
             else:
                 request_obj.reject_view(request)
-                self.message_user(request, f'Registration request for {str(request_obj.organisation.first_name)} has been rejected successfully.')
+                self.message_user(request, f'Registration request for {str(request_obj.organisation.user.first_name)} has been rejected successfully.')
 
         except OrganisationRegistrationRequest.DoesNotExist:
             self.message_user(request, 'Error: Registration request not found.', level='ERROR')

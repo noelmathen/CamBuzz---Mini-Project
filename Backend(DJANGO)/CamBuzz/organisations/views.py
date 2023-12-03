@@ -13,6 +13,8 @@ class OrganisationRegistrationRequestApproveView(generics.UpdateAPIView):
         instance = self.get_object()
         instance.status = OrganisationRegistrationRequest.APPROVED
         instance.save()
+        instance.organisation.user.is_active = True  # Set is_active to True upon approval
+        instance.organisation.user.save()
         instance.send_approval_email()
         return Response({'detail': 'Registration request approved successfully.'}, status=status.HTTP_200_OK)
 
@@ -24,6 +26,8 @@ class OrganisationRegistrationRequestRejectView(generics.UpdateAPIView):
         instance = self.get_object()
         instance.status = OrganisationRegistrationRequest.REJECTED
         instance.save()
+        instance.organisation.user.is_active = False  # Set is_active to False upon rejection
+        instance.organisation.user.save()
         instance.send_rejection_email()
         return Response({'detail': 'Registration request rejected successfully.'}, status=status.HTTP_200_OK)
 

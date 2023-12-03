@@ -19,6 +19,12 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_admin', True)
         return self.create_user(username, email, password, **extra_fields)
+    
+
+    def create_organisation_user(self, username, email, password=None, **extra_fields):
+        extra_fields.setdefault('is_organisation', True)
+        extra_fields.setdefault('is_active', False)
+        return self.create_user(username, email,  password, **extra_fields)
 
 class CustomUser(AbstractUser):
     is_student = models.BooleanField(default=False)

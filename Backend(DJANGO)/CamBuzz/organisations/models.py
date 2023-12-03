@@ -13,16 +13,14 @@ class Organisation(models.Model):
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE, primary_key=True, )
     photo = models.ImageField(upload_to='organisation_photos/', blank=True, null=True)
     about = models.TextField()
-    email = models.EmailField(unique=True)
     website_link = models.URLField(blank=True, null=True)
     linkedin_profile_link = models.URLField(blank=True, null=True)
     instagram_username = models.URLField(blank=True, null=True)
     facebook = models.URLField(blank=True, null=True)
-    is_active = models.BooleanField(default=False)
     def save(self, *args, **kwargs):
         # Set is_active to False when creating a new instance
-        if not self.id:
-            self.is_active = False
+        if not self.user.id:
+            self.user.is_active = False
 
         super().save(*args, **kwargs)
     
@@ -77,7 +75,7 @@ class OrganisationRegistrationRequest(models.Model):
         if self.status == self.APPROVED:
             raise ValidationError('This registration request has already been approved.')
 
-        if not self.organisation.first_name or not self.organisation.email:
+        if not self.organisation.user.first_name or not self.organisation.user.email:
             raise ValidationError('Organization must provide a name and email before approval.')
         
         # Update the status to 'approved'
@@ -85,8 +83,8 @@ class OrganisationRegistrationRequest(models.Model):
         self.save()
 
         # Activate the user in the Organisation model
-        self.organisation.is_active = True
-        self.organisation.save()
+        self.organisation.user.is_active = True
+        self.organisation.user.save()
 
         # Send an approval email
         send_approval_email(self.organisation)
@@ -96,14 +94,14 @@ class OrganisationRegistrationRequest(models.Model):
         # Check if the request is already rejected
         if self.status == self.REJECTED:
             raise ValidationError('This registration request has already been rejected.')
-        if not self.organisation.first_name or not self.organisation.email:
+        if not self.organisation.user.first_name or not self.organisation.user.email:
             raise ValidationError('Organization must provide a name and email before approval.')
         
         self.status = self.REJECTED
         self.save()
         
-        self.organisation.is_active = False
-        self.organisation.save()
+        self.organisation.user.is_active = False
+        self.organisation.user.save()
 
         send_rejection_email(self.organisation)
 
@@ -113,7 +111,7 @@ def send_approval_email(organisation):
         subject = 'Your registration request has been approved'
         message = render_to_string('organisations/approval_email.txt', {'organisation': organisation})
         from_email = 'cambuzz03@gmail.com'  # Update with your email
-        recipient_list = [organisation.email]
+        recipient_list = [organisation.user.email]
         send_mail(subject, message, from_email, recipient_list)
     except Exception as e:
         print(f"Error sending approval email: {e}")
@@ -122,7 +120,7 @@ def send_rejection_email(organisation):
     subject = 'Your registration request has been rejected'
     message = render_to_string('organisations/rejection_email.txt', {'organisation': organisation})
     from_email = 'cambuzz03@gmail.com'  # Update with your email
-    recipient_list = [organisation.email]
+    recipient_list = [organisation.user.email]
     send_mail(subject, message, from_email, recipient_list)
     
 
