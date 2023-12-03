@@ -1,15 +1,16 @@
 # organisations/models.py
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.utils.html import format_html
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.contrib.auth.hashers import make_password, check_password
 from django.core.exceptions import ValidationError
+from accounts.models import CustomUser
 
-class Organisation(AbstractUser):
-    first_name = models.CharField(max_length=255)
+class Organisation(models.Model):
+    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE, primary_key=True, )
     photo = models.ImageField(upload_to='organisation_photos/', blank=True, null=True)
     about = models.TextField()
     email = models.EmailField(unique=True)
@@ -28,20 +29,20 @@ class Organisation(AbstractUser):
     def get_absolute_url(self):
         return reverse('organisations:organisation_detail', args=[str(self.id)])
     
-    # Override save method to properly hash the password using set_password
-    def save(self, *args, **kwargs):
-        if not self.id:
-            # Set is_active to False when creating a new instance
-            self.is_active = False
+    # # Override save method to properly hash the password using set_password
+    # def save(self, *args, **kwargs):
+    #     if not self.id:
+    #         # Set is_active to False when creating a new instance
+    #         self.is_active = False
 
-            # Use set_password to hash the password
-            self.set_password(self.password)
+    #         # Use set_password to hash the password
+    #         self.set_password(self.password)
 
-        super().save(*args, **kwargs)
+    #     super().save(*args, **kwargs)
 
-# Add related_name to avoid clashes
-Organisation._meta.get_field('groups').remote_field.related_name = 'organisation_groups'
-Organisation._meta.get_field('user_permissions').remote_field.related_name = 'organisation_user_permissions'
+# # Add related_name to avoid clashes
+# Organisation._meta.get_field('groups').remote_field.related_name = 'organisation_groups'
+# Organisation._meta.get_field('user_permissions').remote_field.related_name = 'organisation_user_permissions'
 
 
 class OrganisationRegistrationRequest(models.Model):
@@ -59,7 +60,8 @@ class OrganisationRegistrationRequest(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=PENDING)
 
     def __str__(self):
-        return f"{self.organisation.first_name} - {self.get_status_display()}"
+        return f"{self.organisation.user.username} - {self.get_status_display()}"
+        # return f"{self.organisation.first_name} - {self.get_status_display()}"
 
     def get_absolute_url(self):
         return reverse('organisations:registration_request_detail', args=[str(self.id)])

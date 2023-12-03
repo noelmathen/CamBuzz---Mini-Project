@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'django.contrib.admin',
     'accounts',
+    'student',
     'vehiclepooling',
     'foodrecommendation',
     'authentication',
@@ -47,8 +48,8 @@ INSTALLED_APPS = [
     'corsheaders',
 ]
 
-AUTH_USER_MODEL = 'authentication.AdminUser'
-# AUTH_USER_MODEL = 'accounts.CustomUser'
+# AUTH_USER_MODEL = 'authentication.AdminUser'
+AUTH_USER_MODEL = 'accounts.CustomUser'
 
 
 MIDDLEWARE = [
@@ -154,6 +155,7 @@ AUTHENTICATION_BACKENDS = [
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
         # 'rest_framework.authentication.SessionAuthentication',
     ),
 }

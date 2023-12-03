@@ -2,6 +2,7 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 from django.utils import timezone
+from accounts.models import CustomUser
 
 class AdminUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -25,6 +26,7 @@ class AdminUserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 class AdminUser(AbstractBaseUser, PermissionsMixin):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True, )
     email = models.EmailField(unique=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
