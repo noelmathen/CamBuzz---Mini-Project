@@ -1,6 +1,6 @@
-Dear {{ organisation.first_name }},
+Dear {{ organisation.user.first_name }},
 
-Regrettably, we must inform you that your application to register an organizational account with CamBuzz under the name '{{ organisation.first_name }}' has been rejected.
+Regrettably, we must inform you that your application to register an organizational account with CamBuzz under the name '{{ organisation.user.first_name }}' has been rejected.
 
 We appreciate your interest in CamBuzz, and we encourage you to reach out if you have any further inquiries.
 

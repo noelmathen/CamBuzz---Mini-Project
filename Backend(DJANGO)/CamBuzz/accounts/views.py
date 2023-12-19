@@ -1,43 +1,49 @@
-from rest_framework import status
+from rest_framework import status, views
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import CustomUser
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
-from .serializers import UserRegistrationSerializer, UserLoginSerializer, UserProfileUpdateSerializer, ChangePasswordSerializer, DeleteAccountSerializer
 from .permissions import IsOwnerOrReadOnly
+from django.contrib.auth import login, authenticate
+from .serializers import (
+    LoginSerializer,
+    ChangePasswordSerializer,
+    DeleteAccountSerializer,
+)
 
 
-class UserRegistrationView(APIView):
-    def post(self, request):
-        serializer = UserRegistrationSerializer(data=request.data)
+class LoginView(views.APIView):
+    def post(self, request, *args, **kwargs):
+        serializer = LoginSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
 
-        if serializer.is_valid():
-            # Automatically calculate passout year
-            joining_year = serializer.validated_data['joining_year']
-            serializer.validated_data['passout_year'] = joining_year + 4
+        username = serializer.validated_data['username']
+        password = serializer.validated_data['password']
+        is_student = serializer.validated_data['is_student']
+        is_organisation = serializer.validated_data['is_organisation']
+        print(f"\n\n\n{is_student}")
+        print(f"{is_organisation}\n\n\n")
+        # Check user type in CustomUser model
+        user = None
+        if is_student and CustomUser.objects.filter(username=username, is_student=True).exists():
+            user = authenticate(request, username=username, password=password)
+            print(user.first_name)
+        elif is_organisation and CustomUser.objects.filter(username=username, is_organisation=True).exists():
+            user = authenticate(request, username=username, password=password, is_organisation=True)
 
-            # Create the user
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-class UserLoginView(APIView):
-    def post(self, request):
-        serializer = UserLoginSerializer(data=request.data)
-        if serializer.is_valid():
-            user = serializer.validated_data["user"]
+        if user is not None:
+            login(request, user)
             token, created = Token.objects.get_or_create(user=user)
-
             response_data = {
-                "message": f"Login Successful! Welcome {user.first_name} {user.last_name}!",
-                "user_name": f"{user.first_name} {user.last_name}",  # Include the user's name
-                "user_token": token.key,
+                'message': f'Login Successful: Welcome {user.first_name}',
+                'user_type': 'Student' if is_student else 'Organisation',
+                'token': token.key
             }
             return Response(response_data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_401_UNAUTHORIZED)
-
+        else:
+            return Response({'detail': 'Invalid credentials or user type'}, status=status.HTTP_401_UNAUTHORIZED)
+        
 
 class UserLogoutView(APIView):
     permission_classes = (IsAuthenticated,)
@@ -45,21 +51,6 @@ class UserLogoutView(APIView):
         first_name = request.user.first_name
         request.auth.delete()
         return Response({"detail": f"Goodbye {first_name}, Logout successful!"}, status=status.HTTP_200_OK)
-
-
-class UserProfileUpdateView(APIView):
-    permission_classes = (IsAuthenticated,)
-
-    def put(self, request):
-        user = request.user
-        serializer = UserProfileUpdateSerializer(user, data=request.data, partial=True)
-        first_name = request.user.first_name
-        # Check if the user making the request is the owner of the profile being updated
-        if serializer.is_valid() and user == serializer.instance:
-            serializer.save()
-            return Response({"detail": f"{first_name}'s profile updated successfully."}, status=status.HTTP_200_OK)
-        
-        return Response({"detail": f"{first_name} is unauthorized to update this profile."}, status=status.HTTP_403_FORBIDDEN)
     
 
 class ChangePasswordView(APIView):
