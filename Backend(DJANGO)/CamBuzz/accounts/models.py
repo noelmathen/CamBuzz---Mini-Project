@@ -12,7 +12,7 @@ class CustomUserManager(BaseUserManager):
         user = self.model(username=username, email=email, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
-        return user
+        return user 
 
     def create_superuser(self, username, email, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
@@ -38,6 +38,7 @@ class CustomUser(AbstractUser):
     # def check_password(self, raw_password):
     #     return check_password(raw_password, self.password)
 
+
     def change_password(self, current_password, new_password):
         # Check if the current password is correct
         if not check_password(current_password, self.password):
@@ -53,7 +54,7 @@ class CustomUser(AbstractUser):
         self.delete()
 
 
-# Add related_name to avoid clashes
-CustomUser._meta.get_field('groups').remote_field.related_name = 'customuser_groups'
-CustomUser._meta.get_field('user_permissions').remote_field.related_name = 'customuser_user_permissions'
+# # Add related_name to avoid clashes
+# CustomUser._meta.get_field('groups').remote_field.related_name = 'customuser_groups'
+# CustomUser._meta.get_field('user_permissions').remote_field.related_name = 'customuser_user_permissions'
 

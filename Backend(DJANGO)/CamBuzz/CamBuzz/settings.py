@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'foodrecommendation',
     'authentication',
     'organisations',
+    'eventhub',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',

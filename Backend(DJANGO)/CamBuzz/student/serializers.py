@@ -47,75 +47,45 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 
 
 
-# class CustomUserSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = CustomUser
-#         fields = ('first_name', 'last_name', 'email', 'username', 'password')
+class StudentProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Student
+        fields = ('joining_year', 'phone_number', 'photo')
 
+class UserProfileEditSerializer(serializers.ModelSerializer):
+    student_data = StudentProfileSerializer(required=False)
 
-# class StudentSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Student
-#         fields = ('joining_year', 'branch', 'division', 'phone_number', 'gender', 'photo')
+    class Meta:
+        model = CustomUser
+        fields = ('first_name', 'last_name', 'email', 'username', 'student_data')
 
+    def update(self, instance, validated_data):
+        # Extract student data if provided
+        student_data = validated_data.pop('student_data', None)
 
+        # Update CustomUser fields
+        instance.first_name = validated_data.get('first_name', instance.first_name)
+        instance.last_name = validated_data.get('last_name', instance.last_name)
+        instance.email = validated_data.get('email', instance.email)
+        instance.username = validated_data.get('username', instance.username)
 
+        # Update and save CustomUser
+        instance.save()
 
-# class UserLoginSerializer(serializers.Serializer):
-#     username = serializers.CharField()
-#     password = serializers.CharField()
+        # Update Student fields if student_data is provided
+        if student_data:
+            student_instance, created = Student.objects.get_or_create(user=instance)
 
-#     def validate(self, data):
-#         username = data.get("username")
-#         password = data.get("password")
+            # Update Student fields
+            student_instance.joining_year = student_data.get('joining_year', student_instance.joining_year)
+            student_instance.phone_number = student_data.get('phone_number', student_instance.phone_number)
+            student_instance.photo = student_data.get('photo', student_instance.photo)
 
-#         if username and password:
-#             user = authenticate(username=username, password=password)
-#             if user:
-#                 if user.is_active:
-#                     data["user"] = user
-#                 else:
-#                     raise serializers.ValidationError("User is not active.")
-#             else:
-#                 raise serializers.ValidationError("Incorrect username or password.")
-#         else:
-#             raise serializers.ValidationError("Both username and password are required.")
+            # Automatically update passout_year if joining_year is provided
+            if 'joining_year' in student_data:
+                student_instance.passout_year = student_data['joining_year'] + 4
 
-#         return data
-    
+            # Save Student
+            student_instance.save()
 
-# class UserProfileUpdateSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = CustomUser
-#         fields = ('first_name', 'last_name', 'phone_number', 'username', 'branch', 'division', 'gender', 'photo')
-
-
-# class ChangePasswordSerializer(serializers.Serializer):
-#     current_password = serializers.CharField()
-#     new_password = serializers.CharField()
-#     confirm_new_password = serializers.CharField()
-
-#     def validate(self, data):
-#         user = self.context['request'].user
-
-#         current_password = data.get("current_password")
-#         new_password = data.get("new_password")
-#         confirm_new_password = data.get("confirm_new_password")
-
-#         # Check if the current password is correct
-#         if not check_password(current_password, user.password):
-#             raise serializers.ValidationError("Current password is incorrect!")
-
-#         # Check if the new passwords match
-#         if new_password != confirm_new_password:
-#             raise serializers.ValidationError("New passwords do not match!")
-
-#         # Check if the new password is different from the current password
-#         if current_password == new_password:
-#             raise serializers.ValidationError("New password must be different from the current password!")
-
-#         return data
-    
-
-# class DeleteAccountSerializer(serializers.Serializer):
-#     password = serializers.CharField()
+        return instance

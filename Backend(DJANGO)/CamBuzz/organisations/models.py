@@ -10,7 +10,7 @@ from django.core.exceptions import ValidationError
 from accounts.models import CustomUser
 
 class Organisation(models.Model):
-    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE, primary_key=True, )
+    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE, primary_key=True, related_name='organisation_profile',)
     photo = models.ImageField(upload_to='organisation_photos/', blank=True, null=True)
     about = models.TextField()
     website_link = models.URLField(blank=True, null=True)
@@ -27,16 +27,8 @@ class Organisation(models.Model):
     def get_absolute_url(self):
         return reverse('organisations:organisation_detail', args=[str(self.id)])
     
-    # # Override save method to properly hash the password using set_password
-    # def save(self, *args, **kwargs):
-    #     if not self.id:
-    #         # Set is_active to False when creating a new instance
-    #         self.is_active = False
-
-    #         # Use set_password to hash the password
-    #         self.set_password(self.password)
-
-    #     super().save(*args, **kwargs)
+    def __str__(self):
+        return self.user.first_name
 
 # # Add related_name to avoid clashes
 # Organisation._meta.get_field('groups').remote_field.related_name = 'organisation_groups'
