@@ -6,44 +6,11 @@ from rest_framework import serializers
 from .models import CustomUser
 from django.contrib.auth import authenticate
 
-class UserRegistrationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CustomUser
-        fields = ('first_name', 'last_name', 'phone_number', 'email', 'username', 'password', 'joining_year', 'branch', 'division', 'gender', 'photo')
-
-    def create(self, validated_data):
-        validated_data['password'] = make_password(validated_data['password'])  # Hash the password
-        user = CustomUser.objects.create(**validated_data)
-        return user
-
-
-class UserLoginSerializer(serializers.Serializer):
+class LoginSerializer(serializers.Serializer):
     username = serializers.CharField()
-    password = serializers.CharField()
-
-    def validate(self, data):
-        username = data.get("username")
-        password = data.get("password")
-
-        if username and password:
-            user = authenticate(username=username, password=password)
-            if user:
-                if user.is_active:
-                    data["user"] = user
-                else:
-                    raise serializers.ValidationError("User is not active.")
-            else:
-                raise serializers.ValidationError("Incorrect username or password.")
-        else:
-            raise serializers.ValidationError("Both username and password are required.")
-
-        return data
-    
-
-class UserProfileUpdateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CustomUser
-        fields = ('first_name', 'last_name', 'phone_number', 'username', 'branch', 'division', 'gender', 'photo')
+    password = serializers.CharField(write_only=True)
+    is_student = serializers.BooleanField()
+    is_organisation = serializers.BooleanField()
 
 
 class ChangePasswordSerializer(serializers.Serializer):
@@ -59,7 +26,7 @@ class ChangePasswordSerializer(serializers.Serializer):
         confirm_new_password = data.get("confirm_new_password")
 
         # Check if the current password is correct
-        if not check_password(current_password, user.password):
+        if not user.check_password(current_password):
             raise serializers.ValidationError("Current password is incorrect!")
 
         # Check if the new passwords match
