@@ -12,4 +12,18 @@ class IsOwnerOrReadOnly(BasePermission):
             return True
 
         # Write permissions are only allowed to the owner of the ride.
-        return obj.owner == request.user
+        allowed = obj.owner == request.user
+        print(f"Request User: {request.user}")
+        print(f"Object Owner: {obj.owner}")
+        print(f"Allowed: {allowed}")
+        return allowed
+    
+    
+class IsOwnerOfRide(BasePermission):
+    message = "You do not have permission to edit this ride."
+
+    def has_object_permission(self, request, view, obj):
+        # Check if the user making the request is the owner of the ride
+        return obj.owner == request.user.student_profile
+    
+

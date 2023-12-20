@@ -31,13 +31,6 @@ class CustomUser(AbstractUser):
     is_organisation = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
     objects = CustomUserManager()
-    # password = models.CharField(max_length=128)
-    # def set_password(self, raw_password):
-    #     self.password = make_password(raw_password)
-
-    # def check_password(self, raw_password):
-    #     return check_password(raw_password, self.password)
-
 
     def change_password(self, current_password, new_password):
         # Check if the current password is correct
