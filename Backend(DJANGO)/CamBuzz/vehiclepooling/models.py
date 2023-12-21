@@ -35,3 +35,13 @@ class VehicleListing(models.Model):
         return f"{self.owner}'s Vehicle Listing"
 
 
+class Booking(models.Model):
+    ride = models.ForeignKey(VehicleListing, on_delete=models.CASCADE, related_name='bookings')
+    passenger = models.ForeignKey(Student, on_delete=models.CASCADE)
+    num_seats = models.PositiveSmallIntegerField(default=1)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.ride.owner.user.get_full_name()}'s ride - {self.num_seats} seat(s) -  by {self.passenger.user.get_full_name()} on {self.created_at}"
+
+

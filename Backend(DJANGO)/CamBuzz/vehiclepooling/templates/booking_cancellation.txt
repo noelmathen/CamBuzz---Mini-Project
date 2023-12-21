@@ -1,0 +1,15 @@
+Dear {{ride_owner_name}},
+
+We regret to inform you that the booking made by {{PASSENGER_NAME}} for your ride has been canceled.
+
+Canceled Booking Details:
+- Passenger Name: {{passenger_name}}
+- Ride Details: {{ride_details}}
+- Number of Seats Canceled: {{num_seats_cancelled}}
+
+We apologize for any inconvenience this may have caused. If you have any questions or concerns, please feel free to contact the passenger directly.
+
+Thank you for using our ride-sharing platform.
+
+Best Regards,
+Your Ride-Sharing Platform

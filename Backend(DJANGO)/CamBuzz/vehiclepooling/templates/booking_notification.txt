@@ -1,0 +1,21 @@
+Dear {{ owner_full_name }},
+
+We are pleased to inform you that {{ passenger_full_name }} has booked {{ num_seats }} seats of your ride.
+
+Ride Details:
+- From: {{ from_location }}
+- To: {{ to_location }}
+- Date: {{ start_date }}
+- Time: {{ start_time }}
+
+Passenger Details:
+- Full Name: {{ passenger_full_name }}
+- Batch: {{ passenger_batch }}
+- Branch: {{ passenger_branch }}
+
+For further details, please contact the passenger at {{ passenger_contact_number }}.
+
+Thank you for using our platform.
+
+Best Regards,
+CamBuzz - VehiclePooling Team

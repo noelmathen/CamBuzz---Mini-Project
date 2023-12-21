@@ -27,3 +27,11 @@ class IsOwnerOfRide(BasePermission):
         return obj.owner == request.user.student_profile
     
 
+class IsOwnerOfBooking(BasePermission):
+    message = "You do not have permission to view/modify/delete this booking."
+
+    def has_object_permission(self, request, view, obj):
+        # Check if the user making the request is the passenger associated with the booking
+        return obj.passenger == request.user.student_profile
+    
+

@@ -1,0 +1,12 @@
+Dear {{ ride_owner_name }},
+
+We would like to inform you that the Passenger {{ passenger_name }} has updated their booking for the ride:
+
+Ride Details: {{ ride_details }}
+Old Number of Seats: {{ old_num_seats }}
+New Number of Seats: {{ new_num_seats }}
+
+Thank you for using our ride-sharing platform.
+
+Best regards,
+Your Ride-Sharing Platform

@@ -1,6 +1,6 @@
 #vehiclepooling/serializers.py
 from rest_framework import serializers
-from .models import VehicleListing
+from .models import VehicleListing, Booking
 
 class VehicleListingSerializer(serializers.ModelSerializer):
     # owner = StudentProfileSerializer()
@@ -17,7 +17,7 @@ class RideListingLimitedSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = VehicleListing
-        fields = ['id', 'owner', 'from_location_start_datetime', 'to_location_end_datetime', 'vehicle_type', 'price']
+        fields = ['id', 'owner', 'from_location_start_datetime', 'to_location_end_datetime', 'vehicle_type', 'seats_available', 'price']
 
     def get_owner(self, obj):
         owner = obj.owner  
@@ -93,5 +93,68 @@ class EditRideSerializer(serializers.ModelSerializer):
         model = VehicleListing
         fields = '__all__'
         read_only_fields = ('owner',)
+
+
+class BookingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Booking
+        fields = ('num_seats',)
+
+
+class BookingListSerializer(serializers.ModelSerializer):
+    ride_details = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Booking
+        fields = ['id', 'num_seats', 'created_at', 'ride_details']
+
+    def get_ride_details(self, obj):
+        ride = obj.ride
+        return {
+            'owner_name': ride.owner.user.get_full_name(),
+            'start_location': ride.from_location,
+            'start_date': ride.start_date,
+            'start_time': ride.start_time,
+            'end_location': ride.to_location,
+            'end_date': ride.end_date,
+            'end_time': ride.end_time,
+            'price': ride.price,
+        }
+
+
+class BookingDetailSerializer(serializers.ModelSerializer):
+    ride_details = serializers.SerializerMethodField()
+    ride_owner_details = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Booking
+        fields = ['num_seats', 'created_at', 'ride_owner_details', 'ride_details']
+
+    def get_ride_details(self, obj):
+        ride = obj.ride
+        return {
+            'from_location': ride.from_location,
+            'to_location': ride.to_location,
+            'start_date': ride.start_date,
+            'start_time': ride.start_time,
+            'end_date': ride.end_date,
+            'end_time': ride.end_time,
+            'vehicle_type': ride.vehicle_type,
+            'vehicle_name': ride.vehicle_name,
+            'vehicle_number': ride.vehicle_number,
+            'price': ride.price,
+            'description': ride.description,
+            # 'seats_available': ride.seats_available,
+        }
+
+    def get_ride_owner_details(self, obj):
+        owner = obj.ride.owner
+        return {
+            'ride_owner_name': owner.user.get_full_name(),
+            'ride_owner_batch': f"{owner.joining_year} - {owner.passout_year} batch",
+            'ride_owner_branch': owner.branch,
+            'ride_owner_phone_number': owner.phone_number,
+        }
+
 
 
