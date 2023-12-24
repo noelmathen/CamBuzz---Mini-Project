@@ -1,3 +1,4 @@
+#foodrecommendation/views.py
 from rest_framework import viewsets
 from .models import Restaurant, Recommendation
 from .serializers import AddReviewFromMainPageSerializer, AddReviewFromRestaurantPageSerializer, ListTopRatedRestaurantsSerializer, RecommendationDetailSerializer, RestaurantDetailSerializer, YourFoodRecommendationsSerializer
@@ -33,6 +34,7 @@ class AddReviewFromMainPage(APIView):
         # Use select_for_update to lock the row during the check and creation process
         with transaction.atomic():
             # Check if the user has already made a recommendation for the same restaurant
+            
             existing_recommendation = Recommendation.objects.filter(
                 user=request.user,
                 restaurant__name=restaurant_name,

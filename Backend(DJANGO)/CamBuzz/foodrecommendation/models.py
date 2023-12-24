@@ -1,5 +1,6 @@
+#foodrecommendation/models.py
 from django.db import models
-from accounts.models import CustomUser
+from student.models import Student, CustomUser
 from django.db.models.signals import pre_save, post_delete
 from django.dispatch import receiver
 from django.db.models import Count
@@ -27,6 +28,9 @@ class Restaurant(models.Model):
             return total_prices / len(recommendations)
         return 0
 
+    def __str__(self):
+        return f"{self.name} - {self.location}"    
+
 
 class Recommendation(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
@@ -44,6 +48,10 @@ class Recommendation(models.Model):
     @property
     def calculate_avg_user_rating(self):
         return (self.food_rating + self.service_rating + self.ambience_rating) / 3
+    
+    def __str__(self):
+        return f"{self.user.first_name}'s recommendation for {self.restaurant.name}"    
+    
 
 
 @receiver(pre_save, sender=Recommendation)
