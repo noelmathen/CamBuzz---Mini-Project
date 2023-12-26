@@ -29,9 +29,10 @@
 </head>
 
 <body>
+  
   <!-- Image and text -->
   <nav class="navbar navbar-dark navbar-expand-sm" style="background-color: #0e1827;">
-    <a class="navbar-brand" href="./index.html"
+    <a class="navbar-brand" href="/functionalities.html"
       style="background-color: #0e1827; display: inline-block; text-align: center;">
       <img src="./img/CamBuzz_logo.png" height="50" class="d-inline-block align-top" alt=""><br />
       CamBuzz
@@ -58,8 +59,8 @@
                                      
         <div class="dropdown">
           <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown">
-            <img src="./img/blank_profile_pic.jpg" height="50" class="rounded-circle" alt="..."><br />
-          <span class="profile_name">Rehan</span>
+            <img id="profileImage" height="50" class="rounded-circle" alt="..."><br />
+            <span id="profileName" class="profile_name"></span>
           </button>
           <ul class="dropdown-menu" style="left: -90px;">
             <li><a class="dropdown-item" href="#">My Profile</a></li>
@@ -81,6 +82,31 @@
         alt="Food Spot Recommendations" style="height: 300px;"></a>
     <a href="eventhub/ehstudmp.html"><img src="./img/event_hub.png" alt="Event Hub" style="height: 300px;"></a>
   </div>
+
+  <script>
+    // Retrieve user information from local storage
+    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+
+    if (loggedInUser) {
+      // Log user information for debugging
+      console.log('Logged In User:', loggedInUser);
+  
+      // Update profile image and name in the navbar
+      const profileImage = document.getElementById('profileImage');
+      const profileName = document.getElementById('profileName');
+  
+      // Construct the full URL for the profile image
+      const imageUrl = loggedInUser.imageUrl
+        ? `http://127.0.0.1:8000${loggedInUser.imageUrl}`
+        : './img/blank_profile_pic.jpg';
+  
+      profileImage.src = imageUrl;
+      profileName.innerText = loggedInUser.firstName || 'Rehan';
+  
+      // Log the updated image source for debugging
+      console.log('Updated Image Source:', profileImage.src);
+    }
+  </script>
 
 </body>
 
