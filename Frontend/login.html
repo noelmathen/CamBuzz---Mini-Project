@@ -218,6 +218,10 @@
         
           // Redirect to the next page after a successful login
           if (data.token) {  // Assuming that 'token' is present in the successful response
+            localStorage.setItem('loggedInUser', JSON.stringify({
+              firstName: data.first_name,  // Replace with the actual field name from your backend
+              imageUrl: data.photo,       // Replace with the actual field name from your backend
+            }));
             window.location.href = 'funtionalities.html';
           }
         })
