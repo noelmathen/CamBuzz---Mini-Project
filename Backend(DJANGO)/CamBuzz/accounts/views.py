@@ -11,10 +11,13 @@ from .serializers import (
     ChangePasswordSerializer,
     DeleteAccountSerializer,
 )
+from django.middleware.csrf import get_token
 
 
 class LoginView(views.APIView):
     def post(self, request, *args, **kwargs):
+        csrf_token = get_token(request)
+
         serializer = LoginSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
@@ -22,13 +25,10 @@ class LoginView(views.APIView):
         password = serializer.validated_data['password']
         is_student = serializer.validated_data['is_student']
         is_organisation = serializer.validated_data['is_organisation']
-        print(f"\n\n\n{is_student}")
-        print(f"{is_organisation}\n\n\n")
         # Check user type in CustomUser model
         user = None
         if is_student and CustomUser.objects.filter(username=username, is_student=True).exists():
             user = authenticate(request, username=username, password=password)
-            print(user.first_name)
         elif is_organisation and CustomUser.objects.filter(username=username, is_organisation=True).exists():
             user = authenticate(request, username=username, password=password, is_organisation=True)
 
@@ -36,13 +36,13 @@ class LoginView(views.APIView):
             login(request, user)
             token, created = Token.objects.get_or_create(user=user)
             response_data = {
-                'message': f'Login Successful: Welcome {user.first_name}',
+                'message': f'Login Successful: Welcome {user.first_name}' if user.first_name else f'Login Successful',
                 'user_type': 'Student' if is_student else 'Organisation',
                 'token': token.key
             }
             return Response(response_data, status=status.HTTP_200_OK)
         else:
-            return Response({'detail': 'Invalid credentials or user type'}, status=status.HTTP_401_UNAUTHORIZED)
+            return Response({'message': 'Invalid credentials or user type'}, status=status.HTTP_401_UNAUTHORIZED)
         
 
 class UserLogoutView(APIView):

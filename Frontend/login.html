@@ -200,14 +200,34 @@
           },
           body: JSON.stringify(formData),
         })
-        .then(response => response.json())
-        .then(data => {
-          // Handle the response
-          console.log(data);
-
-          // You can redirect to the next page or perform other actions based on the response
+        .then(response => {
+          if (response.ok) {
+            // If the response status is OK, parse and handle the JSON response
+            return response.json();
+          } else {
+            // If the response status is not OK, handle the error and reject the promise
+            return response.json().then(errorData => Promise.reject(errorData));
+          }
         })
-        .catch(error => console.error('Error:', error));
+        .then(data => {
+          // Handle the response for successful login
+          console.log(data);
+        
+          // Display the response message in a browser prompt
+          alert(data.message);
+        
+          // Redirect to the next page after a successful login
+          if (data.token) {  // Assuming that 'token' is present in the successful response
+            window.location.href = 'funtionalities.html';
+          }
+        })
+        .catch(errorData => {
+          // Handle the response for unsuccessful login
+          console.error('Error:', errorData);
+        
+          // Display the error detail message in a browser prompt
+          alert(errorData.message);
+        });
       });
     </script>
   </body>
