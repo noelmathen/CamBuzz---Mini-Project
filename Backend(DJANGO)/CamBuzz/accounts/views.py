@@ -38,7 +38,9 @@ class LoginView(views.APIView):
             response_data = {
                 'message': f'Login Successful: Welcome {user.first_name}' if user.first_name else f'Login Successful',
                 'user_type': 'Student' if is_student else 'Organisation',
-                'token': token.key
+                'token': token.key,
+                'first_name': user.first_name,
+                'photo_url': user.student_profile.photo.url if is_student else user.organisation_profile.photo.url,
             }
             return Response(response_data, status=status.HTTP_200_OK)
         else:
