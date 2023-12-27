@@ -51,7 +51,7 @@ class OrganisationRegistrationView(generics.CreateAPIView):
 
         # Check the approval status
         if registration_request.status == OrganisationRegistrationRequest.PENDING:
-            return Response({'detail': 'Your account is yet to be approved by admin.'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'detail': 'Your account is yet to be approved by admin.'}, status=status.HTTP_200_OK)
         elif registration_request.status == OrganisationRegistrationRequest.REJECTED:
             return Response({'detail': 'Sorry, your request was denied by admin.'}, status=status.HTTP_400_BAD_REQUEST)
 
