@@ -27,8 +27,10 @@ class StudentRegistrationView(APIView):
             serializer.validated_data['is_student'] = True
 
             serializer.save()
-
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            # Customize success message
+            first_name = serializer.validated_data.get('first_name', 'User')
+            success_message = f'Congrats {first_name}! Your account registration with CamBuzz is successful.'
+            return Response({'message': success_message}, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

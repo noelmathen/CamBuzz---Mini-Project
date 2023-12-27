@@ -158,48 +158,48 @@
   </style>
 </head>
 
-  <body>
-    <form id="loginForm">
-      <h1>Log in</h1>
-      <div class="inset">
-        <p>
-          <label for="username">Username</label>
-          <input type="text" name="username" id="username">
-        </p>
-        <p>
-          <label for="password">Password</label>
-          <input type="password" name="password" id="password">
-        </p>
-        <p>
-          <label>Select the category you fall into:</label>
-          <label><input type="radio" name="user-type" value="student" class="inline" /> Student</label>
-          <label><input type="radio" name="user-type" value="organisation" class="inline" /> Organisation</label>
-        </p>
-      </div>
-      <p class="p-container">
-        <span>Don't have an Account?<br><a href="msignup.html">Sign Up</a></span>
-        <input type="button" id="loginBtn" value="Log in">
+<body>
+  <form id="loginForm">
+    <h1>Log in</h1>
+    <div class="inset">
+      <p>
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username">
       </p>
-    </form>
+      <p>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password">
+      </p>
+      <p>
+        <label>Select the category you fall into:</label>
+        <label><input type="radio" name="user-type" value="student" class="inline" /> Student</label>
+        <label><input type="radio" name="user-type" value="organisation" class="inline" /> Organisation</label>
+      </p>
+    </div>
+    <p class="p-container">
+      <span>Don't have an Account?<br><a href="msignup.html">Sign Up</a></span>
+      <input type="button" id="loginBtn" value="Log in">
+    </p>
+  </form>
 
-    <script>
-      document.getElementById('loginBtn').addEventListener('click', function() {
-        // Get form data
-        var formData = {
-          'username': document.getElementById('username').value,
-          'password': document.getElementById('password').value,
-          'is_student': document.querySelector('input[name="user-type"][value="student"]').checked,
-          'is_organisation': document.querySelector('input[name="user-type"][value="organisation"]').checked,
-        };
+  <script>
+    document.getElementById('loginBtn').addEventListener('click', function () {
+      // Get form data
+      var formData = {
+        'username': document.getElementById('username').value,
+        'password': document.getElementById('password').value,
+        'is_student': document.querySelector('input[name="user-type"][value="student"]').checked,
+        'is_organisation': document.querySelector('input[name="user-type"][value="organisation"]').checked,
+      };
 
-        // Make AJAX request
-        fetch('http://127.0.0.1:8000/api/accounts/login/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
-        })
+      // Make AJAX request
+      fetch('http://127.0.0.1:8000/api/accounts/login/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
         .then(response => {
           if (response.ok) {
             // If the response status is OK, parse and handle the JSON response
@@ -212,15 +212,15 @@
         .then(data => {
           // Handle the response for successful login
           console.log(data);
-        
+
           // Display the response message in a browser prompt
           alert(data.message);
-        
+
           // Redirect to the next page after a successful login
           if (data.token) {  // Assuming that 'token' is present in the successful response
             localStorage.setItem('loggedInUser', JSON.stringify({
-              firstName: data.first_name,  
-              imageUrl: data.photo_url,      
+              firstName: data.first_name,
+              imageUrl: data.photo_url,
             }));
             window.location.href = 'funtionalities.html';
           }
@@ -228,11 +228,12 @@
         .catch(errorData => {
           // Handle the response for unsuccessful login
           console.error('Error:', errorData);
-        
+
           // Display the error detail message in a browser prompt
           alert(errorData.message);
         });
-      });
-    </script>
-  </body>
+    });
+  </script>
+</body>
+
 </html>
