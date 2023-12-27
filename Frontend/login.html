@@ -15,9 +15,9 @@
       font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
       color: white;
       font-size: 12px;
-      background: #1b1b32 url(/images/classy_fabric.png);
+      background: linear-gradient(112.1deg, rgb(35, 49, 95) 11.4%, rgb(38, 11, 38) 70.2%);
     }
-
+    
     form {
       background: #111;
       width: 300px;
@@ -28,7 +28,7 @@
       position: relative;
       box-shadow: 0 5px 10px 5px rgba(0, 0, 0, 0.2);
     }
-
+    
     form:after {
       content: "";
       display: block;
@@ -39,7 +39,7 @@
       background: linear-gradient(left, #111, #444, #b6b6b8, #444, #111);
       top: 0;
     }
-
+    
     form:before {
       content: "";
       display: block;
@@ -51,12 +51,12 @@
       top: -7px;
       box-shadow: 0 0 6px 4px #fff;
     }
-
+    
     .inset {
       padding: 20px;
       border-top: 1px solid #19191a;
     }
-
+    
     form h1 {
       font-size: 18px;
       text-shadow: 0 1px 0 black;
@@ -65,7 +65,7 @@
       border-bottom: 1px solid rgba(0, 0, 0, 1);
       position: relative;
     }
-
+    
     form h1:after {
       content: "";
       display: block;
@@ -77,15 +77,14 @@
       pointer-events: none;
       transform: rotate(70deg);
       background: linear-gradient(50deg, rgba(255, 255, 255, 0.15), rgba(0, 0, 0, 0));
-
     }
-
+    
     label {
       color: #666;
       display: block;
       padding-bottom: 9px;
     }
-
+    
     input[type=text],
     input[type=password] {
       width: 100%;
@@ -97,19 +96,19 @@
       border-radius: 0.3em;
       margin-bottom: 20px;
     }
-
+    
     label[for=remember] {
       color: white;
       display: inline-block;
       padding-bottom: 0;
       padding-top: 5px;
     }
-
+    
     input[type=checkbox] {
       display: inline-block;
       vertical-align: top;
     }
-
+    
     .p-container {
       padding: 0 20px 40px 20px; /* Increased bottom padding for button size and spacing */
       text-align: center;
@@ -127,7 +126,7 @@
       color: #d0d6db;
       font-size: 11px; /* Adjusted font size */
     }
-
+    
     .p-container span a {
       color: #a1b7eb; /* Adjusted color for the link when not visited */
       text-decoration: underline;
@@ -137,9 +136,9 @@
       text-decoration: underline;
       color: #3f527e; /* Added underline on hover for better visibility */
     }
-
+    
     input[type=submit] {
-      padding: 5px 20px;
+      padding: 10px 30px; /* Adjusted padding for a bigger button */
       border: 1px solid rgba(0, 0, 0, 0.4);
       text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
       box-shadow:
@@ -148,18 +147,17 @@
       border-radius: 0.3em;
       background: #0184ff;
       color: rgb(6, 182, 240);
-      float: right;
-      font-weight: bold;
       cursor: pointer;
-      font-size: 13px;
+      font-weight: bold;
+      font-size: 16px; /* Adjusted font size for a bigger button */
     }
-
+    
     input[type=submit]:hover {
       box-shadow:
         inset 0 1px 0 rgb(0, 0, 0),
         inset 0 -10px 10px rgb(0, 0, 0);
     }
-
+    
     input[type=text]:hover,
     input[type=password]:hover,
     input[type=button]:hover,
@@ -167,41 +165,43 @@
     label:hover~input[type=password] {
       background: #27292c;
     }
+    
     input[type=button] {
       background-color: #232928;
       color: #fbfbff;
       display: inline-block;
-      padding: 5px 10px; /* Adjusted padding for a bigger button */
+      padding: 7px 20px; /* Adjusted padding for a bigger button */
       font-size: 14px; /* Adjusted font size for a bigger button */
       cursor: pointer;
       font-weight: bold;
     }
+    
   </style>
 </head>
 
-  <body>
-    <form id="loginForm">
-      <h1>Log in</h1>
-      <div class="inset">
-        <p>
-          <label for="username">Username</label>
-          <input type="text" name="username" id="username">
-        </p>
-        <p>
-          <label for="password">Password</label>
-          <input type="password" name="password" id="password">
-        </p>
-        <p>
-          <label>Select the category you fall into:</label>
-          <label><input type="radio" name="user-type" value="student" class="inline" /> Student</label>
-          <label><input type="radio" name="user-type" value="organisation" class="inline" /> Organisation</label>
-        </p>
-      </div>
-      <p class="p-container">
-        <input type="button" id="loginbtn" value="Log in"><br>
-        <span>Don't have an Account?<br><a href="msignup.html">Sign Up</a></span>
+<body>
+  <form id="loginForm">
+    <h1>Log in</h1>
+    <div class="inset">
+      <p>
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username">
       </p>
-    </form>
+      <p>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password">
+      </p>
+      <p>
+        <label>Select the category you fall into:</label>
+        <label><input type="radio" name="user-type" value="student" class="inline" /> Student</label>
+        <label><input type="radio" name="user-type" value="organisation" class="inline" /> Organisation</label>
+      </p>
+    </div>
+    <p class="p-container">
+      <input type="button" id="loginBtn" value="Log in"> <!-- Move this line up -->
+      <span>Don't have an Account?<br><a href="msignup.html">Sign Up</a></span>
+    </p>
+  </form>
 
   <script>
     document.getElementById('loginBtn').addEventListener('click', function () {
