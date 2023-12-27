@@ -1,0 +1,39 @@
+<!-- homepage.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CamBuzz</title>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+  <div id="navbar-placeholder"></div>
+  <div class="container-lg" style="text-align: center; margin-top: 50px;">
+    <a href="./Vehicle Pooling/vehicle_pooling.html"><img src="./img/vehicle_pooling.png" alt="Vehicle Pooling"
+        style="height: 300px;"></a>
+    <a href="eventhub/ehorgmp.html"><img src="./img/event_hub.png" alt="Event Hub" style="height: 300px;"></a>
+    <a href="./food_spot_recommendations.html"><img src="./img/food_spot_recommendation.png"
+      alt="Food Spot Recommendations" style="height: 300px;"></a>
+  </div>
+  
+  <script>
+    $(function() {
+      $('#navbar-placeholder').load('/Frontend/navbar.html', function() {
+        // Retrieve user information from local storage
+        const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+
+        if (loggedInUser) {
+          // Call the function to update dynamic features
+          updateDynamicFeatures(loggedInUser);
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
