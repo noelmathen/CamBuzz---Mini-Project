@@ -23,17 +23,138 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
+  <style>
+    .modal {
+  opacity: 0;
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  text-align: left;
+  background: rgba(0,0,0, .9);
+  transition: opacity .25s ease;
+}
+
+.modal__bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  cursor: pointer;
+}
+
+.modal-state {
+  display: none;
+}
+
+.modal-state:checked + .modal {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-state:checked + .modal .modal__inner {
+  top: 0;
+}
+
+.modal__inner {
+  transition: top .25s ease;
+  position: absolute;
+  top: -20%;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  margin: auto;
+  overflow: auto;
+  background: #fff;
+  border-radius: 5px;
+  padding: 1em 2em;
+  height: 50%;
+}
+
+.modal__close {
+  position: absolute;
+  right: 1em;
+  top: 1em;
+  width: 1.1em;
+  height: 1.1em;
+  cursor: pointer;
+}
+
+.modal__close:after,
+.modal__close:before {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 1.5em;
+  background: #ccc;
+  display: block;
+  transform: rotate(45deg);
+  left: 50%;
+  margin: -3px 0 0 -1px;
+  top: 0;
+}
+
+.modal__close:hover:after,
+.modal__close:hover:before {
+  background: #aaa;
+}
+
+.modal__close:before {
+  transform: rotate(-45deg);
+}
+
+@media screen and (max-width: 768px) {
+	
+  .modal__inner {
+    width: 90%;
+    height: 90%;
+    box-sizing: border-box;
+  }
+}
+
+  </style>
 </head>
 
 <body>
 
   <!-- ======= Header ======= -->
-  <header id="header" class="header d-flex align-items-center fixed-top">
-    <div class="container-fluid d-flex align-items-center justify-content-between">
-
-      <a href="index.html" class="logo d-flex align-items-center  me-auto me-lg-0"> </a>
-    </div>
-  </header><!-- End Header -->
+      <nav class="navbar navbar-dark navbar-expand-sm" style="background-color: #0e1827;">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="./functionalities.html" style="background-color: #0e1827; display: inline-block; text-align: center;">
+            <img src="./img/CamBuzz_logo.png" height="50" class="d-inline-block align-top" alt=""><br />
+            CamBuzz
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navbarText">
+            <span class="navbar-text text-white text-center" style="width: 100%;">Event Hub</span>
+            <ul class="navbar-nav mr-auto">
+            </ul>
+          </div>
+          <div class="text-center" style="margin:0 10px 0 10px;">
+            <div class="container mt-3">
+              <div class="dropdown">
+                <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown">
+                  <img src="./img/blank_profile_pic.jpg" height="50" class="rounded-circle" alt="..."><br />
+                  <span class="profile_name">Bride</span>
+                </button>
+                <ul class="dropdown-menu" style="left: -90px;">
+                  <li><a class="dropdown-item" href="#">My Profile</a></li>
+                  <li><a class="dropdown-item" href="#">My Rides</a></li>
+                  <li><a class="dropdown-item" href="#">My Recommendations</a></li>
+                  <li><a class="dropdown-item" href="./index.html">Logout</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    
 
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="hero d-flex flex-column justify-content-center align-items-center" data-aos="fade" data-aos-delay="1500">
@@ -41,7 +162,7 @@
       <div class="row justify-content-center">
         <div class="col-lg-6 text-center">
           <h2>EVENT HUB</h2>
-          <p>Look through our exceptionally curated past and upcoming events list<br> to be a part of out rich and vibrant community and find the right ones for you</p>
+          <p>Look through our exceptionally curated past and upcoming events gallery<br> to be a part of out rich and vibrant community and find the right ones for you</p>
         </div>
       </div>
     </div>
@@ -59,6 +180,7 @@
             <div class="gallery-item h-100">
               <img src="img/event-1.jpg" class="img-fluid" alt="">
               <div class="gallery-links d-flex align-items-center justify-content-center">
+                <a href="#modal-state" title="event1" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
                 <a href="" class="details-link"><i class="bi bi-link-45deg"></i></a>
               </div>
             </div>
@@ -168,13 +290,20 @@
 
       </div>
     </section><!-- End Gallery Section -->
-
+    <section id="modal-state">
+    <input class="modal-state" id="modal-1" type="checkbox" />
+    <div class="modal">
+      <label class="modal__bg" for="modal-1"></label>
+      <div class="modal__inner">
+        <label class="modal__close" for="modal-1"></label>
+        <h2>EVENT 1</h2>
+        <p><img src="img/event-1.jpg" alt="" />event description <br>Aliquam in sagittis nulla. Curabitur euismod diam eget risus venenatis, sed dictum lectus bibendum. Nunc nunc nisi, hendrerit eget nisi id, rhoncus rutrum velit. Nunc vel mauris dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam fringilla quis nisi eget imperdiet.</p>
+      </div>
+    </div>
+    </section>
   </main><!-- End #main -->
 <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  <div id="preloader">
-    <div class="line"></div>
-  </div>
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
