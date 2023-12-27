@@ -20,7 +20,7 @@
 /* Colors */
 :root {
   --color-default: #fafafa;
-  --color-primary: #d6d31b;
+  --color-primary: #6151eb;
   --color-secondary: #161718;
 }
 
@@ -44,7 +44,7 @@ a {
 }
 
 a:hover {
-  color: #d6d31b;
+  color: #6151eb;
   text-decoration: none;
 }
 
@@ -81,7 +81,7 @@ h6 {
 }
 
 .scroll-top:hover {
-  background: #d6d31b;
+  background: #6151eb;
   color: #fff;
 }
 
@@ -249,7 +249,7 @@ h6 {
 }
 
 .services .service-item:hover:before {
-  background: var(--color-primary);
+  background: var(color#6151eb);
   right: 0;
   top: 0;
   width: 100%;
@@ -325,7 +325,7 @@ h6 {
 }
 
 .hero .btn-get-started:hover {
-  background: #d6d31b;
+  background: #6151eb;
 }
 
 @media (max-width: 768px) {
