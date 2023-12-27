@@ -111,20 +111,31 @@
     }
 
     .p-container {
-      padding: 0 20px 20px 20px;
+      padding: 0 20px 40px 20px; /* Increased bottom padding for button size and spacing */
+      text-align: center;
     }
-
+    
     .p-container:after {
       clear: both;
       display: table;
       content: "";
     }
-
+    
     .p-container span {
       display: block;
-      float: left;
-      color: #0d93ff;
-      padding-top: 8px;
+      margin-top: 40px; /* Added margin-top to center-align the text */
+      color: #d0d6db;
+      font-size: 11px; /* Adjusted font size */
+    }
+
+    .p-container span a {
+      color: #a1b7eb; /* Adjusted color for the link when not visited */
+      text-decoration: underline;
+    }
+    
+    .p-container span a:hover {
+      text-decoration: underline;
+      color: #3f527e; /* Added underline on hover for better visibility */
     }
 
     input[type=submit] {
@@ -136,7 +147,7 @@
         inset 0 10px 10px rgba(255, 255, 255, 0.1);
       border-radius: 0.3em;
       background: #0184ff;
-      color: white;
+      color: rgb(6, 182, 240);
       float: right;
       font-weight: bold;
       cursor: pointer;
@@ -145,42 +156,52 @@
 
     input[type=submit]:hover {
       box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.3),
-        inset 0 -10px 10px rgba(255, 255, 255, 0.1);
+        inset 0 1px 0 rgb(0, 0, 0),
+        inset 0 -10px 10px rgb(0, 0, 0);
     }
 
     input[type=text]:hover,
     input[type=password]:hover,
+    input[type=button]:hover,
     label:hover~input[type=text],
     label:hover~input[type=password] {
       background: #27292c;
     }
+    input[type=button] {
+      background-color: #232928;
+      color: #fbfbff;
+      display: inline-block;
+      padding: 5px 10px; /* Adjusted padding for a bigger button */
+      font-size: 14px; /* Adjusted font size for a bigger button */
+      cursor: pointer;
+      font-weight: bold;
+    }
   </style>
 </head>
 
-<body>
-  <form id="loginForm">
-    <h1>Log in</h1>
-    <div class="inset">
-      <p>
-        <label for="username">Username</label>
-        <input type="text" name="username" id="username">
+  <body>
+    <form id="loginForm">
+      <h1>Log in</h1>
+      <div class="inset">
+        <p>
+          <label for="username">Username</label>
+          <input type="text" name="username" id="username">
+        </p>
+        <p>
+          <label for="password">Password</label>
+          <input type="password" name="password" id="password">
+        </p>
+        <p>
+          <label>Select the category you fall into:</label>
+          <label><input type="radio" name="user-type" value="student" class="inline" /> Student</label>
+          <label><input type="radio" name="user-type" value="organisation" class="inline" /> Organisation</label>
+        </p>
+      </div>
+      <p class="p-container">
+        <input type="button" id="loginbtn" value="Log in"><br>
+        <span>Don't have an Account?<br><a href="msignup.html">Sign Up</a></span>
       </p>
-      <p>
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password">
-      </p>
-      <p>
-        <label>Select the category you fall into:</label>
-        <label><input type="radio" name="user-type" value="student" class="inline" /> Student</label>
-        <label><input type="radio" name="user-type" value="organisation" class="inline" /> Organisation</label>
-      </p>
-    </div>
-    <p class="p-container">
-      <span>Don't have an Account?<br><a href="msignup.html">Sign Up</a></span>
-      <input type="button" id="loginBtn" value="Log in">
-    </p>
-  </form>
+    </form>
 
   <script>
     document.getElementById('loginBtn').addEventListener('click', function () {
