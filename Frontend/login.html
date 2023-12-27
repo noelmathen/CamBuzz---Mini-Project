@@ -5,7 +5,6 @@
   <title>Login Form</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
-    @import "compass/css3";
 
     * {
       box-sizing: border-box;
@@ -242,8 +241,10 @@
             localStorage.setItem('loggedInUser', JSON.stringify({
               firstName: data.first_name,
               imageUrl: data.photo_url,
+              userType: data.user_type,
+              token: data.token,
             }));
-            window.location.href = 'funtionalities.html';
+            window.location.href = 'homepage.html';
           }
         })
         .catch(errorData => {
