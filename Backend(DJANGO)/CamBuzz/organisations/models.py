@@ -12,7 +12,7 @@ from accounts.models import CustomUser
 class Organisation(models.Model):
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE, primary_key=True, related_name='organisation_profile',)
     photo = models.ImageField(upload_to='profile_photos/', blank=True, null=True)
-    about = models.TextField()
+    about = models.TextField(blank=True, null=True)
     website_link = models.URLField(blank=True, null=True)
     linkedin_profile_link = models.URLField(blank=True, null=True)
     instagram_username = models.URLField(blank=True, null=True)

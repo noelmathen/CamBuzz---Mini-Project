@@ -98,24 +98,76 @@
 <body>
   <h1>Sign Up as an Organisation</h1>
   <p>Please fill in with the required information</p>
-  <form action=''>
+  <form id="OrgRegistrationForm" action='http://127.0.0.1:8000/api/organisations/register/' method='post'
+    enctype="multipart/form-data">
     <fieldset>
-      <label>Enter the Name of your Organisation: <input type="text" name="first-name" required /></label>
-      <label>Enter Your Email: <input type="email" name="email" required /></label>
-      <label>Enter Your Username: <input type="text" name="username" required /></label>
-      <label>Create a New Password: <input type="password" name="password" pattern="[a-z0-5]{8,}" required /></label>
-      <label>Upload a profile picture: <input type="file" name="file" /></label>
-      <label>Enter the link to your Website: <input type="text" name="website" /></label>
-      <label>Enter the link to your Instagram Handle: <input type="text" name="Insta" /></label>
-      <label>Enter the link to your LinkedIn Profile: <input type="text" name="LinkedIN" /></label>
+      <fieldset name="user_data">
+        <label>Enter the Name of your Organisation: <input type="text" name="user_data.first_name" required /></label>
+        <label>Enter your Email: <input type="email" name="user_data.email" required /></label>
+        <label>Enter your Username: <input type="text" name="user_data.username" required /></label>
+        <label>Create a Password: <input type="password" name="user_data.password" required /></label>
+      </fieldset>
+      <label>Enter the link to your Instagram Profile: <input type="text" name="instagram_username" /></label>
+      <label>Enter the link to your LinkedIn Profile: <input type="text" name="linkedin_profile_link" /></label>
+      <label>Enter the link to your Facebook Profile: <input type="text" name="facebook" /></label>
+      <label>Enter the link to your Website: <input type="text" name="website_link" /></label>
       <label>Provide a description for your Organisation:
-        <textarea name="bio" rows="3" cols="30" placeholder="About the Organisation"></textarea>
+        <textarea name="about" rows="3" cols="30" placeholder="About the Organisation"></textarea>
       </label>
+      <label>Upload a profile picture: <input type="file" name="photo" /></label>
     </fieldset>
     <input type="submit" value="Submit" onsubmit="showMessage()" />
     <label>Already have an account?!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
         href="login.html">Login</a></label>
   </form>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Find the form element
+      const registrationForm = document.getElementById('OrgRegistrationForm');
+
+      // Attach a submit event listener to the form
+      registrationForm.addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        // Create a FormData object to handle the form data, including file uploads
+        const formData = new FormData(registrationForm);
+
+        // Perform the AJAX request
+        fetch('http://127.0.0.1:8000/api/organisations/register/', {
+          method: 'POST',
+          body: formData,
+        })
+          .then(response => {
+            if (response.ok) {
+              return response.json();
+            } else if (response.status === 400) {
+              return response.json().then(data => Promise.reject(data));
+            } else {
+              throw new Error('Registration failed. Please check your inputs and try again.');
+            }
+          })
+          .then(data => {
+            console.log('Success:', data);
+            window.location.replace('OrgRegistrationApproval.html');
+          })
+          .catch(error => {
+            console.error('Error:', error);
+
+            // Check for specific error cases
+            if (error.user_data && error.user_data.username) {
+              alert(error.user_data.username[0]);
+            } else if (error.detail) {
+              alert(error.detail); // Display the general error message
+            } else {
+              // Display a generic error message
+              alert('Registration failed. Please check your inputs and try again.');
+            }
+          });
+      });
+    });
+  </script>
+
 </body>
 
 </html>

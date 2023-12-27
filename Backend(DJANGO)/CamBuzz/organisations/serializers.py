@@ -8,19 +8,18 @@ class OrganisationRegistrationRequestSerializer(serializers.ModelSerializer):
         model = OrganisationRegistrationRequest
         fields = '__all__'
 
+
 class CustomUserRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = ['first_name', 'email', 'username', 'password']
 
-
-
 class OrganisationRegistrationSerializer(serializers.ModelSerializer):
-    user_data = CustomUserRegistrationSerializer()
+    user_data = CustomUserRegistrationSerializer(required=False)
 
     class Meta:
         model = Organisation
-        fields = ['photo', 'about','website_link', 'linkedin_profile_link', 'instagram_username', 'facebook', 'user_data']
+        fields = ['about','website_link', 'linkedin_profile_link', 'instagram_username', 'facebook', 'photo', 'user_data']
 
     def create(self, validated_data):
         user_data = validated_data.pop('user_data', None)
