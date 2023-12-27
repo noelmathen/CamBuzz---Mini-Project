@@ -11,6 +11,8 @@
 # Learn more about CSS variables at https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties
 --------------------------------------------------------------*/
 /* Fonts */
+
+/* Fonts */
 :root {
   --font-default: "Open Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-primary: "Inter", sans-serif;
@@ -20,7 +22,7 @@
 /* Colors */
 :root {
   --color-default: #fafafa;
-  --color-primary: #6151eb;
+  --color-primary: #d6d31b;
   --color-secondary: #161718;
 }
 
@@ -44,7 +46,7 @@ a {
 }
 
 a:hover {
-  color: #6151eb;
+  color: #d6d31b;
   text-decoration: none;
 }
 
@@ -81,7 +83,7 @@ h6 {
 }
 
 .scroll-top:hover {
-  background: #6151eb;
+  background: #d6d31b;
   color: #fff;
 }
 
@@ -249,7 +251,7 @@ h6 {
 }
 
 .services .service-item:hover:before {
-  background: var(color#6151eb);
+  background: var(--color-primary);
   right: 0;
   top: 0;
   width: 100%;
@@ -275,7 +277,7 @@ h6 {
   background: #000;
   background-size: cover;
   position: relative;
-  padding: 160px 0 60px 0;
+  padding: 140px 0 60px 0;
 }
 
 .hero h2 {
@@ -325,7 +327,7 @@ h6 {
 }
 
 .hero .btn-get-started:hover {
-  background: #6151eb;
+  background: #d6d31b;
 }
 
 @media (max-width: 768px) {
