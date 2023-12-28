@@ -25,6 +25,8 @@
 
     <script>
        $(function() {
+            $('#helmentQuestion').hide();
+
             $(".datetimepicker").each(function () {
                 //https://getdatepicker.com/6/functions/dates.html
                 const picker = new tempusDominus.TempusDominus(this, {
@@ -37,7 +39,13 @@
             
         });
 
-        
+        function vehicleTypeCheck() {
+            var vehicleType = document.getElementById('vehicleType').value;
+            if (vehicleType == 'Car') 
+                $('#helmentQuestion').hide();
+            else
+                $('#helmentQuestion').show();
+        }
     </script>
 </head>
 
@@ -66,14 +74,14 @@
                 <label for="enddatetime">Date / End Time</label>
             </div>
             <div class="form-floating mb-3">
-                <select class="form-select" id="vehicleType" aria-label="Vehicle Type">
+                <select class="form-select" id="vehicleType" aria-label="Vehicle Type" onchange="vehicleTypeCheck();">
                     <option selected>Select Vehicle Type</option>
                     <option value="Car">Car</option>
                     <option value="Bike">Bike</option>
                   </select>
                   <label for="vehicleType">Vehicle Type</label>
             </div>
-            <div class="form-floating mb-3">
+            <div class="form-floating mb-3" id="helmentQuestion">
                 <select class="form-select" id="extraHelmet" aria-label="Extra Helmet">
                     <option selected>Select Extra Helmet</option>
                     <option value="Yes">Yes</option>
