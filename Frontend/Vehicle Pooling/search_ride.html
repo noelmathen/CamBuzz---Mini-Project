@@ -10,33 +10,54 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
   <link href="/Frontend/css/fontawesome.min.css" rel="stylesheet">
-<!-- Popperjs -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha256-BRqBN7dYgABqtY9Hd4ynE+1slnEw+roEPFzQ7TRRfcg=" crossorigin="anonymous"></script>
-<!-- Tempus Dominus JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.9.4/dist/js/tempus-dominus.min.js" crossorigin="anonymous"></script>
+  <!-- Popperjs -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha256-BRqBN7dYgABqtY9Hd4ynE+1slnEw+roEPFzQ7TRRfcg=" crossorigin="anonymous"></script>
+  <!-- Tempus Dominus JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.9.4/dist/js/tempus-dominus.min.js"
+    crossorigin="anonymous"></script>
 
-<!-- Tempus Dominus Styles -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.9.4/dist/css/tempus-dominus.min.css" crossorigin="anonymous">
+  <!-- Tempus Dominus Styles -->
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.9.4/dist/css/tempus-dominus.min.css"
+    crossorigin="anonymous">
 
 
   <script>
-     $(function() {
-    $(".datetimepicker").each(function () {
-                //https://getdatepicker.com/6/functions/dates.html
-                const picker = new tempusDominus.TempusDominus(this, {
-                    display: {
-                        'theme': 'light'
-                    }
-                });
-                
-            }); 
-          });
+    $(function () {
+      $(".datetimepicker").each(function () {
+        //https://getdatepicker.com/6/functions/dates.html
+        const picker = new tempusDominus.TempusDominus(this, {
+          display: {
+            theme: 'light',
+            components: {
+              calendar: true,
+              date: true,
+              month: true,
+              year: true,
+              decades: false,
+              clock: false,
+              hours: false,
+              minutes: false,
+              seconds: false,
+              //deprecated use localization.hourCycle = 'h24' instead
+              useTwentyfourHour: undefined
+            }
+          },
+          promptTimeOnDateChange: false,
+          localization: {
+    format: 'dd-MM-yyyy'
+  }
+        });
+
+      });
+    });
   </script>
 </head>
 
 <body>
   <div id="navbar-placeholder"></div>
-  
+
   <div class="container-lg" style="text-align: center; margin-top: 50px;">
     <form>
       <div class="row align-items-center">
@@ -51,7 +72,7 @@
         <div class="form-floating col">
           <input type="text" class="form-control datetimepicker" id="inputDate" placeholder="Date / Time">
           <label for="inputDate" class="ms-3">Date</label>
-      </div>
+        </div>
         <div class="form-floating col">
           <button type="submit" class="btn btn-primary">Search</button>
         </div>
@@ -66,7 +87,8 @@
   </div>
   <div class="container" style="margin-top: 50px;">
     <div class="row justify-content-evenly">
-      <div class="card col-lg col-md-auto" style="border: 1px solid black; border-radius: 10px; padding:0 0 20px 0; margin:0 0 20px 0;">
+      <div class="card col-lg col-md-auto"
+        style="border: 1px solid black; border-radius: 10px; padding:0 0 20px 0; margin:0 0 20px 0;">
         <div>
           <div>
             <ul style="list-style: none; padding-right: 20px; padding-top:15px;">
@@ -136,7 +158,8 @@
 
       </div>
 
-      <div class="card col-lg col-md-auto" style="border: 1px solid black; border-radius: 10px; padding:0 0 20px 0; margin:0 0 20px 0;">
+      <div class="card col-lg col-md-auto"
+        style="border: 1px solid black; border-radius: 10px; padding:0 0 20px 0; margin:0 0 20px 0;">
         <div>
           <div>
             <ul style="list-style: none; padding-right: 20px; padding-top:15px;">
@@ -186,7 +209,7 @@
                 </div>
               </li>
             </ul>
-          
+
           </div>
           <a href="/Frontend/Vehicle Pooling/ride_details.html" class="stretched-link"></a>
         </div>
@@ -209,11 +232,11 @@
 
     </div>
     <script>
-      $(function() {
-        $('#navbar-placeholder').load('/Frontend/navbar.html', function() {
+      $(function () {
+        $('#navbar-placeholder').load('/Frontend/navbar.html', function () {
           // Retrieve user information from local storage
           const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
-  
+
           if (loggedInUser) {
             // Call the function to update dynamic features
             updateDynamicFeatures(loggedInUser);
