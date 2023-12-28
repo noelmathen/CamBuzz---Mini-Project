@@ -17,6 +17,7 @@
 	var btn = $(this),
 		oldValue = btn.closest('.number-spinner').find('input').val().trim(),
 		newVal = 0;
+    var limitVal = 3; // Add the number limit to be applied in the spinner
 	
 	if (btn.attr('data-dir') == 'up') {
 		newVal = parseInt(oldValue) + 1;
@@ -27,6 +28,7 @@
 			newVal = 1;
 		}
 	}
+  if (newVal > limitVal) newVal = limitVal;
 	btn.closest('.number-spinner').find('input').val(newVal);
 });
 </script>
