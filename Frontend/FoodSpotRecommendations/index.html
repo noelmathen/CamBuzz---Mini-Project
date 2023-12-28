@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CamBuzz - Food Spot Recommendations</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css">
+  <style>
+    .profile_name {
+      color: white;
+    }
+
+    .btn-circle.btn-lg {
+      width: 200px;
+      height: 200px;
+      padding: 6px 0px;
+      border-radius: 100px;
+      font-size: 15px;
+      text-align: center;
+    }
+
+    .search-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .food-spot-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      margin-top: 20px;
+    }
+
+    .food-spot {
+      width: calc(25% - 20px);
+      margin: 10px;
+      text-align: center;
+      border: 1px solid #ddd;
+      padding: 15px;
+      box-sizing: border-box;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .food-spot:hover {
+      transform: scale(1.05);
+    }
+
+    .add-food-form {
+      margin-top: 20px;
+    }
+
+    .rating {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      grid-gap: .5rem;
+      font-size: 2rem;
+      color: var(--yellow);
+      margin-bottom: 2rem;
+    }
+
+    .rating .star {
+      cursor: pointer;
+    }
+
+    .rating .star.active {
+      opacity: 0;
+      animation: animate .5s calc(var(--i) * .1s) ease-in-out forwards;
+    }
+
+    @keyframes animate {
+      0% {
+        opacity: 0;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.2);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .rating .star:hover {
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-dark navbar-expand-sm" style="background-color: #0e1827;">
+    <a class="navbar-brand" href="./index.html"
+      style="background-color: #0e1827; display: inline-block; text-align: center;">
+      <img src="./img/CamBuzz_logo.png" height="50" class="d-inline-block align-top" alt=""><br />
+      CamBuzz
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+      aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarText">
+      <span class="navbar-text text-white text-center" style="width: 100%;">Food Spot Recommendations</span>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contact</a>
+        </li>
+      </ul>
+    </div>
+    <div class="text-center" style="margin:0 10px 0 10px;">
+      <img src="./img/blank_profile_pic.jpg" height="50" class="rounded-circle" alt="..."><br />
+      <span class="profile_name">Rehan</span>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="search-container">
+      <input type="text" id="foodSearch" placeholder="Search by name...">
+      <button class="btn btn-primary" onclick="searchFood()">Search</button>
+    </div>
+
+    <div class="food-spot-container" id="foodSpotContainer">
+      <!-- Food spots will be displayed here -->
+    </div>
+
+    <div class="add-food-form">
+      <h2>Add a new food spot</h2>
+      <button class="btn btn-success" onclick="redirectToNewFoodSpotPage()">Add New Food Spot</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+
+  <script>
+    // Shared foodSpots array
+    let foodSpots = [
+      { name: "Spot 1", description: "Description 1", rating: 3 },
+      { name: "Spot 2", description: "Description 2", rating: 4 },
+      { name: "Spot 3", description: "Description 3", rating: 5 },
+      { name: "Spot 4", description: "Description 4", rating: 2 },
+      { name: "Spot 5", description: "Description 5", rating: 1 },
+      { name: "Spot 6", description: "Description 6", rating: 4 },
+      // Add more data as needed
+    ];
+
+    function searchFood() {
+      const searchTerm = document.getElementById("foodSearch").value.toLowerCase();
+      const filteredFoodSpots = foodSpots.filter(foodSpot =>
+        foodSpot.name.toLowerCase().includes(searchTerm)
+      );
+
+      displayFoodSpots(filteredFoodSpots);
+    }
+
+    function displayFoodSpots(foodSpots) {
+      const container = document.getElementById("foodSpotContainer");
+      container.innerHTML = ""; // Clear previous content
+
+      foodSpots.forEach(foodSpot => {
+        const foodSpotElement = document.createElement("div");
+        foodSpotElement.classList.add("food-spot");
+        foodSpotElement.innerHTML = `
+          <h3>${foodSpot.name}</h3>
+          <p>${foodSpot.description}</p>
+          <div class="rating">
+            ${renderStars(foodSpot.rating)}
+          </div>
+        `;
+        foodSpotElement.addEventListener("click", () => redirectToFoodSpotDetails(foodSpot.name));
+        container.appendChild(foodSpotElement);
+      });
+    }
+
+    function renderStars(rating) {
+      const stars = Array.from({ length: 5 }, (_, index) => index + 1 <= rating ? 'bxs-star' : 'bx-star');
+      return stars.map((star, index) => `<i class='${star}' style="--i: ${index};"></i>`).join('');
+    }
+
+    function redirectToNewFoodSpotPage() {
+      window.location.href = './addnewfoodspot.html';
+    }
+
+    function redirectToFoodSpotDetails(foodName) {
+      window.location.href = `foodspot_details.html?name=${encodeURIComponent(foodName)}`;
+    }
+
+    // Display all food spots initially
+    displayFoodSpots(foodSpots);
+  </script>
+</body>
+</html>

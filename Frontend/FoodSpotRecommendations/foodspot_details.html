@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CamBuzz - Food Spot Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        .profile_name {
+      color: white;
+    }
+
+    .btn-circle.btn-lg {
+      width: 200px;
+      height: 200px;
+      padding: 6px 0px;
+      border-radius: 100px;
+      font-size: 15px;
+      text-align: center;
+    }
+
+    .search-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .food-spot-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      margin-top: 20px;
+    }
+
+    .food-spot {
+      width: calc(25% - 20px);
+      margin: 10px;
+      text-align: center;
+      border: 1px solid #ddd;
+      padding: 15px;
+      box-sizing: border-box;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .food-spot:hover {
+      transform: scale(1.05);
+    }
+
+    .add-food-form {
+      margin-top: 20px;
+    }
+
+    .rating {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      grid-gap: .5rem;
+      font-size: 2rem;
+      color: var(--yellow);
+      margin-bottom: 2rem;
+    }
+
+    .rating .star {
+      cursor: pointer;
+    }
+
+    .rating .star.active {
+      opacity: 0;
+      animation: animate .5s calc(var(--i) * .1s) ease-in-out forwards;
+    }
+
+    @keyframes animate {
+      0% {
+        opacity: 0;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.2);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .rating .star:hover {
+      transform: scale(1.1);
+    }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <nav class="navbar navbar-dark navbar-expand-sm" style="background-color: #0e1827;">
+        <a class="navbar-brand" href="./index.html" style="display: inline-block; text-align: center;">
+            <img src="./img/CamBuzz_logo.png" height="50" class="d-inline-block align-top" alt=""><br />
+            CamBuzz
+        </a>
+    </nav>
+
+    <div class="container">
+        <div id="foodDetails">
+            <!-- Food details will be displayed here -->
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script>
+        function getParameterByName(name, url = window.location.href) {
+            name = name.replace(/[\[\]]/g, "\\$&");
+            const regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`);
+            const results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const foodSpot = getFoodSpotDetails();
+
+            if (foodSpot) {
+                showFoodDetails(foodSpot);
+            } else {
+                alert("Food spot not found.");
+                window.location.href = "./index.html"; // Redirect to the main page
+            }
+        });
+
+        function showFoodDetails(foodSpot) {
+            const detailsContainer = document.getElementById("foodDetails");
+            detailsContainer.innerHTML = "";
+
+            const detailsElement = document.createElement("div");
+            detailsElement.classList.add("food-details");
+            detailsElement.innerHTML = `
+                <!-- Food Spot Details -->
+                <div class="mt-3">
+                    <h2>${foodSpot.name}</h2>
+                    <p>${foodSpot.description}</p>
+                </div>
+
+                <!-- Reviews Section -->
+                <div class="review-container" id="reviewContainer">
+                    <h3>Reviews</h3>
+                    ${renderReviews(foodSpot.reviews)}
+                </div>
+
+                <!-- Average Rating Section -->
+                <div class="average-rating">
+                    <h3>Average Rating</h3>
+                    <p>${calculateAverageRating(foodSpot)}</p>
+                </div>
+
+                <!-- Add Review Section -->
+                <div class="add-review-form mt-3">
+                    <h3>Add a Review</h3>
+                    <div class="rating" id="starRating">
+                        <input type="number" name="rating" hidden>
+                        <i class='bx bx-star star' style="--i: 0;"></i>
+                        <i class='bx bx-star star' style="--i: 1;"></i>
+                        <i class='bx bx-star star' style="--i: 2;"></i>
+                        <i class='bx bx-star star' style="--i: 3;"></i>
+                        <i class='bx bx-star star' style="--i: 4;"></i>
+                    </div>
+                    <textarea id="newReview" class="form-control" rows="2"
+                        placeholder="Write your review..."></textarea>
+                    <button class="btn btn-primary" onclick="addReview('${foodSpot.name}')">Submit Review</button>
+
+                    <!-- New button to open a modal for adding a review -->
+                    <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addReviewModal">Add
+                        Review</button>
+                </div>
+            `;
+
+            detailsContainer.appendChild(detailsElement);
+            activateStarRating(); // Activate star rating after rendering the details
+        }
+
+        function renderReviews(reviews) {
+            if (reviews && reviews.length > 0) {
+                return reviews.map((review, index) => `
+                    <div class="review" id="review${index}">
+                        <p>${review}</p>
+                        <button class="btn btn-outline-primary like-button" onclick="toggleLike(${index})">Like</button>
+                        <span class="like-count">0</span> Likes
+                    </div>
+                `).join('');
+            } else {
+                return '<p>No reviews available.</p>';
+            }
+        }
+
+        function toggleLike(reviewIndex) {
+            const likeButton = document.querySelector(`#review${reviewIndex} .like-button`);
+            const likeCountSpan = document.querySelector(`#review${reviewIndex} .like-count`);
+            let likeCount = parseInt(likeCountSpan.innerText);
+
+            // Toggle like
+            const isLiked = likeButton.classList.toggle('liked');
+
+            // Update like count
+            likeCount = isLiked ? likeCount + 1 : likeCount - 1;
+            likeCountSpan.innerText = likeCount;
+
+            // Store liked state in local storage
+            const likedReviews = JSON.parse(localStorage.getItem('likedReviews')) || {};
+            likedReviews[reviewIndex] = isLiked;
+            localStorage.setItem('likedReviews', JSON.stringify(likedReviews));
+        }
+
+        function calculateAverageRating(foodSpot) {
+            const totalRatings = foodSpot.reviews.reduce((sum, review) => {
+                // Extract numeric rating from review text
+                const rating = parseInt(review.match(/\d+/));
+                return sum + rating;
+            }, 0);
+
+            const averageRating = totalRatings / foodSpot.reviews.length || 0;
+            return averageRating.toFixed(1);
+        }
+
+        function activateStarRating() {
+            const allStar = document.querySelectorAll('#starRating .star');
+            const ratingValue = document.querySelector('#starRating input');
+
+            allStar.forEach((item, idx) => {
+                item.addEventListener('click', function () {
+                    let click = 0;
+                    ratingValue.value = idx + 1;
+
+                    allStar.forEach(i => {
+                        i.classList.replace('bxs-star', 'bx-star');
+                        i.classList.remove('active');
+                    });
+
+                    for (let i = 0; i < allStar.length; i++) {
+                        if (i <= idx) {
+                            allStar[i].classList.replace('bx-star', 'bxs-star');
+                            allStar[i].classList.add('active');
+                        } else {
+                            allStar[i].style.setProperty('--i', click);
+                            click++;
+                        }
+                    }
+                });
+            });
+        }
+
+        function addReview(foodSpotName) {
+            const newReview = document.getElementById("newReview").value.trim();
+            const ratingValue = document.querySelector('#starRating input').value;
+
+            if (newReview && ratingValue >= 1 && ratingValue <= 5) {
+                const foodSpot = getFoodSpotDetails();
+                const reviewWithStars = `${newReview} ${"★".repeat(parseInt(ratingValue))}`;
+                foodSpot.reviews.push(reviewWithStars);
+                showFoodDetails(foodSpot);
+
+                // Clear the form fields
+                document.getElementById("newReview").value = "";
+                resetStarRating();
+            } else {
+                alert("Please enter valid review text and rating (between 1 and 5).");
+            }
+        }
+
+        function resetStarRating() {
+            const allStar = document.querySelectorAll('#starRating .star');
+            const ratingValue = document.querySelector('#starRating input');
+
+            ratingValue.value = 0;
+
+            allStar.forEach(i => {
+                i.classList.replace('bxs-star', 'bx-star');
+                i.classList.remove('active');
+            });
+        }
+
+        function getFoodSpotDetails() {
+            // Sample data, replace with actual data retrieval logic
+            const foodSpotName = getParameterByName('name');
+            const foodSpots = [
+                { name: "Spot 1", description: "Description 1", reviews: ["Great place! Awesome food. ★★★★★"] },
+                { name: "Spot 2", description: "Description 2", reviews: ["Nice ambiance. ★★★★", "Good service. ★★★"] },
+                { name: "Spot 3", description: "Description 3", reviews: ["Amazing experience. ★★★★★"] },
+                { name: "Spot 4", description: "Description 4", reviews: [] },
+                { name: "Spot 5", description: "Description 5", reviews: ["Could be better. ★★"] },
+            ];
+
+            return foodSpots.find(foodSpot => foodSpot.name === foodSpotName);
+        }
+
+        // Function to add a review from the modal
+        function addReviewModal(foodSpotName) {
+            const modalNewReview = document.getElementById("modalNewReview").value.trim();
+            const modalRatingValue = document.querySelector('#modalStarRating input').value;
+
+            if (modalNewReview && modalRatingValue >= 1 && modalRatingValue <= 5) {
+                const foodSpot = getFoodSpotDetails();
+                const reviewWithStars = `${modalNewReview} ${"★".repeat(parseInt(modalRatingValue))}`;
+                foodSpot.reviews.push(reviewWithStars);
+                showFoodDetails(foodSpot);
+
+                // Clear the modal form fields
+                document.getElementById("modalNewReview").value = "";
+                resetStarRatingModal();
+
+                // Close the modal
+                const modal = new bootstrap.Modal(document.getElementById('addReviewModal'));
+                modal.hide();
+            } else {
+                alert("Please enter valid review text and rating (between 1 and 5).");
+            }
+        }
+
+        // Function to reset star rating in the modal
+        function resetStarRatingModal() {
+            const allStar = document.querySelectorAll('#modalStarRating .star');
+            const modalRatingValue = document.querySelector('#modalStarRating input');
+
+            modalRatingValue.value = 0;
+
+            allStar.forEach(i => {
+                i.classList.replace('bxs-star', 'bx-star');
+                i.classList.remove('active');
+            });
+        }
+    </script>
+
+    <div class="modal fade" id="addReviewModal" tabindex="-1" role="dialog" aria-labelledby="addReviewModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addReviewModalLabel">Add a Review</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="rating" id="modalStarRating">
+                        <input type="number" name="modalRating" hidden />
+                        <i class='bx bx-star star' style="--i: 0;"></i>
+                        <i class='bx bx-star star' style="--i: 1;"></i>
+                        <i class='bx bx-star star' style="--i: 2;"></i>
+                        <i class='bx bx-star star' style="--i: 3;"></i>
+                        <i class='bx bx-star star' style="--i: 4;"></i>
+                    </div>
+                    <textarea id="modalNewReview" class="form-control" rows="2"
+                        placeholder="Write your review..."></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary"
+                        onclick="addReviewModal(getFoodSpotDetails().name)">Submit Review</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
