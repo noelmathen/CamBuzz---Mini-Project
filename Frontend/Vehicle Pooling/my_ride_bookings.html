@@ -33,7 +33,9 @@
 });
 
 
-
+function confirmCancel() {
+  return confirm('Are you sure to cancel this ride?');
+}
 
 </script>
 
@@ -63,8 +65,7 @@
                     ...
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Edit</a>
-                    <a class="dropdown-item" href="#">Cancel</a>
+                    <a class="dropdown-item" href="#" onclick="javascript: return confirmCancel();">Cancel</a>
                   </div>
                 </li>
               </ul>
