@@ -12,12 +12,29 @@
   <!-- datetimepicker jQuery CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
 
-
+<script>
+  $(document).on('click', '.number-spinner button', function () {    
+	var btn = $(this),
+		oldValue = btn.closest('.number-spinner').find('input').val().trim(),
+		newVal = 0;
+	
+	if (btn.attr('data-dir') == 'up') {
+		newVal = parseInt(oldValue) + 1;
+	} else {
+		if (oldValue > 1) {
+			newVal = parseInt(oldValue) - 1;
+		} else {
+			newVal = 1;
+		}
+	}
+	btn.closest('.number-spinner').find('input').val(newVal);
+});
+</script>
 </head>
 
 <body>
   <div id="navbar-placeholder"></div>
-  
+
   <div class="container-lg" style="margin-top: 50px;">
     <div>
       <label>Kochi > Bangalore | Today | 1 person</label>
@@ -73,7 +90,8 @@
           <div class="row">
             <div class="col-3">Name</div>
             <div class="col-6">Mathews</div>
-            <div class="col-3"><a href="#"><img src="./img/blank_profile_pic.jpg" height="100" class="rounded-circle" alt="..."></a></div>
+            <div class="col-3"><a href="#"><img src="./img/blank_profile_pic.jpg" height="100" class="rounded-circle"
+                  alt="..."></a></div>
           </div>
           <div class="row">
             <div class="col-3">From</div>
@@ -111,29 +129,66 @@
           </div>
           <div class="row">
             <div class="col-3"></div>
-            <div class="col-9"><button type="button" class="btn btn-primary">Book Ride</button></div>
+            <div class="col-9">
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bookRide">Book
+                Ride</button>
+              <!-- Modal -->
+              <div class="modal fade" id="bookRide" tabindex="-1" aria-labelledby="bookRideLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Book Ride</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="container">
+                        <div class="row">
+                          <div class="col">Select number of seats</div>
+                          <div class="col">
+                            <div class="input-group number-spinner">
+                              <span class="input-group-btn">
+                                <button class="btn btn-default" data-dir="dwn"><span class="glyphicon glyphicon-minus">-</span></button>
+                              </span>
+                              <input type="text" class="form-control text-center" value="1">
+                              <span class="input-group-btn">
+                                <button class="btn btn-default" data-dir="up"><span class="glyphicon glyphicon-plus" aria-hidden="true">+</span></button>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary">Book</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </a>
+    </a>
   </div>
 
 
-    <script>
-      $(function() {
-        $('#navbar-placeholder').load('/Frontend/navbar.html', function() {
-          // Retrieve user information from local storage
-          const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
-  
-          if (loggedInUser) {
-            // Call the function to update dynamic features
-            updateDynamicFeatures(loggedInUser);
-          }
-        });
+  <script>
+    $(function () {
+      $('#navbar-placeholder').load('/Frontend/navbar.html', function () {
+        // Retrieve user information from local storage
+        const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+
+        if (loggedInUser) {
+          // Call the function to update dynamic features
+          updateDynamicFeatures(loggedInUser);
+        }
       });
-    </script>
-    
+    });
+  </script>
+
 </body>
 
 </html>
