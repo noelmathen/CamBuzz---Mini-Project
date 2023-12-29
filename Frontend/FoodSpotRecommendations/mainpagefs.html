@@ -35,7 +35,7 @@
     }
 
     .food-spot {
-      width: calc(25% - 20px);
+      width: calc(33.33% - 20px);
       margin: 10px;
       text-align: center;
       border: 1px solid #ddd;
@@ -43,7 +43,19 @@
       box-sizing: border-box;
       cursor: pointer;
       transition: all 0.3s ease-in-out;
+}
+
+@media (max-width: 768px) {
+    .food-spot {
+        width: calc(50% - 20px);
     }
+}
+
+@media (max-width: 576px) {
+    .food-spot {
+        width: 100%;
+    }
+}
 
     .food-spot:hover {
       transform: scale(1.05);
@@ -95,7 +107,7 @@
 
 <body>
   <nav class="navbar navbar-dark navbar-expand-sm" style="background-color: #0e1827;">
-    <a class="navbar-brand" href="./index.html"
+    <a class="navbar-brand" href="./mainpagefs.html"
       style="background-color: #0e1827; display: inline-block; text-align: center;">
       <img src="./img/CamBuzz_logo.png" height="50" class="d-inline-block align-top" alt=""><br />
       CamBuzz
@@ -126,9 +138,18 @@
 
   <div class="container">
     <div class="search-container">
-      <input type="text" id="foodSearch" placeholder="Search by name...">
+      <div class="search-field">
+          <input type="text" id="nameSearch" placeholder="Search by name...">
+      </div>
+      <div class="search-field">
+          <input type="text" id="locationSearch" placeholder="Search by location...">
+      </div>
+      <div class="search-field">
+          <input type="text" id="priceSearch" placeholder="Search by price...">
+      </div>
       <button class="btn btn-primary" onclick="searchFood()">Search</button>
-    </div>
+  </div>
+  
 
     <div class="food-spot-container" id="foodSpotContainer">
       <!-- Food spots will be displayed here -->
@@ -147,7 +168,15 @@
   <script>
     // Shared foodSpots array
     let foodSpots = [
-      { name: "Spot 1", description: "Description 1", rating: 3 },
+    { 
+        name: "Spot 1",
+        location: "Location 1",
+        rating: 3,
+        price: "$$$",
+        reviews: 15,
+        image: "path/to/image1.jpg",
+        description: "Description 1"
+    },
       { name: "Spot 2", description: "Description 2", rating: 4 },
       { name: "Spot 3", description: "Description 3", rating: 5 },
       { name: "Spot 4", description: "Description 4", rating: 2 },
@@ -157,31 +186,41 @@
     ];
 
     function searchFood() {
-      const searchTerm = document.getElementById("foodSearch").value.toLowerCase();
-      const filteredFoodSpots = foodSpots.filter(foodSpot =>
-        foodSpot.name.toLowerCase().includes(searchTerm)
-      );
+    const nameTerm = document.getElementById("nameSearch").value.toLowerCase();
+    const locationTerm = document.getElementById("locationSearch").value.toLowerCase();
+    const priceTerm = document.getElementById("priceSearch").value.toLowerCase();
 
-      displayFoodSpots(filteredFoodSpots);
-    }
+    const filteredFoodSpots = foodSpots.filter(foodSpot =>
+        foodSpot.name.toLowerCase().includes(nameTerm) &&
+        foodSpot.location.toLowerCase().includes(locationTerm) &&
+        foodSpot.price.toLowerCase().includes(priceTerm)
+    );
+
+    displayFoodSpots(filteredFoodSpots);
+}
+
 
     function displayFoodSpots(foodSpots) {
       const container = document.getElementById("foodSpotContainer");
       container.innerHTML = ""; // Clear previous content
 
       foodSpots.forEach(foodSpot => {
-        const foodSpotElement = document.createElement("div");
-        foodSpotElement.classList.add("food-spot");
-        foodSpotElement.innerHTML = `
-          <h3>${foodSpot.name}</h3>
-          <p>${foodSpot.description}</p>
-          <div class="rating">
+    const foodSpotElement = document.createElement("div");
+    foodSpotElement.classList.add("food-spot");
+    foodSpotElement.innerHTML = `
+        <h3>${foodSpot.name}</h3>
+        <p>${foodSpot.location}</p>
+        <p>Overall Rating: ${foodSpot.rating}</p>
+        <p>Price per Head: ${foodSpot.price}</p>
+        <p>Number of Reviews: ${foodSpot.reviews}</p>
+        <img src="${foodSpot.image}" alt="${foodSpot.name}" class="food-image">
+        <div class="rating">
             ${renderStars(foodSpot.rating)}
-          </div>
-        `;
-        foodSpotElement.addEventListener("click", () => redirectToFoodSpotDetails(foodSpot.name));
-        container.appendChild(foodSpotElement);
-      });
+        </div>
+    `;
+    foodSpotElement.addEventListener("click", () => redirectToFoodSpotDetails(foodSpot.name));
+    container.appendChild(foodSpotElement);
+});
     }
 
     function renderStars(rating) {
