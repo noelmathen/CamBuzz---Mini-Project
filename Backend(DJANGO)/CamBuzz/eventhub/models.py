@@ -12,7 +12,7 @@ class Event(models.Model):
     location = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
     registration_link = models.URLField(blank=True, null=True)
-    poster = models.ImageField(upload_to='event_posters/', blank=True, null=True)
+    poster = models.ImageField(upload_to='event_posters/', blank=False, null=True)
     people_interested = models.IntegerField(default=0)
 
     def __str__(self):

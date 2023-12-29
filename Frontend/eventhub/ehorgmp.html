@@ -33,7 +33,7 @@
           <h2>EVENT HUB</h2>
           <p>Look through our exceptionally curated past and upcoming events list<br> to be a part of out rich and
             vibrant community and find the right ones for you</p>
-          <a href="ehaddevent.html" class="btn-get-started">Add an Event</a>
+          <a href="ehaddevent.html" id="addeventbutton" class="btn-get-started">Add an Event</a>
         </div>
       </div>
     </div>
@@ -190,6 +190,17 @@
     function applyGalleryStyles() {
       $('.gallery-item img').addClass('gallery-item');
     }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+      
+      // Check if the user is an organization
+      if (loggedInUser && loggedInUser.userType === 'Student') {
+        // If the user is an organization, hide the images related to vehicle pooling and food spot recommendations
+        document.getElementById('addeventbutton').style.display = 'none';
+      }
+    });
+
   </script>
 </body>
 

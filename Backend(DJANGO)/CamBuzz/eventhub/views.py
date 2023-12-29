@@ -20,7 +20,7 @@ class EventCreateView(generics.CreateAPIView):
         response = super().create(request, *args, **kwargs)
         event_name = response.data.get("event_name", "")
         organisation_name = request.user.organisation_profile.user.first_name
-        success_message = f"{organisation_name} added the event {event_name} successfully!"
+        success_message = f"You({organisation_name}) have added the event {event_name}!"
         response.data["detail"] = success_message
         return response
 
