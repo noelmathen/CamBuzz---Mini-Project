@@ -1,3 +1,4 @@
+<!-- navbar.html -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,11 +6,6 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CamBuzz</title>
-
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
   <style>
     .profile_name {
       color: white;
@@ -28,6 +24,7 @@
       left: 50%;
       transform: translate(-50%, -50%);
       background-color: #fff;
+      color: black !important;
       border: 1px solid #ccc;
       padding: 20px;
       box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
@@ -113,8 +110,8 @@
         createDropdownItem(profileDropdown, 'My Ride Bookings', '/Frontend/Vehicle Pooling/my_ride_bookings.html');
         createDropdownItem(profileDropdown, 'My Recommendations', '/Frontend/FoodSpotRecommendations/my_recommendations.html');
       } else if (userType === 'Organisation') {
-        createDropdownItem(profileDropdown, 'My Profile', '/Frontend/organisation_profile.html');
-        createDropdownItem(profileDropdown, 'My Events', '/Frontend/eventhub/my_events.html');
+        createDropdownItem(profileDropdown, 'My Profile', '/Frontend/User Profiles/orgprofile.html');
+        createDropdownItem(profileDropdown, 'My Events', '/Frontend/eventhub/myevents.html');
       }
 
       createDropdownItem(profileDropdown, 'Logout', '#');
@@ -168,7 +165,7 @@
             localStorage.removeItem('loggedInUser');
             console.log('Logout successful!');
             alert('Logout successful!');
-            window.location.href = './index.html';
+            window.location.href = '/Frontend/index.html';
           } else {
             console.error('Logout failed:', response.statusText);
             alert('Logout failed. Please try again.');
