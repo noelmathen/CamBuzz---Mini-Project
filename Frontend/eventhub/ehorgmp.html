@@ -5,35 +5,21 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
   <title>eventhub</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Cardo:ital,wght@0,400;0,700;1,400&display=swap"
     rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
-  <style>
-
-
-  </style>
 </head>
 
 <body>
@@ -62,13 +48,9 @@
             <div class="row">
               <div class="col-md-4">
                 <label for="organisationFilter" class="form-label">Organisation Name:</label>
+                <!-- Modify the select element with an empty dropdown -->
                 <select class="form-select" id="organisationFilter" name="organisationFilter">
-                  <option value="" selected disabled>Select Organisation</option>
-                  <option value="Abhiyanthiriki">Abhiyanthiriki</option>
-                  <option value="GDSC">GDSC</option>
-                  <option value="IEDC">IEDC</option>
-                  <option value="IEEE">IEEE</option>
-                  <option value="iTrax">iTrax</option>
+                  <option value="">Select Organisation</option>
                 </select>
               </div>
               <div class="col-md-4">
@@ -76,7 +58,7 @@
                 <input type="date" class="form-control" id="dateFilter" name="dateFilter" pattern="\d{4}-\d{2}-\d{2}">
               </div>
               <div class="col-md-4 align-self-end">
-                <button type="submit" class="btn btn-dark">Apply Filters</button>
+                <button type="button" class="btn btn-dark" onclick="applyFilters()">Apply Filters</button>
               </div>
             </div>
           </div>
@@ -89,62 +71,8 @@
   <section id="upcoming-events" class="gallery">
     <div class="container-fluid">
       <div class="row gy-4 justify-content-center">
-        <p>Upcoming Events </p>
-        <div class="col-xl-3 col-lg-4 col-md-6">
-          <div class="gallery-item h-100">
-            <img src="img/event-1.jpg" class="img-fluid" alt="">
-            <div class="gallery-links d-flex align-items-center justify-content-center">
-              <a href="./eventdetails/eventdetail.html" class="details-link"><i
-                  class="bi bi-arrows-angle-expand"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-lg-4 col-md-6">
-          <div class="gallery-item h-100">
-            <img src="img/event-2.jpg" class="img-fluid" alt="">
-            <div class="gallery-links d-flex align-items-center justify-content-center">
-              <a href="./eventdetails/eventdetail.html" class="details-link"><i
-                  class="bi bi-arrows-angle-expand"></i></a>
-            </div>
-          </div>
-        </div><!-- End Gallery Item -->
-        <div class="col-xl-3 col-lg-4 col-md-6">
-          <div class="gallery-item h-100">
-            <img src="img/event-3.jpg" class="img-fluid" alt="">
-            <div class="gallery-links d-flex align-items-center justify-content-center">
-              <a href="./eventdetails/eventdetail.html" class="details-link"><i
-                  class="bi bi-arrows-angle-expand"></i></a>
-            </div>
-          </div>
-        </div><!-- End Gallery Item -->
-
-        <div class="col-xl-3 col-lg-4 col-md-6">
-          <div class="gallery-item h-100">
-            <img src="img/event-4.jpg" class="img-fluid" alt="">
-            <div class="gallery-links d-flex align-items-center justify-content-center">
-              <a href="./eventdetails/eventdetail.html" class="details-link"><i
-                  class="bi bi-arrows-angle-expand"></i></a>
-            </div>
-          </div>
-        </div><!-- End Gallery Item -->
-        <div class="col-xl-3 col-lg-4 col-md-6">
-          <div class="gallery-item h-100">
-            <img src="img/event-5.jpg" class="img-fluid" alt="">
-            <div class="gallery-links d-flex align-items-center justify-content-center">
-              <a href="./eventdetails/eventdetail.html" class="details-link"><i
-                  class="bi bi-arrows-angle-expand"></i></a>
-            </div>
-          </div>
-        </div><!-- End Gallery Item -->
-        <div class="col-xl-3 col-lg-4 col-md-6">
-          <div class="gallery-item h-100">
-            <img src="img/event-6.jpg" class="img-fluid" alt="">
-            <div class="gallery-links d-flex align-items-center justify-content-center">
-              <a href="./eventdetails/eventdetail.html" class="details-link"><i
-                  class="bi bi-arrows-angle-expand"></i></a>
-            </div>
-          </div>
-        </div><!-- End Gallery Item -->
+        <p>Upcoming Events</p>
+        <div id="upcomingPosters" class="poster-container"></div>
       </div>
     </div>
   </section><!-- End Upcoming Events Section -->
@@ -154,91 +82,115 @@
     <div class="container-fluid">
       <div class="row gy-4 justify-content-center">
         <p>Past Events</p>
-        <div class="col-xl-3 col-lg-4 col-md-6">
-          <div class="gallery-item h-100">
-            <img src="img/event-7.jpg" class="img-fluid" alt="">
-            <div class="gallery-links d-flex align-items-center justify-content-center">
-              <a href="./eventdetails/eventdetail.html" class="details-link"><i
-                  class="bi bi-arrows-angle-expand"></i></a>
-            </div>
-          </div>
-        </div><!-- End Gallery Item -->
-        <div class="col-xl-3 col-lg-4 col-md-6">
-          <div class="gallery-item h-100">
-            <img src="img/event-8.jpg" class="img-fluid" alt="">
-            <div class="gallery-links d-flex align-items-center justify-content-center">
-              <a href="./eventdetails/eventdetail.html" class="details-link"><i
-                  class="bi bi-arrows-angle-expand"></i></a>
-            </div>
-          </div>
-        </div><!-- End Gallery Item -->
-        <div class="col-xl-3 col-lg-4 col-md-6">
-          <div class="gallery-item h-100">
-            <img src="img/event-9.jpg" class="img-fluid" alt="">
-            <div class="gallery-links d-flex align-items-center justify-content-center">
-              <a href="./eventdetails/eventdetail.html" class="details-link"><i
-                  class="bi bi-arrows-angle-expand"></i></a>
-            </div>
-          </div>
-        </div><!-- End Gallery Item -->
-        <div class="col-xl-3 col-lg-4 col-md-6">
-          <div class="gallery-item h-100">
-            <img src="img/event-10.jpg" class="img-fluid" alt="">
-            <div class="gallery-links d-flex align-items-center justify-content-center">
-              <a href="./eventdetails/eventdetail.html" class="details-link"><i
-                  class="bi bi-arrows-angle-expand"></i></a>
-            </div>
-          </div>
-        </div><!-- End Gallery Item -->
-        <div class="col-xl-3 col-lg-4 col-md-6">
-          <div class="gallery-item h-100">
-            <img src="img/event-11.jpg" class="img-fluid" alt="">
-            <div class="gallery-links d-flex align-items-center justify-content-center">
-              <a href="./eventdetails/eventdetail.html" class="details-link"><i
-                  class="bi bi-arrows-angle-expand"></i></a>
-            </div>
-          </div>
-        </div><!-- End Gallery Item -->
-        <div class="col-xl-3 col-lg-4 col-md-6">
-          <div class="gallery-item h-100">
-            <img src="img/event-12.jpg" class="img-fluid" alt="">
-            <div class="gallery-links d-flex align-items-center justify-content-center">
-              <a href="./eventdetails/eventdetail.html" class="details-link"><i
-                  class="bi bi-arrows-angle-expand"></i></a>
-            </div>
-          </div>
-        </div><!-- End Gallery Item -->
+        <div id="pastPosters" class="poster-container"></div>
       </div>
     </div>
   </section><!-- End Past Events Section -->
-
-  </main><!-- End #main -->
-  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i
-      class="bi bi-arrow-up-short"></i></a>
+  <div>
+    <p>
 
 
-  <!-- Vendor JS Files -->
-  <!-- <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+
+
+
+    </p>
+  </div>
 
   <script>
     $(function () {
       $('#navbar-placeholder').load('/Frontend/navbar.html', function () {
-        // Retrieve user information from local storage
         const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
-
         if (loggedInUser) {
-          // Call the function to update dynamic features
           updateDynamicFeatures(loggedInUser);
         }
       });
+
+      // Load posters on page load
+      applyFilters();
+      loadOrganisations();
     });
+
+    // Function to load organization names into the dropdown
+    function loadOrganisations() {
+      var apiUrl = 'http://127.0.0.1:8000/api/organisations/organisationlist/';
+
+      $.ajax({
+        url: apiUrl,
+        method: 'GET',
+        success: function (data) {
+          // Populate the dropdown with organization names
+          var dropdown = $('#organisationFilter');
+          dropdown.empty();
+          dropdown.append('<option value="" disabled selected>Select Organisation</option>');
+
+          data.forEach(function (organisation) {
+            dropdown.append('<option value="' + organisation.first_name + '">' + organisation.first_name + '</option>');
+          });
+        },
+        error: function (error) {
+          console.error('Error fetching organisation data:', error);
+        }
+      });
+    }
+
+    function appendPosters(containerId, posters) {
+      var container = $('#' + containerId);
+      container.empty();
+      if (posters.length === 0) {
+        container.append('<h6>❗No events found.❗</h6>');
+      } else {
+        var row = $('<div class="row gy-4 justify-content-center"></div>');
+        posters.forEach(function (event) {
+          var posterCard = $('<div class="col-xl-3 col-lg-4 col-md-6"></div>');
+          var galleryItem = $('<div class="gallery-item h-100"></div>');
+          var posterImage = $('<img src="' + event.poster + '" class="img-fluid" alt="' + event.event_name + '">');
+          var galleryLinks = $('<div class="gallery-links d-flex align-items-center justify-content-center"></div>');
+          var detailsLink = $('<a href="./eventdetails/eventdetail.html" class="details-link"><i class="bi bi-arrows-angle-expand"></i></a>');
+
+          galleryLinks.append(detailsLink);
+          galleryItem.append(posterImage, galleryLinks);
+          posterCard.append(galleryItem);
+          row.append(posterCard);
+        });
+        container.append(row);
+      }
+    }
+
+    function applyFilters() {
+      // Get the selected option from the dropdown
+      var organizationName = $('#organisationFilter option:selected').val();
+      console.log(organizationName);
+
+      var date = $('#dateFilter').val();
+
+      var apiUrl = 'http://127.0.0.1:8000/api/eventhub/viewevents/?organisation_name=' + organizationName + '&date=' + date;
+
+      $.ajax({
+        url: apiUrl,
+        method: 'GET',
+        success: function (data) {
+          appendPosters('upcomingPosters', data.upcoming_events);
+          appendPosters('pastPosters', data.past_events);
+        },
+        error: function (error) {
+          console.error('Error fetching data:', error);
+          $('#upcomingPosters').html('<h6>⚠️Error fetching data.</h6>');
+          $('#pastPosters').html('<h6>⚠️Error fetching data.</h6>');
+        }
+      });
+    }
+    // Load posters on page load
+    $(document).ready(function () {
+      applyFilters();
+      applyGalleryStyles(); // Apply gallery styles after content is loaded
+    });
+
+    // Function to apply gallery styles
+    function applyGalleryStyles() {
+      $('.gallery-item img').addClass('gallery-item');
+    }
   </script>
-
-
 </body>
 
 </html>

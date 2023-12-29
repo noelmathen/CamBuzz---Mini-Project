@@ -87,3 +87,7 @@ class OrganisationProfileEditSerializer(serializers.ModelSerializer):
         return instance
     
 
+class OrganisationListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['first_name']

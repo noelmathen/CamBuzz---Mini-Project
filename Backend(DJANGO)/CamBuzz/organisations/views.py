@@ -3,13 +3,16 @@ from rest_framework import generics
 from rest_framework.generics import UpdateAPIView
 from rest_framework.response import Response
 from rest_framework import status
-from .models import OrganisationRegistrationRequest
+from .models import OrganisationRegistrationRequest, Organisation
+from accounts.models import CustomUser
 from .serializers import (
     OrganisationRegistrationRequestSerializer, 
     OrganisationRegistrationSerializer, 
     OrganisationProfileEditSerializer,
+    OrganisationListSerializer,
 )
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.views import APIView
 
 class OrganisationRegistrationRequestApproveView(generics.UpdateAPIView):
     queryset = OrganisationRegistrationRequest.objects.all()
@@ -75,3 +78,8 @@ class OrganisationProfileEditView(UpdateAPIView):
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
         return Response(serializer.data)
+
+
+class OrganisationListView(generics.ListAPIView):
+    queryset = CustomUser.objects.filter(is_active=True, is_organisation=True)
+    serializer_class = OrganisationListSerializer

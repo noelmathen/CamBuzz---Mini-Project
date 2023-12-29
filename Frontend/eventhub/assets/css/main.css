@@ -12,6 +12,8 @@
 --------------------------------------------------------------*/
 /* Fonts */
 
+
+/* main.css */
 /* Fonts */
 :root {
   --font-default: "Open Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -313,6 +315,27 @@ h6 {
   font-size: 18px;
 }
 
+         
+.hero .btn-get-started{
+  background-image: linear-gradient(to right, #bfac1b 30%, #919a30  51%, #ffff00  100%);
+  margin: 10px;
+  padding: 15px 30px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: rgb(255, 255, 255);            
+  border-radius: 10px;
+}
+
+.hero .btn-get-started:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #3f3d3d;
+  text-decoration: none;
+  box-shadow: 0 0 20px #eee;
+}
+
+/* 
 .hero .btn-get-started {
   font-family: var(--font-primary);
   font-weight: 400;
@@ -323,15 +346,17 @@ h6 {
   letter-spacing: 1px;
   text-transform: uppercase;
   transition: 0.3s;
-  color: #353333;
-  background: #dfdc15;
+  color: #000000;
+  background: #fffb00;
   border: 1px solid #ffffff;
 }
 
 .hero .btn-get-started:hover {
-  background: #ffff00;
-  color: #000000;
+  background: #3f04ad;
+  color: #ffffff;
 }
+ */
+
 
 @media (max-width: 768px) {
   .hero h2 {
@@ -447,9 +472,9 @@ h6 {
 }
 
 .filter button {
-  background-color: #000000;
+  background-color: #656016;
   color: #ffffff;
-  border: 1px solid #ffffff; /* White border for the Apply Filters button */
+  /* border: px solid #ffffff; White border for the Apply Filters button */
   transition: background-color 0.3s ease; /* Smooth transition for background color */
 }
 
@@ -465,4 +490,9 @@ h6 {
 .filter button:hover {
   background-color: #fffb00; /* Change the background color on hover */
   color: #000000; /* Change the text color on hover */
+}
+
+h6 {
+  text-align: center;
+  font-size: 0.75em;
 }
