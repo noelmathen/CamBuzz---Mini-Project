@@ -138,16 +138,18 @@
     <form id="addReviewForm" onsubmit="return submitForm()">
         <fieldset>
             <label for="foodRating">Food Rating:[1-5]</label>
-            <input type="text" id="foodRating" name="foodRating" pattern="[1-5]" maxlength="1" required>
+            <input type="number" id="foodRating" name="foodRating" step="0.1" min="1" max="5" required>
 
             <label for="serviceRating">Service Rating:[1-5]</label>
-            <input type="text" id="serviceRating" name="serviceRating" pattern="[1-5]" maxlength="1" required>
+            <input type="number" id="serviceRating" name="serviceRating" step="0.1" min="1" max="5" required>
+
+
 
             <label for="ambienceRating">Ambience Rating:[1-5]</label>
-            <input type="text" id="ambienceRating" name="ambienceRating" pattern="[1-5]" maxlength="1" required>
+            <input type="number" id="ambienceRating" name="ambienceRating" step="0.1" min="1" max="5" required>
 
             <label for="totalRating">Total Rating:[1-5]</label>
-            <input type="text" id="totalRating" name="totalRating" pattern="[1-5]" maxlength="1" required>
+            <input type="number" id="totalRating" name="totalRating" step="0.1" min="1" max="5" required>
 
             <label for="topRecommendedDish">Top Recommended Dish: <input type="text" id="topRecommendedDish" placeholder="Recommended Dish" required></label>
             <label for="reviewDescription">Review Description: <textarea id="reviewDescription" rows="3" placeholder="Describe your review..." required></textarea></label>
