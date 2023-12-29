@@ -36,7 +36,15 @@
         }
 
         .like-button {
-            margin-right: 10px;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .liked {
+            background-color: #4CAF50;
         }
 
         .like-count {
@@ -63,7 +71,6 @@
             <!-- Food details will be displayed here -->
         </div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
@@ -120,8 +127,8 @@
                         <p>Top Recommended Dish: ${review.topRecommendedDish}</p>
                         <p>Description: ${review.description}</p>
 
-                        <button class="btn btn-outline-primary like-button" onclick="toggleLike(${index})">
-                            Like <span class="like-count">${review.likes}</span>
+                        <button class="like-button" onclick="toggleLike(${index}, this)">
+                            ${review.likes > 0 ? 'Liked' : 'Like'} <span class="like-count">${review.likes}</span>
                         </button>
                     </div>
                 `).join('');
@@ -133,18 +140,26 @@
         function toggleLike(reviewIndex, button) {
             const likeButton = button;
             const likeCount = likeButton.querySelector('.like-count');
+            const liked = !hasUserLiked(reviewIndex);
 
-            if (!hasUserLiked(reviewIndex)) {
+            if (liked) {
                 // Increment likes
                 const likes = parseInt(likeCount.innerText) + 1;
                 likeCount.innerText = likes;
-
-                // Set liked state in local storage
-                setUserLiked(reviewIndex, true);
-
-                // Disable like button
-                likeButton.setAttribute('disabled', true);
+            } else {
+                // Decrement likes
+                const likes = parseInt(likeCount.innerText) - 1;
+                likeCount.innerText = likes;
             }
+
+            // Set liked state in local storage
+            setUserLiked(reviewIndex, liked);
+
+            // Toggle the "liked" class for styling
+            likeButton.classList.toggle('liked', liked);
+
+            // Optionally, you can disable the like button to prevent further clicks
+            // likeButton.setAttribute('disabled', liked);
         }
 
         function hasUserLiked(reviewIndex) {
