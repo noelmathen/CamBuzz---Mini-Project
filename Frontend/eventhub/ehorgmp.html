@@ -122,7 +122,7 @@
           // Populate the dropdown with organization names
           var dropdown = $('#organisationFilter');
           dropdown.empty();
-          dropdown.append('<option value="" disabled selected>Select Organisation</option>');
+          dropdown.append('<option value="" >Select Organisation</option>');
 
           data.forEach(function (organisation) {
             dropdown.append('<option value="' + organisation.first_name + '">' + organisation.first_name + '</option>');
