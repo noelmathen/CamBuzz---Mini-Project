@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CamBuzz - Food Spot Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css">
+    <style>
+        .profile_name {
+            color: white;
+        }
+
+        .food-details {
+            margin-top: 20px;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .food-info {
+            width: 48%;
+        }
+
+        .divider {
+            border-top: 1px solid #ddd;
+            margin: 20px 0;
+        }
+
+        .reviews-container {
+            margin-top: 20px;
+        }
+
+        .review {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .like-button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .liked {
+            background-color: #4CAF50;
+        }
+
+        .like-count {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-dark navbar-expand-sm" style="background-color: #0e1827;">
+        <a class="navbar-brand" href="./mainpagefs.html"
+          style="background-color: #0e1827; display: inline-block; text-align: center;">
+          <img src="./img/CamBuzz_logo.png" height="50" class="d-inline-block align-top" alt=""><br />
+          CamBuzz
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+          aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarText">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+          </ul>
+        </div>
+        <div class="text-center" style="margin:0 10px 0 10px;">
+          <img src="./img/blank_profile_pic.jpg" height="50" class="rounded-circle" alt="..."><br />
+          <span class="profile_name">Rehan</span>
+        </div>
+      </nav>
+    <div class="header-container">
+        
+        <!-- Add Review Button Section -->
+        <div class="add-review-button">
+            <a class="btn btn-primary" href="./add_review.html">Add Review</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="foodDetails">
+            <!-- Food details will be displayed here -->
+        </div>
+        <!-- Divider -->
+        <div class="divider"></div>
+        <!-- Reviews Section -->
+        <div class="reviews-container" id="reviewContainer">
+            <!-- Reviews will be displayed here -->
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Sample data, replace with actual data retrieval logic
+            const foodSpot = {
+                name: "Sample Food Spot",
+                location: "Sample Location",
+                overallRating: 4.5,
+                pricePerHead: "$$$",
+                numberOfReviews: 10,
+                reviews: [
+                    {
+                        username: "John Doe",
+                        foodRating: 4,
+                        serviceRating: 5,
+                        ambienceRating: 4,
+                        pricePerHead: "$$$",
+                        topRecommendation: "Sample Dish",
+                        description: "Sample Description",
+                        images: ["image1.jpg", "image2.jpg"],
+                        likes: 0
+                    },
+                    // Add more reviews as needed
+                ]
+            };
+
+            showFoodDetails(foodSpot);
+        });
+
+        function showFoodDetails(foodSpot) {
+            const detailsContainer = document.getElementById("foodDetails");
+            detailsContainer.innerHTML = "";
+
+            const detailsElement = document.createElement("div");
+            detailsElement.classList.add("food-details");
+            detailsElement.innerHTML = `
+                <!-- Food Spot Details -->
+                <div class="header-container">
+                    <div class="food-info">
+                        <h2>${foodSpot.name}</h2>
+                        <p>Location: ${foodSpot.location}</p>
+                    </div>
+                    <div class="food-info">
+                        <p>Overall Rating: ${foodSpot.overallRating}</p>
+                        <p>Price per Head: ${foodSpot.pricePerHead}</p>
+                        <p>Number of Reviews: ${foodSpot.numberOfReviews}</p>
+                    </div>
+                </div>
+            `;
+
+            detailsContainer.appendChild(detailsElement);
+
+            // Show reviews
+            showReviews(foodSpot.reviews);
+        }
+
+        function showReviews(reviews) {
+            const reviewsContainer = document.getElementById("reviewContainer");
+            reviewsContainer.innerHTML = "";
+
+            reviews.forEach((review, index) => {
+                const reviewElement = document.createElement("div");
+                reviewElement.classList.add("review");
+                reviewElement.innerHTML = `
+                    <h3>${review.username}</h3>
+                    <p>Food Rating: ${review.foodRating}</p>
+                    <p>Service Rating: ${review.serviceRating}</p>
+                    <p>Ambience Rating: ${review.ambienceRating}</p>
+                    <p>Price per Head: ${review.pricePerHead}</p>
+                    <p>Top Recommendation: ${review.topRecommendation}</p>
+                    <p>Description: ${review.description}</p>
+                    <!-- Display images -->
+                    <div>
+                        ${review.images.map(image => `<img src="${image}" alt="Review Image" style="max-width: 100%;">`).join('')}
+                    </div>
+                    <button class="like-button" onclick="toggleLike(${index}, this)">
+                        ${review.likes > 0 ? 'Liked' : 'Like'} <span class="like-count">${review.likes}</span>
+                    </button>
+                `;
+
+                reviewsContainer.appendChild(reviewElement);
+            });
+        }
+
+        function toggleLike(reviewIndex, button) {
+            const likeButton = button;
+            const likeCount = likeButton.querySelector('.like-count');
+            const liked = !hasUserLiked(reviewIndex);
+
+            if (liked) {
+                // Increment likes
+                const likes = parseInt(likeCount.innerText) + 1;
+                likeCount.innerText = likes;
+            } else {
+                // Decrement likes
+                const likes = parseInt(likeCount.innerText) - 1;
+                likeCount.innerText = likes;
+            }
+
+            // Set liked state in local storage
+            setUserLiked(reviewIndex, liked);
+
+            // Toggle the "liked" class for styling
+            likeButton.classList.toggle('liked', liked);
+        }
+
+        function hasUserLiked(reviewIndex) {
+            const likedReviews = JSON.parse(localStorage.getItem('likedReviews')) || {};
+            return likedReviews[reviewIndex] === true;
+        }
+
+        function setUserLiked(reviewIndex, value) {
+            const likedReviews = JSON.parse(localStorage.getItem('likedReviews')) || {};
+            likedReviews[reviewIndex] = value;
+            localStorage.setItem('likedReviews', JSON.stringify(likedReviews));
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Add New Food Spot</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css">
+  <style>
+    body {
+      width: 100%;
+      height: 100vh;
+      margin: 0;
+      background-color: #1b1b32;
+      color: #f5f6f7;
+      font-family: Tahoma;
+      font-size: 16px;
+    }
+
+    h1, p {
+      margin: 1em auto;
+      text-align: center;
+    }
+
+    form {
+      width: 60vw;
+      max-width: 500px;
+      min-width: 300px;
+      margin: 0 auto;
+      padding-bottom: 2em;
+    }
+
+    fieldset {
+      border: none;
+      padding: 2rem 0;
+    }
+
+    fieldset:not(:last-of-type) {
+      border-bottom: 3px solid #3b3b4f;
+    }
+
+    label {
+      display: block;
+      margin: 0.5rem 0;
+    }
+
+    input, textarea, select {
+      margin: 10px 0 0 0;
+      width: 100%;
+      min-height: 2em;
+    }
+
+    input, textarea {
+      background-color: #0a0a23;
+      border: 1px solid #0a0a23;
+      color: #ffffff;
+    }
+
+    .inline {
+      width: unset;
+      margin: 0 0.5em 0 0;
+      vertical-align: middle;
+    }
+
+    input[type="submit"] {
+      display: block;
+      width: 60%;
+      margin: 1em auto;
+      height: 2em;
+      font-size: 1.1rem;
+      background-color: #3b3b4f;
+      border-color: white;
+      min-width: 300px;
+    }
+
+    input[type="file"] {
+      padding: 1px 2px;
+    }
+
+    a {
+      color: #dfdfe2;
+    }
+
+    .profile_name {
+      color: white;
+    }
+
+    .btn-circle.btn-lg {
+      width: 200px;
+      height: 200px;
+      padding: 6px 0px;
+      border-radius: 100px;
+      font-size: 15px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-dark navbar-expand-sm" style="background-color: #0e1827;">
+    <a class="navbar-brand" href="./mainpagefs.html"
+      style="background-color: #0e1827; display: inline-block; text-align: center;">
+      <img src="./img/CamBuzz_logo.png" height="50" class="d-inline-block align-top" alt=""><br />
+      CamBuzz
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+      aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarText">
+      <span class="navbar-text text-white text-center" style="width: 100%;">Food Spot Recommendations</span>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contact</a>
+        </li>
+      </ul>
+    </div>
+    <div class="text-center" style="margin:0 10px 0 10px;">
+      <img src="./img/blank_profile_pic.jpg" height="50" class="rounded-circle" alt="..."><br />
+      <span class="profile_name">Rehan</span>
+    </div>
+  </nav>
+
+  <h1>Add New Food Spot</h1>
+  <p>Please fill in with the required information</p>
+  <form id="addFoodForm" onsubmit="return submitForm()">
+    <fieldset>
+      <label>Enter the Food Spot Name: <input type="text" id="foodName" required /></label>
+      <label>Enter the Location: <input type="text" id="location" required /></label>
+
+      <label for="food-rating">Food Rating:[1-5]</label>
+      <input type="number" id="food-Rating" name="foodRating" step="0.1" min="1" max="5" required>
+
+      <label for="ambience-rating">Ambience Rating:[1-5]</label>
+      <input type="number" id="ambience-rating" name="foodRating" step="0.1" min="1" max="5" required>
+
+      <label for="service-rating">Service Rating:[1-5]</label>
+      <input type="number" id="service-Rating" name="foodRating" step="0.1" min="1" max="5" required>
+
+      <label for="total-rating">Total Rating:[1-5]</label>
+      <input type="number" id="total-rating" name="foodRating" step="0.1" min="1" max="5" required>
+
+      <label for="price-per-head">Price per Head: <input type="number" id="pricePerHead" min="1" required></label>
+
+      <label for="favorite-dish">Suggest Your Top Recommended Dish: <input type="text" id="favoriteDish" placeholder="Recommended Dish" /></label>
+      <label for="food-description">Food Spot Description: <textarea id="foodDescription" rows="3" placeholder="Describe the food spot..."></textarea></label>
+      <label>Upload photograph: <input type="file" id="file" /></label>
+    </fieldset>
+    <input type="submit" value="Submit" />
+  </form>
+
+  <script src="foodSpotDetails.js"></script>
+  <script>
+    function submitForm() {
+      const foodName = document.getElementById("foodName").value;
+      const location = document.getElementById("location").value;
+      const foodRating = document.getElementById("foodRating").value;
+      const ambienceRating = document.getElementById("ambienceRating").value;
+      const serviceRating = document.getElementById("serviceRating").value;
+      const totalRating = document.getElementById("totalRating").value;
+      const pricePerHead = document.getElementById("pricePerHead").value;
+      const favoriteDish = document.getElementById("favoriteDish").value;
+      const foodDescription = document.getElementById("foodDescription").value;
+
+      // Validate form fields (add more validation as needed)
+      if (!foodName || !location || !foodRating || !ambienceRating || !serviceRating || !totalRating || !pricePerHead) {
+        alert("Please fill in all required fields.");
+        return false;
+      }
+
+      const encodedData = encodeURIComponent(JSON.stringify({
+        foodName,
+        location,
+        foodRating,
+        ambienceRating,
+        serviceRating,
+        totalRating,
+        pricePerHead,
+        favoriteDish,
+        foodDescription
+      }));
+      window.location.href = `foodspot_details.html?data=${encodedData}`;
+
+      // Example: Display food spot details using the script
+      displayFoodSpotDetails(foodName, foodDescription, totalRating);
+
+      // Clear the form fields
+      document.getElementById("foodName").value = "";
+      document.getElementById("location").value = "";
+      document.getElementById("foodRating").value = "1";
+      document.getElementById("ambienceRating").value = "1";
+      document.getElementById("serviceRating").value = "1";
+      document.getElementById("totalRating").value = "1";
+      document.getElementById("pricePerHead").value = "";
+      document.getElementById("favoriteDish").value = "";
+      document.getElementById("foodDescription").value = "";
+      document.getElementById("file").value = ""; // Reset file input
+
+      // Prevent form submission
+      return false;
+    }
+  </script>
+</body>
+</html>

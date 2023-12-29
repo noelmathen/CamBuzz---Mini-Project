@@ -176,3 +176,5 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 # Define the URL for serving media files during development
 MEDIA_URL = '/media/'
+
+TIME_ZONE = 'Asia/Kolkata'

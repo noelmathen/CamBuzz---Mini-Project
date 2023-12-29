@@ -1,0 +1,445 @@
+[33mcommit dde1303288864e62ecb190b9aeaccf3709a677ce[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: deaeliz <deaeliz49@gmail.com>
+Date:   Fri Dec 29 00:53:41 2023 +0530
+
+    add_review file
+
+[33mcommit 68f1d0a1b82937ffe4c058a97cf0a9b2425e7759[m
+Author: deaeliz <deaeliz49@gmail.com>
+Date:   Thu Dec 28 23:28:43 2023 +0530
+
+    comment
+
+[33mcommit be4ec04c36a13135fdac127b5b75a63b3e977746[m
+Merge: d2ad528 1c357f3
+Author: deaeliz <deaeliz49@gmail.com>
+Date:   Thu Dec 28 23:20:30 2023 +0530
+
+    Merge branch 'main' of https://github.com/noelmathen/CamBuzz---Mini-Project
+
+[33mcommit d2ad528b0b52c41c74057e9b7af04c12e6cff473[m
+Author: deaeliz <deaeliz49@gmail.com>
+Date:   Thu Dec 28 23:18:28 2023 +0530
+
+    dea
+
+[33mcommit 1c357f37862d6543c8e75e298d52ee0cee69825e[m
+Author: rehanrenju <94695473+rehanrenju@users.noreply.github.com>
+Date:   Thu Dec 28 23:13:03 2023 +0530
+
+    chnaged the date format
+
+[33mcommit b980139db60872a922577010ba88d78965f534af[m
+Author: rehanrenju <94695473+rehanrenju@users.noreply.github.com>
+Date:   Thu Dec 28 23:06:15 2023 +0530
+
+    included delete and cancel confirmations for bookings
+
+[33mcommit c64043bc13e9c23e8dea4da9c723ebce366db99b[m
+Author: rehanrenju <94695473+rehanrenju@users.noreply.github.com>
+Date:   Thu Dec 28 22:57:46 2023 +0530
+
+    add button to publish ride, created edit ride
+
+[33mcommit 1e6e2596aee7d361f5d2d1757a9217a3b72edb1e[m
+Author: rehanrenju <94695473+rehanrenju@users.noreply.github.com>
+Date:   Thu Dec 28 22:54:15 2023 +0530
+
+    separated date and time in publish ride
+
+[33mcommit 2eb431d23468a42687d47a0c76e3e812310bc2bf[m
+Author: rehanrenju <94695473+rehanrenju@users.noreply.github.com>
+Date:   Thu Dec 28 22:40:51 2023 +0530
+
+    Update search_ride.html
+    
+    Time removed from date control
+
+[33mcommit 00e1ff221d3f0150cd913fb5d026454b5605b23a[m
+Author: rehanrenju <94695473+rehanrenju@users.noreply.github.com>
+Date:   Thu Dec 28 21:00:42 2023 +0530
+
+    added calendar to searchride
+
+[33mcommit 92ef78de67eb990ec492610ac0adc928f4254c36[m
+Author: rehanrenju <94695473+rehanrenju@users.noreply.github.com>
+Date:   Thu Dec 28 20:54:26 2023 +0530
+
+    added myrides and myridebookings
+    
+    menu for edit / delete / cancel not working. but the options are kept. will fix it soon.
+
+[33mcommit b2ba2de52a24a095f0c312a198a52835fa64de8a[m
+Author: rehanrenju <94695473+rehanrenju@users.noreply.github.com>
+Date:   Thu Dec 28 20:24:33 2023 +0530
+
+    added check for helmet question
+
+[33mcommit d93ca3c4abd0b8e985fca1751791768cbd52f296[m
+Author: rehanrenju <94695473+rehanrenju@users.noreply.github.com>
+Date:   Thu Dec 28 20:16:56 2023 +0530
+
+    alignment fixes
+
+[33mcommit af009b9d5e6047153cbb495f0453cb6cabd99cb1[m
+Author: Noel Mathen <noelmathen03@gmail.com>
+Date:   Thu Dec 28 18:55:58 2023 +0530
+
+    Nav Bar, homapage icons according to users
+
+[33mcommit 2d725d1047eb976c16255ef4e4bf0665ed5be514[m
+Author: rehanrenju <94695473+rehanrenju@users.noreply.github.com>
+Date:   Thu Dec 28 18:46:40 2023 +0530
+
+    Added content for my rides, added date picker for publish ride
+
+[33mcommit e6bc89bc8e6390ebc6fbc6b85c0325deb1e0d9e1[m
+Author: rehanrenju <94695473+rehanrenju@users.noreply.github.com>
+Date:   Thu Dec 28 10:01:11 2023 +0530
+
+    Include option to limit the value in number spinner
+
+[33mcommit d28ab8ca4a4b29e43fe41fc1c329a78da7f113e3[m
+Author: rehanrenju <94695473+rehanrenju@users.noreply.github.com>
+Date:   Thu Dec 28 09:56:05 2023 +0530
+
+    Added popup for booking ride
+
+[33mcommit 2040f7d6a5ae40cc4b708330ac7b0fb0c2f32b92[m
+Author: rehanrenju <94695473+rehanrenju@users.noreply.github.com>
+Date:   Thu Dec 28 08:42:59 2023 +0530
+
+    Updated content as per the page sketches
+
+[33mcommit 7ae069aa7cb9e30e962350c8f6c1afc2a0aad2a0[m
+Merge: 6874ea4 2b50f2d
+Author: Bride Benson <bridebenson007@gmail.com>
+Date:   Thu Dec 28 04:37:03 2023 +0530
+
+    Merge branch 'main' of https://github.com/noelmathen/CamBuzz---Mini-Project
+
+[33mcommit 6874ea445f587f355b3f56a3345b835c603f863b[m
+Author: Bride Benson <bridebenson007@gmail.com>
+Date:   Thu Dec 28 04:35:57 2023 +0530
+
+    org profile and edit org details added
+
+[33mcommit 2b50f2d8b397319cc7fad2e1bed588299a36d0a8[m
+Merge: a3ad897 b9e4e51
+Author: Noel Mathen <noelmathen03@gmail.com>
+Date:   Thu Dec 28 04:34:54 2023 +0530
+
+    Merge branch 'main' of https://github.com/noelmathen/CamBuzz---Mini-Project
+
+[33mcommit a3ad8976fdd39fd46dd982b0485d80ae55f6d60d[m
+Author: Noel Mathen <noelmathen03@gmail.com>
+Date:   Thu Dec 28 04:34:39 2023 +0530
+
+    Nav Bar, Logout Button
+
+[33mcommit b9e4e51fca651e51fa4832ba1111185d9a42d5dc[m
+Author: Bride Benson <bridebenson007@gmail.com>
+Date:   Thu Dec 28 02:35:37 2023 +0530
+
+    pages edit event and my events added
+
+[33mcommit df4c801c18ce4d38c9f86c5db002104542bea6c5[m
+Author: Bride Benson <bridebenson007@gmail.com>
+Date:   Thu Dec 28 02:01:22 2023 +0530
+
+    navbar corrections
+
+[33mcommit c1cfd36ed5c5d2147e9e62d5b66c53d92f3a694d[m
+Author: Bride Benson <bridebenson007@gmail.com>
+Date:   Thu Dec 28 01:22:42 2023 +0530
+
+    event description
+
+[33mcommit f7f5477b0e9150955331cc67a811c6e74b41fdc0[m
+Merge: 2451a2e 20a5fa6
+Author: Bride Benson <bridebenson007@gmail.com>
+Date:   Wed Dec 27 20:57:31 2023 +0530
+
+    Merge branch 'main' of https://github.com/noelmathen/CamBuzz---Mini-Project
+
+[33mcommit 2451a2e2133ebb68b2fc50892d55ec6c7418b638[m
+Author: Bride Benson <bridebenson007@gmail.com>
+Date:   Wed Dec 27 20:57:11 2023 +0530
+
+    event description
+
+[33mcommit 20a5fa687e198d3c702e193c3ba06fbfa1fc7ff0[m
+Merge: c9fd8c8 a5de72b
+Author: Noel Mathen <noelmathen03@gmail.com>
+Date:   Wed Dec 27 19:44:47 2023 +0530
+
+    Merge branch 'main' of https://github.com/noelmathen/CamBuzz---Mini-Project
+
+[33mcommit c9fd8c8e7a0e449c7c0c68794aff6cc4fcef7e86[m
+Author: Noel Mathen <noelmathen03@gmail.com>
+Date:   Wed Dec 27 19:44:31 2023 +0530
+
+    Organisation Registration Integration
+
+[33mcommit a5de72bb3314fde4093f54d4b917a7dcec27af2b[m
+Author: rehanrenju <94695473+rehanrenju@users.noreply.github.com>
+Date:   Wed Dec 27 17:16:30 2023 +0530
+
+    made a folder for vehicle pooling
+
+[33mcommit c959b69b09754870f8801198870714ce0a7a23f9[m
+Author: rehanrenju <94695473+rehanrenju@users.noreply.github.com>
+Date:   Wed Dec 27 17:12:21 2023 +0530
+
+    dlted book.html and made changes to vehicle pooling page
+
+[33mcommit 8d39600ca7f849d4d81c17989664b40161561ddc[m
+Merge: 3cf49b1 d9bdfc4
+Author: Bride Benson <bridebenson007@gmail.com>
+Date:   Wed Dec 27 17:05:27 2023 +0530
+
+    Merge branch 'main' of https://github.com/noelmathen/CamBuzz---Mini-Project
+
+[33mcommit 3cf49b16550775356dc9a22eb720aa0006230719[m
+Author: Bride Benson <bridebenson007@gmail.com>
+Date:   Wed Dec 27 17:03:25 2023 +0530
+
+    color corrections and css
+
+[33mcommit d9bdfc482808464717d9fac4432d2b250f9a67ea[m
+Author: Noel Mathen <noelmathen03@gmail.com>
+Date:   Wed Dec 27 16:14:21 2023 +0530
+
+    Login Page modified
+
+[33mcommit 8fa461d20e879c24e857fc7864bbc2fd865c2e54[m
+Merge: f016adf b79b061
+Author: Noel Mathen <noelmathen03@gmail.com>
+Date:   Wed Dec 27 15:38:29 2023 +0530
+
+    Login Page modified
+
+[33mcommit f016adfad42935e791b33730437e6c1641835270[m
+Author: Noel Mathen <noelmathen03@gmail.com>
+Date:   Wed Dec 27 15:14:54 2023 +0530
+
+    Student registration integration
+
+[33mcommit b79b06130e930e100b8d02ea5f31507827a3816f[m
+Author: Bride Benson <bridebenson007@gmail.com>
+Date:   Wed Dec 27 13:50:12 2023 +0530
+
+    login and signup corrected
+
+[33mcommit 436c511aea6414c5bcd02c5a50d2119009e1a9e5[m
+Merge: 1355a3c 298e079
+Author: Bride Benson <bridebenson007@gmail.com>
+Date:   Wed Dec 27 11:55:50 2023 +0530
+
+    Merge branch 'main' of https://github.com/noelmathen/CamBuzz---Mini-Project
+
+[33mcommit 1355a3c7e2ee0f443556b42168ddb8094df957a6[m
+Author: Bride Benson <bridebenson007@gmail.com>
+Date:   Wed Dec 27 11:53:15 2023 +0530
+
+    navbar modified and added
+
+[33mcommit 298e07925b63c29c2577f2651c729abaf546dcca[m
+Merge: 0f3b20a d13ce97
+Author: Noel Mathen <noelmathen03@gmail.com>
+Date:   Tue Dec 26 23:37:40 2023 +0530
+
+    Profilephoto after login
+
+[33mcommit 0f3b20a63d8a92f0e28f566cfa489efd67f13e0c[m
+Author: Noel Mathen <noelmathen03@gmail.com>
+Date:   Tue Dec 26 23:34:26 2023 +0530
+
+    Profilephoto after login
+
+[33mcommit d13ce978144c7e94fef3c86f1f00576ce7081b16[m
+Merge: 59d06f2 534d646
+Author: rehanrenju <94695473+rehanrenju@users.noreply.github.com>
+Date:   Tue Dec 26 23:06:25 2023 +0530
+
+    Merge branch 'main' of https://github.com/noelmathen/CamBuzz---Mini-Project
+
+[33mcommit 59d06f28eb5ccd4d8c06ca194a2378869c55c7dd[m
+Author: rehanrenju <94695473+rehanrenju@users.noreply.github.com>
+Date:   Tue Dec 26 23:05:31 2023 +0530
+
+    modified logo links to home.html
+
+[33mcommit 534d646b22107f49ec593f6392056191e37a3ecc[m
+Author: Noel Mathen <noelmathen03@gmail.com>
+Date:   Tue Dec 26 21:46:45 2023 +0530
+
+    Name after log in[2]
+
+[33mcommit fffaed88ebd4df95bae200057183de4305fe1880[m
+Merge: 2db8ece 856df6e
+Author: Bride Benson <bridebenson007@gmail.com>
+Date:   Tue Dec 26 20:59:56 2023 +0530
+
+    Merge branch 'main' of https://github.com/noelmathen/CamBuzz---Mini-Project
+
+[33mcommit 856df6ef81a2cc65b2263d2e15b26cfb3121aeb5[m
+Author: Noel Mathen <noelmathen03@gmail.com>
+Date:   Tue Dec 26 20:56:01 2023 +0530
+
+    Name after log in
+
+[33mcommit 2db8ece94cf7c5584675cf77803a2a09db659212[m
+Author: Bride Benson <bridebenson007@gmail.com>
+Date:   Tue Dec 26 20:55:42 2023 +0530
+
+    navbar modified and addded
+
+[33mcommit 64a056ffbd22da0871e9af6a14fb19725ebe2ffb[m
+Author: rehanrenju <94695473+rehanrenju@users.noreply.github.com>
+Date:   Tue Dec 26 20:48:30 2023 +0530
+
+    Adding html files
+
+[33mcommit 2370cc9b771e7f569caf497c16b2e74e308b589e[m
+Author: Bride Benson <bridebenson007@gmail.com>
+Date:   Tue Dec 26 18:34:30 2023 +0530
+
+    linking event hub to functionalities
+
+[33mcommit 2e4c560d1d97027c2d26123aa83da49be1443a49[m
+Author: Bride Benson <bridebenson007@gmail.com>
+Date:   Tue Dec 26 17:11:39 2023 +0530
+
+    integrated event hub to a single folder
+
+[33mcommit b69bb41ab4a6f5cc53ea72b240f9257390b34900[m
+Author: Noel Mathen <noelmathen03@gmail.com>
+Date:   Tue Dec 26 15:09:11 2023 +0530
+
+    Login backend integration
+
+[33mcommit 7c3a207b8db22d07ad44950124e149948725a0b0[m
+Merge: dde34ba f1969c1
+Author: Noel Mathen <noelmathen03@gmail.com>
+Date:   Tue Dec 26 14:10:24 2023 +0530
+
+    Merge branch 'main' of https://github.com/noelmathen/CamBuzz---Mini-Project
+
+[33mcommit dde34bac64453272c9dc37740db4ac4096614c57[m
+Author: Noel Mathen <noelmathen03@gmail.com>
+Date:   Tue Dec 26 14:10:01 2023 +0530
+
+    Login backend integration
+
+[33mcommit f1969c1c12661d79f068fa6b8bd5e265190db495[m
+Author: rehanrenju <94695473+rehanrenju@users.noreply.github.com>
+Date:   Tue Dec 26 14:01:15 2023 +0530
+
+    Add files via upload
+
+[33mcommit 60e0194420fd6010eca1806b9f293ecce88596ed[m
+Author: rehanrenju <94695473+rehanrenju@users.noreply.github.com>
+Date:   Tue Dec 26 12:39:07 2023 +0530
+
+    Add files via upload
+
+[33mcommit 56464fc01108336fb859fda79ebcb61973b1589d[m
+Author: Noel Mathen <noelmathen03@gmail.com>
+Date:   Tue Dec 26 12:22:32 2023 +0530
+
+    Frontend added
+
+[33mcommit 011d3a1dcb1cf626aaebb4b1fd0bc6ca9eeb63a2[m
+Author: Noel Mathen <noelmathen03@gmail.com>
+Date:   Sun Dec 24 19:35:13 2023 +0530
+
+    foodspot recommendation
+
+[33mcommit 809d2eb438ceb4dbec00252b281cd4bfd33f701c[m
+Author: Noel Mathen <noelmathen03@gmail.com>
+Date:   Thu Dec 21 23:50:58 2023 +0530
+
+    booking functionality - vehiclepooling
+
+[33mcommit ea3ab86ecb917b650c963fc6feb939131ffe154c[m
+Author: Noel Mathen <noelmathen03@gmail.com>
+Date:   Wed Dec 20 20:55:41 2023 +0530
+
+    vehiclepooling except booking
+
+[33mcommit 965a7b1f679e2e6458f6f0e29ed534b36706f532[m
+Merge: c78459c 278ede5
+Author: Noel Mathen <noelmathen03@gmail.com>
+Date:   Wed Dec 20 00:28:30 2023 +0530
+
+    event hub completed
+
+[33mcommit c78459c612034167f0b6b6ec5fe39815692726dd[m
+Author: Noel Mathen <noelmathen03@gmail.com>
+Date:   Wed Dec 20 00:23:39 2023 +0530
+
+    xyz
+
+[33mcommit 278ede54f6fac8a0b279090224f0e1925c6d18f1[m
+Merge: 7632692 ce39eb8
+Author: Noel Mathen <140234564+noelmathen@users.noreply.github.com>
+Date:   Wed Dec 20 00:19:34 2023 +0530
+
+    Merge pull request #1 from noelmathen/usermanagement
+    
+    Usermanagement
+
+[33mcommit ce39eb81064519715fdcb8b91f4776c589fc4ae4[m
+Author: Noel Mathen <noelmathen03@gmail.com>
+Date:   Wed Dec 20 00:12:30 2023 +0530
+
+    eventhub functionalities
+
+[33mcommit 13ae4ef8c5048c462daf621f42154994ea4c64fa[m
+Author: Noel Mathen <noelmathen03@gmail.com>
+Date:   Sat Dec 9 15:39:03 2023 +0530
+
+    usermanagement login, change password, deleteaccount, logout for student and organisation
+
+[33mcommit fb0c15db527ae42a77994e5950c7f75bc1f25f18[m
+Author: Noel Mathen <noelmathen03@gmail.com>
+Date:   Tue Dec 5 21:34:04 2023 +0530
+
+    usermanagement organisation registration
+
+[33mcommit 5b70a3cfef868dc3c87c5a8fbe21833bb8056b42[m
+Author: Noel Mathen <noelmathen03@gmail.com>
+Date:   Mon Dec 4 00:03:44 2023 +0530
+
+    usermanagement organisation registration
+
+[33mcommit e3ec0bb0ca626e399ead69d9aafc1227f3922545[m
+Author: Noel Mathen <noelmathen03@gmail.com>
+Date:   Sun Dec 3 21:08:41 2023 +0530
+
+    usermanagement admin registration and login
+
+[33mcommit 004a89d591e91beca6d989a57caaa3b4e00ae1bb[m
+Author: Noel Mathen <noelmathen03@gmail.com>
+Date:   Sun Dec 3 18:38:16 2023 +0530
+
+    usermanagement branch student registration
+
+[33mcommit 76326920a7c6a398a382b06992e4ba9f243c587b[m
+Author: Noel Mathen <noelmathen03@gmail.com>
+Date:   Sat Dec 2 10:50:47 2023 +0530
+
+    organisation admin approval and password hashing
+
+[33mcommit 90b20e9b528b14d9cf16348a22c611079466cbef[m
+Author: Noel Mathen <noelmathen03@gmail.com>
+Date:   Thu Nov 30 23:50:31 2023 +0530
+
+    Organisation functionalities - admin approval
+
+[33mcommit ac6f7650b46ecb18d512b730455aa1a5ed1fd674[m
+Author: Noel Mathen <noelmathen03@gmail.com>
+Date:   Tue Nov 28 20:48:25 2023 +0530
+
+    First Commit
