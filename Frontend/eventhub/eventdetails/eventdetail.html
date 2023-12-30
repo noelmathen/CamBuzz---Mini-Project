@@ -260,11 +260,37 @@
     }
     
     function deleteEvent() {
-      // Implement the logic to delete the event (AJAX request or any other method)
-      // For now, let's redirect to the homepage
-      window.location.reload() ;
+      const eventId = getEventIdFromUrl();
+      const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+
+      $.ajax({
+          url: `http://127.0.0.1:8000/api/eventhub/deleteevent/${eventId}/`,
+          method: 'DELETE',
+          headers: {
+              'Authorization': 'Token ' + loggedInUser.token,
+          },
+          success: function(response_data) {
+              console.log('Event deleted successfully:', response_data);
+              alert(response_data.detail);
+              window.location.href = '/Frontend/eventhub/ehorgmp.html';
+          },
+          error: function(error) {
+              console.error('Error deleting event:', error);
+              alert('Error in event deletion. Try again.');
+              // Handle error, e.g., display an error message
+          },
+      });
+  }
+    
+    function editEvent() {
+      const eventId = getEventIdFromUrl(); // You need to implement this function to get the event ID from the URL
+      window.location.href = `/Frontend/eventhub/editevent.html?event_id=${eventId}`;
     }
     
+    function getEventIdFromUrl() {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get('event_id');
+    }
   </script>
 </body>
 

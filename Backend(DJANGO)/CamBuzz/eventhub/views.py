@@ -24,7 +24,6 @@ class EventCreateView(generics.CreateAPIView):
         response.data["detail"] = success_message
         return response
 
-
 class EventUpdateView(generics.UpdateAPIView):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
@@ -49,8 +48,15 @@ class EventUpdateView(generics.UpdateAPIView):
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
 
+        # Check if the 'poster' field is provided in the request
+        if 'poster' not in request.data:
+            # If not provided, retain the existing poster value
+            serializer.validated_data['poster'] = instance.poster
+        
+        self.perform_update(serializer)
+
         # Success message
-        success_message = f"Event updation (by {instance.organisation.user.first_name}) successful!"
+        success_message = f"You({instance.organisation.user.first_name}) have successfully updated the event {instance.event_name}!"
         return Response({"detail": success_message})
     
 
@@ -79,9 +85,9 @@ class EventDeleteView(generics.DestroyAPIView):
             event_name = instance.event_name
 
             response_data = {
-                "detail": f"{instance.organisation.user.first_name} deleted the event {event_name} successfully!"
+                "detail": f"You ({instance.organisation.user.first_name}) have successfuly deleted the event {event_name}!"
             }
-            return Response(response_data, status=status.HTTP_204_NO_CONTENT)
+            return Response(response_data, status=status.HTTP_200_OK)
         else:
             return Response(
                 {"detail": "You do not have permission to delete this event."},

@@ -1,3 +1,4 @@
+<!-- editevent.html -->
 <!DOCTYPE html>
 <html>
 
@@ -107,23 +108,24 @@
   
   <h1>Edit your Event</h1>
   <p>Please alter the information as required</p>
-  <form action=''>
+  <form id="editEventForm">
     <fieldset>
-      <label>Event Name: <input type="text" name="event-name" required /></label>
-      <label>Start Date: <input type="date" name="start-date" required /></label>
-      <label>End Date: <input type="date" name="end-date" required /></label>
-      <label>Start Time: <input type="time" name="start-time" required /></label>
-      <label>End Time: <input type="time" name="end-time" required /></label>
+      <label>Event Name: <input type="text" name="event_name" required /></label>
+      <label>Start Date: <input type="date" name="start_date" required /></label>
+      <label>End Date: <input type="date" name="end_date" required /></label>
+      <label>Start Time: <input type="time" name="start_time" required /></label>
+      <label>End Time: <input type="time" name="end_time" required /></label>
       <label>Location of the event: <input type="text" name="location" required /></label>
-      <label>Registration link of the event: <input type="text" name="reg-link" required /></label>
+      <label>Registration link of the event: <input type="text" name="registration_link" required /></label>
       <label>Details of the Event:
-        <textarea name="desc" rows="3" cols="30"
+        <textarea name="description" rows="3" cols="30"
           placeholder="description that includes all details regarding the event"></textarea>
       </label>
-      <label>Event Poster: <input type="file" name="file" /></label>
+      <label>Event Poster:</label>
+      <div id="poster-container" style="max-width: 300px; max-height: 300px;"></div>
+      <input type="file" name="poster" />
     </fieldset>
     <input type="submit" value="Submit" />
-    <input type="submit" value="Delete" />
   </form>
 
   <script>
@@ -136,8 +138,112 @@
           // Call the function to update dynamic features
           updateDynamicFeatures(loggedInUser);
         }
+        // Fetch event details using AJAX and populate the form
+        const eventId = getEventIdFromUrl();
+        if (eventId) {
+          // Fetch event details using AJAX and update the page
+          fetchEventDetails(eventId);
+        } else {
+          console.error('Event ID not provided in the URL.');
+        }
+        $('#editEventForm').submit(function(event) {
+          event.preventDefault(); // Prevent the default form submission
+          updateEvent(); // Custom function to handle form submission
+        });
       });
     });
+
+    function getEventIdFromUrl() {
+      const urlParams = new URLSearchParams(window.location.search);
+      // Check for different parameter names (event_id, eventId, etc.)
+      const eventId = urlParams.get('event_id') || urlParams.get('eventId');
+      console.log(eventId)
+
+      return eventId;
+    }
+
+    function fetchEventDetails(eventId) {
+      // Make AJAX request to get event details
+      $.ajax({
+        url: `http://127.0.0.1:8000/api/eventhub/vieweventdetails/${eventId}/`,
+        method: 'GET',
+        success: function(data) {
+          // Populate form fields with event details
+          populateFormFields(data.event_details);
+        },
+        error: function(error) {
+          console.error('Error fetching event details:', error);
+        },
+      });
+    }
+
+    function populateFormFields(eventDetails) {
+      // Populate the form fields with event details
+      $('input[name="event_name"]').val(eventDetails.event_name);
+      $('input[name="start_date"]').val(eventDetails.start_date);
+      $('input[name="end_date"]').val(eventDetails.end_date);
+      $('input[name="start_time"]').val(eventDetails.start_time);
+      $('input[name="end_time"]').val(eventDetails.end_time);
+      $('input[name="location"]').val(eventDetails.location);
+      $('input[name="registration_link"]').val(eventDetails.registration_link);
+      $('textarea[name="description"]').val(eventDetails.description);
+      displayEventPosterAsync(eventDetails.poster);
+    }
+
+    function displayEventPosterAsync(posterUrl) {
+      const posterContainer = $('#poster-container');
+      posterContainer.empty(); // Clear previous content
+    
+      if (posterUrl) {
+        const img = new Image();
+        img.onload = function() {
+          // Once the image is loaded, append it to the container
+          posterContainer.append(img);
+        };
+        img.src = posterUrl;
+        img.style.cssText = 'width: 100%; height: 100%; object-fit: cover; border-radius: 5px;';
+      }
+    }
+
+    function updateEvent() {
+      // Prepare the data to be sent to the backend
+      const formData = new FormData($('#editEventForm')[0]);
+      const eventId = getEventIdFromUrl();
+      const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'))
+
+      // Check if a new image is selected
+      const fileInput = $('input[name="poster"]')[0];
+      if (fileInput.files.length > 0) {
+        // If a new image is selected, append it to the FormData
+        formData.append('poster', fileInput.files[0]);
+      } else {
+        // If no new image is selected, remove the 'poster' field from FormData
+        formData.delete('poster');
+      }
+
+      // Make AJAX request to update the event
+      $.ajax({
+        url: `http://127.0.0.1:8000/api/eventhub/updateevent/${eventId}/`,
+        method: 'PATCH', // Use PATCH for updates
+        headers: {
+          'Authorization': 'Token ' + loggedInUser.token,
+        },
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+          console.log('Event updated successfully:', response);
+          alert(response.detail)
+          window.location.href = '/Frontend/eventhub/ehorgmp.html';
+        },
+        error: function(error) {
+          console.error('Error updating event:', error);
+          alert('Error in event updation. Try aga')
+          // Handle error, e.g., display an error message
+        },
+      });
+    }
+
   </script>
 </body>
 

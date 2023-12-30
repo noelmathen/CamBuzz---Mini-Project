@@ -144,10 +144,9 @@
           processData: false, // Prevent jQuery from processing data
           contentType: false, // Set content type to false
           success: function (data) {
-            console.log(data);
+            console.log(data.detail);
             alert(data.detail);
-            window.location.replace('./ehorgmp.html')
-            window.location.href('./ehorgmp.html')
+            window.location.replace('/Frontend/eventhub/ehorgmp.html');
           },
           error: function (error) {
             console.error('Error adding event:', error);
