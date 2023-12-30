@@ -90,7 +90,7 @@ class EventDeleteView(generics.DestroyAPIView):
         
 
 class YourEventsView(generics.ListAPIView):
-    serializer_class = EventSerializer
+    serializer_class = ViewEventsSerializer
     permission_classes = [IsAuthenticated, IsOrganisation]
 
     def get_queryset(self):

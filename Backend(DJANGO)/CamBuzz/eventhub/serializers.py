@@ -11,6 +11,7 @@ class EventSerializer(serializers.ModelSerializer):
         return obj.organisation.user.first_name if obj.organisation else None
 
 
+
 class ViewEventsSerializer(serializers.ModelSerializer):
     organisation_name = serializers.SerializerMethodField()
 
