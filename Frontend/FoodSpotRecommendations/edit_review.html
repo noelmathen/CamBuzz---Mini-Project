@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Edit Your Recommendation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css">
+    <style>
+        body {
+            width: 100%;
+            height: 100vh;
+            margin: 0;
+            background-color: #1b1b32;
+            color: #f5f6f7;
+            font-family: Tahoma;
+            font-size: 16px;
+        }
+
+        h1,
+        p {
+            margin: 1em auto;
+            text-align: center;
+        }
+
+        form {
+            width: 60vw;
+            max-width: 500px;
+            min-width: 300px;
+            margin: 0 auto;
+            padding-bottom: 2em;
+        }
+
+        fieldset {
+            border: none;
+            padding: 2rem 0;
+        }
+
+        fieldset:not(:last-of-type) {
+            border-bottom: 3px solid #3b3b4f;
+        }
+
+        label {
+            display: block;
+            margin: 0.5rem 0;
+        }
+
+        input,
+        textarea,
+        select {
+            margin: 10px 0 0 0;
+            width: 100%;
+            min-height: 2em;
+        }
+
+        input,
+        textarea {
+            background-color: #0a0a23;
+            border: 1px solid #0a0a23;
+            color: #ffffff;
+        }
+
+        .inline {
+            width: unset;
+            margin: 0 0.5em 0 0;
+            vertical-align: middle;
+        }
+
+        input[type="submit"] {
+            display: block;
+            width: 60%;
+            margin: 1em auto;
+            height: 2em;
+            font-size: 1.1rem;
+            background-color: #3b3b4f;
+            border-color: white;
+            min-width: 300px;
+        }
+
+        input[type="file"] {
+            padding: 1px 2px;
+        }
+
+        .uploaded-images {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .uploaded-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .delete-image-btn {
+            background-color: #ff4d4d;
+            color: #fff;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        .image-container {
+            position: relative;
+        }
+
+        .delete-image-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-dark navbar-expand-sm" style="background-color: #0e1827;">
+        <a class="navbar-brand" href="./mainpagefs.html"
+          style="background-color: #0e1827; display: inline-block; text-align: center;">
+          <img src="./img/CamBuzz_logo.png" height="50" class="d-inline-block align-top" alt=""><br />
+          CamBuzz
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+          aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarText">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+          </ul>
+        </div>
+        <div class="text-center" style="margin:0 10px 0 10px;">
+          <img src="./img/blank_profile_pic.jpg" height="50" class="rounded-circle" alt="..."><br />
+          <span class="profile_name">Rehan</span>
+        </div>
+      </nav>
+
+    <h1>Edit Your Recommendation</h1>
+    <form id="editReviewForm" onsubmit="return submitForm()">
+        <fieldset>
+            <label for="foodRating">Food Rating:[1-5]</label>
+            <input type="number" id="foodRating" name="foodRating" step="0.1" min="1" max="5" required>
+
+            <label for="serviceRating">Service Rating:[1-5]</label>
+            <input type="number" id="serviceRating" name="serviceRating" step="0.1" min="1" max="5" required>
+
+            <label for="ambienceRating">Ambience Rating:[1-5]</label>
+            <input type="number" id="ambienceRating" name="ambienceRating" step="0.1" min="1" max="5" required>
+
+            <label for="totalRating">Total Rating:[1-5]</label>
+            <input type="number" id="totalRating" name="totalRating" step="0.1" min="1" max="5" required>
+
+            <label for="topRecommendedDish">Top Recommended Dish: <input type="text" id="topRecommendedDish"
+                    placeholder="Recommended Dish" required></label>
+            <label for="reviewDescription">Review Description: <textarea id="reviewDescription" rows="3"
+                    placeholder="Describe your review..." required></textarea></label>
+
+            <!-- Display uploaded images -->
+            <div id="uploadedImagesContainer" class="uploaded-images">
+                <!-- Images will be displayed here -->
+            </div>
+
+            <label for="photo">Upload New Photographs (optional): <input type="file" id="photo" accept="image/*"></label>
+        </fieldset>
+
+        <input type="submit" value="Save Changes" />
+    </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Replace this with the actual logic to retrieve review data
+            const reviewData = {
+                foodRating: 4,
+                serviceRating: 5,
+                ambienceRating: 4,
+                totalRating: 4.3,
+                topRecommendedDish: "Sample Dish",
+                description: "Sample Description",
+                images: ['image1.jpg', 'image2.jpg']
+            };
+
+            // Populate form fields with existing data
+            populateForm(reviewData);
+
+            // Display existing images
+            displayExistingImages(reviewData.images);
+        });
+
+        function populateForm(reviewData) {
+            // Populate form fields with existing data
+            document.getElementById("foodRating").value = reviewData.foodRating;
+            document.getElementById("serviceRating").value = reviewData.serviceRating;
+            document.getElementById("ambienceRating").value = reviewData.ambienceRating;
+            document.getElementById("totalRating").value = reviewData.totalRating;
+            document.getElementById("topRecommendedDish").value = reviewData.topRecommendedDish;
+            document.getElementById("reviewDescription").value = reviewData.description;
+        }
+
+        function displayExistingImages(images) {
+            const imagesContainer = document.getElementById("uploadedImagesContainer");
+
+            images.forEach(image => {
+                const imageElement = document.createElement("img");
+                imageElement.src = image;
+                imageElement.alt = "Uploaded Image";
+                imageElement.className = "uploaded-image";
+
+                // Add a delete button/icon for each image
+                const deleteButton = document.createElement("button");
+                deleteButton.innerHTML = "&times;"; // Close (X) icon
+                deleteButton.className = "delete-image-btn";
+                deleteButton.onclick = function () {
+                    // Call a function to handle image deletion
+                    deleteImage(image);
+                };
+
+                // Create a container for the image and delete button
+                const imageContainer = document.createElement("div");
+                imageContainer.className = "image-container";
+                imageContainer.appendChild(imageElement);
+                imageContainer.appendChild(deleteButton);
+
+                // Append the image container to the images container
+                imagesContainer.appendChild(imageContainer);
+            });
+        }
+
+        function deleteImage(image) {
+            // Implement logic to delete the image (remove it from the UI and possibly from the server)
+            console.log(`Deleting image: ${image}`);
+            // Remove the image container from the UI
+            const imageContainer = document.querySelector(`.image-container img[src="${image}"]`).parentNode;
+            imageContainer.remove();
+        }
+
+        function submitForm() {
+            // Implement logic to submit the edited review (update it on the server, etc.)
+            // You can include the logic for handling image deletions here if needed
+
+            // For now, prevent form submission
+            return false;
+        }
+    </script>
+</body>
+
+</html>

@@ -9,93 +9,96 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <style>
         .profile_name {
-      color: white;
-    }
+            color: white;
+        }
 
-    .btn-circle.btn-lg {
-      width: 200px;
-      height: 200px;
-      padding: 6px 0px;
-      border-radius: 100px;
-      font-size: 15px;
-      text-align: center;
-    }
+        .btn-circle.btn-lg {
+            width: 200px;
+            height: 200px;
+            padding: 6px 0px;
+            border-radius: 100px;
+            font-size: 15px;
+            text-align: center;
+        }
 
-    .food-spot-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      margin-top: 20px;
-    }
+        .food-spot-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
 
-    .food-spot {
-      width: calc(33.33% - 20px);
-      margin: 10px;
-      text-align: center;
-      border: 1px solid #ddd;
-      padding: 15px;
-      box-sizing: border-box;
-      cursor: pointer;
-      transition: all 0.3s ease-in-out;
-    }
+        .food-spot {
+            width: calc(33.33% - 20px);
+            margin: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+            padding: 15px;
+            box-sizing: border-box;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
 
-    @media (max-width: 768px) {
-      .food-spot {
-        width: calc(50% - 20px);
-      }
-    }
+        @media (max-width: 768px) {
+            .food-spot {
+                width: calc(50% - 20px);
+            }
+        }
 
-    @media (max-width: 576px) {
-      .food-spot {
-        width: 100%;
-      }
-    }
+        @media (max-width: 576px) {
+            .food-spot {
+                width: 100%;
+            }
+        }
 
-    .food-spot:hover {
-      transform: scale(1.05);
-    }
+        .food-spot:hover {
+            transform: scale(1.05);
+        }
 
-    .add-food-form {
-      margin-top: 20px;
-    }
+        .add-food-form {
+            margin-top: 20px;
+        }
 
-    .rating {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      grid-gap: .5rem;
-      font-size: 2rem;
-      color: var(--yellow);
-      margin-bottom: 2rem;
-    }
+        .rating {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            grid-gap: .5rem;
+            font-size: 2rem;
+            color: var(--yellow);
+            margin-bottom: 2rem;
+        }
 
-    .rating .star {
-      cursor: pointer;
-    }
+        .rating .star {
+            cursor: pointer;
+        }
 
-    .rating .star.active {
-      opacity: 0;
-      animation: animate .5s calc(var(--i) * .1s) ease-in-out forwards;
-    }
+        .rating .star.active {
+            opacity: 0;
+            animation: animate .5s calc(var(--i) * .1s) ease-in-out forwards;
+        }
 
-    @keyframes animate {
-      0% {
-        opacity: 0;
-        transform: scale(1);
-      }
-      50% {
-        opacity: 1;
-        transform: scale(1.2);
-      }
-      100% {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
+        @keyframes animate {
+            0% {
+                opacity: 0;
+                transform: scale(1);
+            }
 
-    .rating .star:hover {
-      transform: scale(1.1);
-    }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .rating .star:hover {
+            transform: scale(1.1);
+        }
+
         .review-container {
             margin-top: 20px;
         }
@@ -108,10 +111,13 @@
         }
 
         .options-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        font-weight: bold; /* Make the three dots bold */
+        font-size: 20px; /* Adjust font size as needed */
+        color: #333; /* Set the color of the three dots */
         }
 
         .options-menu {
@@ -152,32 +158,32 @@
     <!-- Header -->
     <nav class="navbar navbar-dark navbar-expand-sm" style="background-color: #0e1827;">
         <a class="navbar-brand" href="./mainpagefs.html"
-          style="background-color: #0e1827; display: inline-block; text-align: center;">
-          <img src="./img/CamBuzz_logo.png" height="50" class="d-inline-block align-top" alt=""><br />
-          CamBuzz
+            style="background-color: #0e1827; display: inline-block; text-align: center;">
+            <img src="./img/CamBuzz_logo.png" height="50" class="d-inline-block align-top" alt=""><br />
+            CamBuzz
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
-          aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarText">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
-            </li>
-          </ul>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+            </ul>
         </div>
         <div class="text-center" style="margin:0 10px 0 10px;">
-          <img src="./img/blank_profile_pic.jpg" height="50" class="rounded-circle" alt="..."><br />
-          <span class="profile_name">Rehan</span>
+            <img src="./img/blank_profile_pic.jpg" height="50" class="rounded-circle" alt="..."><br />
+            <span class="profile_name">Rehan</span>
         </div>
-      </nav>
+    </nav>
 
     <div class="container">
         <h2>Welcome, [User's Name]</h2>
@@ -189,84 +195,77 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                // Replace this with the actual user data retrieval logic
-                const userData = {
-                    name: "User's Name",
-                    reviews: [
-                        { foodSpot: "Food Spot 1", foodRating: 4, serviceRating: 5, ambienceRating: 4, totalRating: 4.3, topRecommendedDish: "Sample Dish", description: "Sample Description", likes: 0, images: ['image1.jpg', 'image2.jpg'] },
-                        { foodSpot: "Food Spot 2", foodRating: 5, serviceRating: 5, ambienceRating: 5, totalRating: 5, topRecommendedDish: "Another Dish", description: "Another Description", likes: 0, images: ['image3.jpg'] },
-                        // Add more reviews as needed
-                    ]
-                };
-        
-                showUserReviews(userData);
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Replace this with the actual user data retrieval logic
+            const userData = {
+                name: "User's Name",
+                reviews: [
+                    { foodSpot: "Food Spot 1", foodRating: 4, serviceRating: 5, ambienceRating: 4, totalRating: 4.3, topRecommendedDish: "Sample Dish", description: "Sample Description", likes: 0, images: ['image1.jpg', 'image2.jpg'] },
+                    { foodSpot: "Food Spot 2", foodRating: 5, serviceRating: 5, ambienceRating: 5, totalRating: 5, topRecommendedDish: "Another Dish", description: "Another Description", likes: 0, images: ['image3.jpg'] },
+                    // Add more reviews as needed
+                ]
+            };
+
+            showUserReviews(userData);
+        });
+
+        function showUserReviews(userData) {
+            const container = document.getElementById("reviewContainer");
+            container.innerHTML = ""; // Clear previous content
+
+            userData.reviews.forEach((review, index) => {
+                const reviewBox = document.createElement("div");
+                reviewBox.classList.add("review-box");
+                reviewBox.innerHTML = `
+                    <h3>${review.foodSpot} Review</h3>
+                    <p>Food Rating: ${review.foodRating}</p>
+                    <p>Service Rating: ${review.serviceRating}</p>
+                    <p>Ambience Rating: ${review.ambienceRating}</p>
+                    <p>Total Rating: ${review.totalRating}</p>
+                    <p>Top Recommended Dish: ${review.topRecommendedDish}</p>
+                    <p>Description: ${review.description}</p>
+
+                    <div class="uploaded-images">
+                        ${renderImages(review.images)}
+                    </div>
+
+                    <div class="options-btn" onclick="toggleOptionsMenu(${index})">
+                        <span>&#8285;</span>
+                        <div class="options-menu" id="optionsMenu${index}">
+                            <a href="#" onclick="editReview(${index})">Edit</a>
+                            <a href="#" onclick="confirmDelete(${index})">Delete</a>
+                        </div>
+                    </div>
+                `;
+
+                container.appendChild(reviewBox);
             });
-        
-            function showUserReviews(userData) {
-                const container = document.getElementById("reviewContainer");
-                container.innerHTML = ""; // Clear previous content
-        
-                userData.reviews.forEach((review, index) => {
-                    const reviewBox = document.createElement("div");
-                    reviewBox.classList.add("review-box");
-                    reviewBox.innerHTML = `
-                        <h3>${review.foodSpot} Review</h3>
-                        <p>Food Rating: ${review.foodRating}</p>
-                        <p>Service Rating: ${review.serviceRating}</p>
-                        <p>Ambience Rating: ${review.ambienceRating}</p>
-                        <p>Total Rating: ${review.totalRating}</p>
-                        <p>Top Recommended Dish: ${review.topRecommendedDish}</p>
-                        <p>Description: ${review.description}</p>
-                        
-                        <div class="uploaded-images">
-                            ${renderImages(review.images)}
-                        </div>
-        
-                        <div class="options-btn" onclick="toggleOptionsMenu(${index})">
-                            <span>&#8285;</span>
-                            <div class="options-menu" id="optionsMenu${index}">
-                                <a href="#" onclick="editReview(${index})">Edit</a>
-                                <a href="#" onclick="deleteReview(${index})">Delete</a>
-                            </div>
-                        </div>
-                    `;
-        
-                    container.appendChild(reviewBox);
-                });
-            }
-        
-            function renderImages(images) {
-                return images.map(image => `<img src="${image}" alt="Uploaded Image" class="uploaded-image">`).join('');
-            }
-        
-            function toggleOptionsMenu(index) {
-                const optionsMenu = document.getElementById(`optionsMenu${index}`);
-                optionsMenu.style.display = optionsMenu.style.display === "block" ? "none" : "block";
-            }
-        
-            function editReview(index) {
-                // Implement the logic to edit the review here
-                console.log(`Editing review at index ${index}`);
-            }
-        
-            function deleteReview(index) {
+        }
+
+        function renderImages(images) {
+            return images.map(image => `<img src="${image}" alt="Uploaded Image" class="uploaded-image">`).join('');
+        }
+
+        function toggleOptionsMenu(index) {
+            const optionsMenu = document.getElementById(`optionsMenu${index}`);
+            optionsMenu.style.display = optionsMenu.style.display === "block" ? "none" : "block";
+        }
+
+        function editReview(index) {
+        // Redirect to edit_review.html with the specific review index
+        window.location.href = `edit_review.html?index=${index}`;
+        }
+
+        function confirmDelete(index) {
+            const confirmation = confirm("Are you sure you want to delete this review?");
+            if (confirmation) {
                 // Implement the logic to delete the review here
-                const userData = {
-                    name: "User's Name",
-                    reviews: [
-                        { foodSpot: "Food Spot 1", foodRating: 4, serviceRating: 5, ambienceRating: 4, totalRating: 4.3, topRecommendedDish: "Sample Dish", description: "Sample Description", likes: 0, images: ['image1.jpg', 'image2.jpg'] },
-                        { foodSpot: "Food Spot 2", foodRating: 5, serviceRating: 5, ambienceRating: 5, totalRating: 5, topRecommendedDish: "Another Dish", description: "Another Description", likes: 0, images: ['image3.jpg'] },
-                        // Add more reviews as needed
-                    ]
-                };
-        
-                userData.reviews.splice(index, 1);
-                showUserReviews(userData);
+                console.log(`Deleting review at index ${index}`);
             }
-        </script>
-        
+        }
+    </script>
 </body>
 
 </html>
