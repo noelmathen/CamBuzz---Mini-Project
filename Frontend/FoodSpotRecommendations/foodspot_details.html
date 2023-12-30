@@ -58,50 +58,54 @@
         .like-count {
             font-weight: bold;
         }
+
+        #addReviewButton {
+            text-align: right;
+            position: relative;
+            top: 140px; /* Adjusted position to be right above the line */
+        }
     </style>
 </head>
 
 <body>
     <nav class="navbar navbar-dark navbar-expand-sm" style="background-color: #0e1827;">
         <a class="navbar-brand" href="./mainpagefs.html"
-          style="background-color: #0e1827; display: inline-block; text-align: center;">
-          <img src="./img/CamBuzz_logo.png" height="50" class="d-inline-block align-top" alt=""><br />
-          CamBuzz
+            style="background-color: #0e1827; display: inline-block; text-align: center;">
+            <img src="./img/CamBuzz_logo.png" height="50" class="d-inline-block align-top" alt=""><br />
+            CamBuzz
         </a>
         <div class="navbar-text text-center" style="width: 100%;">
             <h2 style="color: white;">Food Spot Recommendation</h2>
         </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
-          aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarText">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
-            </li>
-          </ul>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+            </ul>
         </div>
         <div class="text-center" style="margin:0 10px 0 10px;">
-          <img src="./img/blank_profile_pic.jpg" height="50" class="rounded-circle" alt="..."><br />
-          <span class="profile_name">Rehan</span>
+            <img src="./img/blank_profile_pic.jpg" height="50" class="rounded-circle" alt="..."><br />
+            <span class="profile_name">Rehan</span>
         </div>
-      </nav>
-    <div class="header-container">
-        
-        <!-- Add Review Button Section -->
-        <div class="add-review-button">
-            <a class="btn btn-primary" href="./add_review.html">Add Review</a>
-        </div>
-    </div>
+    </nav>
 
     <div class="container">
+        <!-- Add Review Button Section -->
+        <div class="add-review-button" id="addReviewButton">
+            <a class="btn btn-primary" href="./add_review.html">Add a Review for this Food Spot </a>
+        </div>
+
         <div id="foodDetails">
             <!-- Food details will be displayed here -->
         </div>
