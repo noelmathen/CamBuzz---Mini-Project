@@ -17,7 +17,7 @@ class ViewEventsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         # fields = ('organisation_name', 'event_name', 'start_date', 'end_date', 'start_time', 'end_time', 'location', 'description', 'registration_link', 'poster')
-        fields = ('organisation_name', 'event_name', 'poster')
+        fields = ('id', 'organisation_name', 'event_name', 'poster')
 
 
     def get_organisation_name(self, obj):

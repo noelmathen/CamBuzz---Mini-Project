@@ -134,6 +134,11 @@
       });
     }
 
+    // Function to handle click on a poster
+    function viewEventDetails(eventId) {
+      window.location.href = '/Frontend/eventhub/eventdetails/eventdetail.html?event_id=' + eventId;
+    }
+
     function appendPosters(containerId, posters) {
       var container = $('#' + containerId);
       container.empty();
@@ -146,7 +151,7 @@
           var galleryItem = $('<div class="gallery-item h-100"></div>');
           var posterImage = $('<img src="' + event.poster + '" class="img-fluid" alt="' + event.event_name + '">');
           var galleryLinks = $('<div class="gallery-links d-flex align-items-center justify-content-center"></div>');
-          var detailsLink = $('<a href="./eventdetails/eventdetail.html" class="details-link"><i class="bi bi-arrows-angle-expand"></i></a>');
+          var detailsLink = $('<a href="javascript:void(0);" class="details-link" onclick="viewEventDetails(' + event.id + ')"><i class="bi bi-arrows-angle-expand"></i></a>');
 
           galleryLinks.append(detailsLink);
           galleryItem.append(posterImage, galleryLinks);
@@ -193,7 +198,7 @@
 
     document.addEventListener('DOMContentLoaded', function () {
       const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
-      
+
       // Check if the user is an organization
       if (loggedInUser && loggedInUser.userType === 'Student') {
         // If the user is an organization, hide the images related to vehicle pooling and food spot recommendations
