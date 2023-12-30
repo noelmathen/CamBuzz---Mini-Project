@@ -11,13 +11,14 @@ class EventSerializer(serializers.ModelSerializer):
         return obj.organisation.user.first_name if obj.organisation else None
 
 
+
 class ViewEventsSerializer(serializers.ModelSerializer):
     organisation_name = serializers.SerializerMethodField()
 
     class Meta:
         model = Event
         # fields = ('organisation_name', 'event_name', 'start_date', 'end_date', 'start_time', 'end_time', 'location', 'description', 'registration_link', 'poster')
-        fields = ('organisation_name', 'event_name', 'poster')
+        fields = ('id', 'organisation_name', 'event_name', 'poster')
 
 
     def get_organisation_name(self, obj):

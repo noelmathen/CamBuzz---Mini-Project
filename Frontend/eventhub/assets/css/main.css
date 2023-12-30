@@ -12,6 +12,8 @@
 --------------------------------------------------------------*/
 /* Fonts */
 
+
+/* main.css */
 /* Fonts */
 :root {
   --font-default: "Open Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -313,23 +315,48 @@ h6 {
   font-size: 18px;
 }
 
+         
+.hero .btn-get-started{
+  background-image: linear-gradient(to right, #bfac1b 30%, #919a30  51%, #ffff00  100%);
+  margin: 10px;
+  padding: 15px 30px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: rgb(255, 255, 255);            
+  border-radius: 10px;
+}
+
+.hero .btn-get-started:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #3f3d3d;
+  text-decoration: none;
+  box-shadow: 0 0 20px #eee;
+}
+
+/* 
 .hero .btn-get-started {
   font-family: var(--font-primary);
   font-weight: 400;
   font-size: 14px;
   display: inline-block;
   padding: 12px 40px;
-  border-radius: 4px;
+  border-radius: 10px;
   letter-spacing: 1px;
   text-transform: uppercase;
   transition: 0.3s;
-  color: #fff;
-  background: var(--color-primary);
+  color: #000000;
+  background: #fffb00;
+  border: 1px solid #ffffff;
 }
 
 .hero .btn-get-started:hover {
-  background: #d6d31b;
+  background: #3f04ad;
+  color: #ffffff;
 }
+ */
+
 
 @media (max-width: 768px) {
   .hero h2 {
@@ -408,4 +435,64 @@ h6 {
 #gallery {
   background-color: #000;
   color: #fff; /* Set text color to white or any other color that suits */
+}
+
+.gallery p {
+  text-align: center; /* Center-align the text */
+  font-size: 24px; /* Adjust the font size */
+  color: #d6d31b; /* Set the color to a yellowish tone */
+  font-weight: bold; /* Add bold font weight */
+  margin-top: 20px; /* Adjust top margin for spacing */
+}
+
+.gallery p::before,
+.gallery p::after {
+  content: "";
+  display: inline-block;
+  width: 30px;
+  height: 2px;
+  background-color: #d6d31b; /* Line color */
+  vertical-align: middle;
+  margin: 0 10px; /* Adjust spacing between text and lines */
+}
+
+.filter label {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.filter select {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.filter input {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.filter button {
+  background-color: #656016;
+  color: #ffffff;
+  /* border: px solid #ffffff; White border for the Apply Filters button */
+  transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+/* Hover effect for select and input */
+.filter select:hover,
+.filter input:hover {
+  background-color: #1b1b1b;
+  color: #ffffff;
+  transition: background-color 0.3s ease
+}
+
+/* Hover effect for the Apply Filters button */
+.filter button:hover {
+  background-color: #fffb00; /* Change the background color on hover */
+  color: #000000; /* Change the text color on hover */
+}
+
+h6 {
+  text-align: center;
+  font-size: 0.75em;
 }
