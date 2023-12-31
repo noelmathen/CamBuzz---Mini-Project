@@ -11,24 +11,12 @@ class VehicleListingSerializer(serializers.ModelSerializer):
 
 
 class RideListingLimitedSerializer(serializers.ModelSerializer):
-    owner = serializers.SerializerMethodField()
-    from_location_start_datetime = serializers.SerializerMethodField()
-    to_location_end_datetime = serializers.SerializerMethodField()
+    owner_firstname = serializers.CharField(source='owner.user.first_name')
+    owner_profile_picture = serializers.ImageField(source='owner.photo')
 
     class Meta:
         model = VehicleListing
-        fields = ['id', 'owner', 'from_location_start_datetime', 'to_location_end_datetime', 'vehicle_type', 'seats_available', 'price']
-
-    def get_owner(self, obj):
-        owner = obj.owner  
-        return f"{owner.user.first_name} ({owner.branch})"
-
-
-    def get_from_location_start_datetime(self, obj):
-        return f"{obj.from_location} ({obj.start_date} {obj.start_time})"
-
-    def get_to_location_end_datetime(self, obj):
-        return f"{obj.to_location} ({obj.end_date} {obj.end_time})"
+        fields = ['id', 'owner_firstname', 'owner_profile_picture', 'from_location', 'to_location', 'start_date', 'start_time', 'end_date', 'end_time', 'vehicle_type', 'seats_available', 'price']
     
 
 class RideDetailSerializer(serializers.ModelSerializer):

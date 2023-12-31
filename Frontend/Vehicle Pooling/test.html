@@ -1,290 +1,75 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Ride Details</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
-    <!-- Your existing script for the number spinner -->
-    <script>
-        $(document).on('click', '.number-spinner button', function () {
-            var btn = $(this),
-                oldValue = btn.closest('.number-spinner').find('input').val().trim(),
-                newVal = 0;
-            var limitVal = 3;
-
-            if (btn.attr('data-dir') == 'up') {
-                newVal = parseInt(oldValue) + 1;
-            } else {
-                if (oldValue > 1) {
-                    newVal = parseInt(oldValue) - 1;
-                } else {
-                    newVal = 1;
-                }
-            }
-            if (newVal > limitVal) newVal = limitVal;
-            btn.closest('.number-spinner').find('input').val(newVal);
-        });
-    </script>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f8f9fa;
-        }
-
-        .container-lg {
-            margin-top: 50px;
-        }
-
-        .detail-box {
-            border: 1px solid #ced4da;
-            border-radius: 30px;
-            background-color: #ffffff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 40px;
-            margin-bottom: 50px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            /* Align items vertically with space in between */
-            height: 100%;
-            /* Take full height of the container */
-            transition: box-shadow 0.3s ease-in-out;
-        }
-
-        .detail-box:hover {
-            box-shadow: 0 0 30px rgba(5, 64, 244, 0.2)
-        }
-
-        .detail-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-
-        .detail-column {
-            flex: 1;
-            text-align: left;
-            display: flex;
-            flex-direction: column;
-        }
-
-        h4 {
-            color: #007bff;
-            margin-bottom: 0;
-        }
-
-        strong {
-            color: #343a40;
-        }
-
-        .detail-box div {
-            margin-bottom: 10px;
-        }
-
-        .detail-box div:last-child {
-            margin-bottom: 0;
-        }
-
-        .book-button {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        /* Updated Button Styles */
-        .btn-book {
-            width: 180px;
-            height: 60px;
-            cursor: pointer;
-            background: transparent;
-            border: 1px solid #91C9FF;
-            outline: none;
-            position: relative;
-            /* Add position relative */
-            transition: 1s ease-in-out;
-        }
-
-        .btn-book svg {
-            position: absolute;
-            left: 0;
-            top: 0;
-            fill: none;
-            stroke: #ffffff;
-            stroke-dasharray: 150 480;
-            stroke-dashoffset: 150;
-            transition: 1s ease-in-out;
-        }
-
-        .btn-book:hover {
-            transition: 1s ease-in-out;
-            background: #4F95DA;
-        }
-
-        .btn-book:hover svg {
-            stroke-dashoffset: -480;
-        }
-
-        .btn-book span {
-            color: rgb(21, 101, 118);
-            font-size: 18px;
-            font-weight: 100;
-            position: absolute;
-            /* Add position absolute */
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        /* Modal Styles */
-        .modal-body .input-group {
-            margin-bottom: 15px;
-        }
-
-        .modal-body .input-group-btn:last-child>.btn,
-        .modal-body .input-group-btn:last-child>.btn-group {
-            z-index: 2;
-            margin-bottom: 0;
-            border-top-left-radius: 0;
-            border-bottom-left-radius: 0;
-        }
-    </style>
-</head>
-
-<body>
-    <div id="navbar-placeholder"></div>
-    <div class="container-lg">
-        <!-- All Details in One Box -->
-        <div class="detail-box">
-            <!-- Row 1: Heading Row -->
-            <div class="detail-row">
-                <!-- Ride Information Column -->
-                <div class="detail-column">
-                    <h4>Ride Information</h4>
-                </div>
-
-                <!-- Owner Details Column -->
-                <div class="detail-column">
-                    <h4>Owner Details</h4>
-                </div>
-
-                <!-- Vehicle Details Column -->
-                <div class="detail-column">
-                    <h4>Vehicle Details</h4>
-                </div>
-
-                <!-- Price, Seats and Description Column -->
-                <div class="detail-column">
-                    <h4>Price, Seats and Description</h4>
-                </div>
-            </div>
-
-            <!-- Row 2: Attributes Row -->
-            <div class="detail-row">
-                <!-- Ride Information Column -->
-                <div class="detail-column">
-                    <div><strong>From:</strong> Palakkadu</div>
-                    <div><strong>To:</strong> Kollam</div>
-                    <div><strong>Start Date:</strong> 2024-01-20</div>
-                    <div><strong>End Date:</strong> 2024-01-20</div>
-                    <div><strong>Start Time:</strong> 09:00:00</div>
-                    <div><strong>End Time:</strong> 10:00:00</div>
-                </div>
-
-                <!-- Owner Details Column -->
-                <div class="detail-column">
-                    <div><strong>Full Name:</strong> Paul Dins</div>
-                    <div><strong>Phone Number:</strong> 9876543210</div>
-                    <div><strong>Branch:</strong> CSBS</div>
-                    <div><strong>Division:</strong> N/A</div>
-                    <div><strong>Batch:</strong> 2022 - 2026 batch</div>
-                    <div><strong>Gender:</strong> Male</div>
-                </div>
-
-                <!-- Vehicle Details Column -->
-                <div class="detail-column">
-                    <div><strong>Vehicle Type:</strong> Car</div>
-                    <div><strong>Vehicle Name:</strong> Bugati</div>
-                    <div><strong>Vehicle Number:</strong> KL16PD9999</div>
-                    <div><strong>Seats:</strong> 1</div>
-                    <div><strong>Extra Helmet:</strong> No</div>
-                </div>
-
-                <!-- Price, Seats and Description Column -->
-                <div class="detail-column">
-                    <div><strong>Price:</strong> ₹70.00</div>
-                    <div><strong>Number of Seats:</strong> 5</div>
-                    <div><strong>Description:</strong> A ride from Palakkadu to Kollam</div>
-                </div>
-            </div>
-
-            <!-- Book This Ride Button -->
-            <div class="book-button">
-                <button class="btn-book" data-bs-toggle="modal" data-bs-target="#bookRide">
-                    <svg width="180px" height="60px" viewBox="0 0 180 60" class="border">
-                        <polyline points="179,1 179,59 1,59 1,1 179,1" class="bg-line" />
-                        <polyline points="179,1 179,59 1,59 1,1 179,1" class="hl-line" />
-                    </svg>
-                    <span>BOOK THIS RIDE</span>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal HTML structure -->
-    <div class="modal fade" id="bookRide" tabindex="-1" aria-labelledby="bookRideLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Book Ride</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="container">
-                        <div class="row mb-3">
-                            <label for="seatCount" class="col-sm-4 col-form-label">Select number of seats:</label>
-                            <div class="col-sm-8">
-                                <div class="input-group number-spinner">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-default" data-dir="dwn"><span
-                                                class="glyphicon glyphicon-minus">-</span></button>
-                                    </span>
-                                    <input type="text" id="seatCount" class="form-control text-center" value="1">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-default" data-dir="up"><span
-                                                class="glyphicon glyphicon-plus" aria-hidden="true">+</span></button>
-                                    </span>
-                                </div>
+<div class="col-lg-4 col-md-auto mb-3">
+    <div class="card" style="border: 1px solid black; border-radius: 10px; padding: 0 0 20px 0; margin: 0 0 20px 0;">
+      <div>
+        <div>
+            <ul style="list-style: none; padding-right: 20px; padding-top: 15px;">
+                <li>
+                    <div style="display: flex; min-height: 60px;">
+                        <div style="display: flex; flex-direction: column; width: 60px;">
+                            <!-- Add a fixed height for the time element -->
+                            <time style="height: 20px;">${formatTime(ride.start_time)}</time>
+                        </div>
+                        <div aria-hidden="true" style="position: relative; display: flex; flex-direction: column; min-height: 30px; align-items: center; margin-left: 10px; flex-shrink: 0;">
+                            <div style="width: 4px; height: calc(13px); background: transparent;"></div>
+                            <div style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%);">
+                                <div style="box-sizing: border-box; width: 10px; height: 10px;background-color: white; border: 2px solid blue; border-radius: 5px;"></div>
                             </div>
+                            <div style="width: 4px; height: calc(13px); background: blue; height: 100%;"></div>
+                        </div>
+                        <div style="position: relative; flex: 1 1 0%; padding: 5px 0 0 10px;">
+                            <span>${ride.from_location}</span>
+                        </div>
+                        <div style="position: relative; padding: 5px 0 0 10px; text-wrap: nowrap;">
+                            <span>${formatDate(ride.start_date)}</span>
                         </div>
                     </div>
+                    <div style="display: flex;">
+                        <div style="display: flex; flex-direction: column; width: 60px; padding-top: 5px;">
+                            <!-- Add a fixed height for the time element -->
+                            <time style="height: 20px;">${formatTime(ride.end_time)}</time>
+                        </div>
+                        <div aria-hidden="true" style="position: relative; display: flex; flex-direction: column; min-height: 30px; align-items: center; margin-left: 10px; flex-shrink: 0;">
+                            <div style="width: 4px; height: calc(13px); background: blue;"></div>
+                            <div style="position: absolute; top: 12px; left: 50%; transform: translateX(-50%);">
+                                <div style="box-sizing: border-box; width: 10px; height: 10px;background-color: white; border: 2px solid blue; border-radius: 5px;"></div>
+                            </div>
+                            <div style="width: 4px; height: calc(13px); background: transparent;"></div>
+                        </div>
+                        <div style="position: relative; flex: 1 1 0%; padding: 5px 0 0 10px;">
+                            <span>${ride.to_location}</span>
+                        </div>
+                        <div style="position: relative; padding: 5px 0 0 10px; text-wrap: nowrap;">
+                            <span>${formatDate(ride.end_date)}</span>
+                        </div>
+                        <a href="/Frontend/Vehicle Pooling/ride_details.html" class="stretched-link"></a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin: 0 30px;">
+            <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                <!-- Vehicle type (e.g., Bike) -->
+                <div style="margin-top: 16px;">
+                    <span>${ride.vehicle_type}</span>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Book</button>
+                <!-- Profile picture and user name -->
+                <div class="d-flex align-items-center mb-2" style="margin-top: 20px;">
+                  <!-- Update the styling for the profile picture -->
+                  <span><img src="${ride.owner_profile_picture}" height="43" width="43" class="rounded-circle" style="object-fit: cover;" alt="..."></span>
+                  <label class="ms-2">${ride.owner_firstname}</label>
+                </div>
+            </div>
+
+            <!-- Ride price and available seats -->
+            <div style="display: flex; flex-direction: column; align-items: flex-end;">
+                <div style="margin-bottom: 25px;">
+                    <span>&#8377;${ride.price}</span>
+                </div>
+                <div>
+                    <span>👤${ride.seats_available}</span>
                 </div>
             </div>
         </div>
     </div>
-
-    <script>
-        $(function () {
-            $('#navbar-placeholder').load('/Frontend/navbar.html', function () {
-                // Retrieve user information from local storage
-                const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
-
-                if (loggedInUser) {
-                    // Call the function to update dynamic features
-                    updateDynamicFeatures(loggedInUser);
-                }
-            });
-        });
-    </script>
-
-</body>
-
-</html>
+</div>
