@@ -28,7 +28,6 @@ import pytz
 from rest_framework.exceptions import PermissionDenied
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
-import os
 
 
 @authentication_classes([TokenAuthentication])
