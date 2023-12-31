@@ -189,10 +189,24 @@ class BookRideView(CreateAPIView):
             # Build the success message
             success_message = f"{booking.passenger.user.get_full_name()} booked {num_seats_requested} seats of {ride.owner.user.get_full_name()}'s ride (id = {ride.id})"
 
+            # Include the ride instance in the success response
+            response_data = {
+                "detail": success_message,
+                "ride": {
+                    "id": ride.id,
+                    "owner_name": ride.owner.user.get_full_name(),
+                    "from_location": ride.from_location,
+                    "to_location": ride.to_location,
+                    "start_date": ride.start_date,
+                    "start_time": ride.start_time,
+                    # Include other ride details as needed
+                }
+            }
+
             # Send email notification to the ride owner
             self.send_booking_notification_email(ride, ride.owner, booking.passenger, num_seats_requested)
 
-            return Response({"detail": success_message}, status=status.HTTP_201_CREATED)
+            return Response(response_data, status=status.HTTP_201_CREATED)
 
         except VehicleListing.DoesNotExist:
             return Response({"detail": "Ride not found."}, status=status.HTTP_404_NOT_FOUND)

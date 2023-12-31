@@ -17,7 +17,8 @@
       var btn = $(this),
         oldValue = btn.closest('.number-spinner').find('input').val().trim(),
         newVal = 0;
-      var limitVal = 3;
+      // Retrieve the maximum limit from the data-max attribute
+      var limitVal = parseInt(btn.closest('.number-spinner').find('input').attr('max')) || 6;
 
       if (btn.attr('data-dir') == 'up') {
         newVal = parseInt(oldValue) + 1;
@@ -32,6 +33,7 @@
       btn.closest('.number-spinner').find('input').val(newVal);
     });
   </script>
+
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -211,7 +213,6 @@
           <div><strong>Vehicle Type:</strong> <span id="vehicle_type"></span></div>
           <div><strong>Vehicle Name:</strong> <span id="vehicle_name"></span></div>
           <div><strong>Vehicle Number:</strong> <span id="vehicle_number"></span></div>
-          <div><strong>Seats:</strong> <span id="seats"></span></div>
           <div><strong>Extra Helmet:</strong> <span id="extra_helmet"></span></div>
         </div>
 
@@ -254,7 +255,7 @@
                     <button class="btn btn-default" data-dir="dwn"><span
                         class="glyphicon glyphicon-minus">-</span></button>
                   </span>
-                  <input type="text" id="seatCount" class="form-control text-center" value="1">
+                  <input type="text" id="seatCount" class="form-control text-center" value="1" min="1" max="6">
                   <span class="input-group-btn">
                     <button class="btn btn-default" data-dir="up"><span class="glyphicon glyphicon-plus"
                         aria-hidden="true">+</span></button>
@@ -266,7 +267,60 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Book</button>
+          <button type="button" class="btn btn-primary" onclick="showConfirmBookModal()">Book</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONFIRMATION MODAL -->
+  <div class="modal fade" id="confirmBookModal" tabindex="-1" aria-labelledby="confirmBookModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmBookModalLabel">Confirm Booking</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to book this ride?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+          <button type="button" class="btn btn-success" onclick="confirmBooking()">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Success Modal -->
+  <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="successModalLabel">Ride Booking Successful!</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="successModalMessage"></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Error Modal -->
+  <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="errorModalLabel">Ride Booking Error! Please Try Again!</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="errorModalMessage"></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
@@ -274,7 +328,82 @@
 
   <!-- Your script for updating dynamic features -->
   <script>
+    // Success Modal
+    $('#successModal').on('hidden.bs.modal', function (e) {
+      window.location.href = '/Frontend/Vehicle%20Pooling/search_ride.html';
+    });
+
+    function showConfirmBookModal() {
+      $('#confirmBookModal').modal('show');
+    }
+
+    function confirmBooking() {
+      // Retrieve ride ID from URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const rideId = urlParams.get('ride_id');
+    
+      // Retrieve the number of seats selected by the user
+      const numSeats = $('#seatCount').val();
+    
+      // API endpoint for booking confirmation
+      const apiEndpoint = `http://127.0.0.1:8000/api/vehiclepooling/rides/${rideId}/book/`;
+    
+      // Prepare the data for the API request
+      const bookingData = {
+        num_seats: numSeats,
+      };
+      const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+    
+      // Show loading spinner
+      const loadingSpinner = $('<div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>');
+      $('#confirmBookModal').find('.modal-footer').append(loadingSpinner);
+    
+      // Make the API call to confirm the booking
+      $.ajax({
+        url: apiEndpoint,
+        type: 'POST',
+        headers: {
+          'Authorization': 'Token ' + loggedInUser.token,
+          'Content-Type': 'application/json',
+        },
+        data: JSON.stringify(bookingData),
+        success: function (data) {
+          console.log('Booking confirmed successfully:', data);
+    
+          // Close loading spinner
+          loadingSpinner.remove();
+    
+          // Close both modals after confirming the booking
+          $('#bookRide').modal('hide');
+          $('#confirmBookModal').modal('hide');
+    
+          // Show the success modal after a delay (to allow time for the email to be sent)
+          //setTimeout(function () {
+            $('#successModal').modal('show');
+            const successMessage = `You have successfully booked ${numSeats} seat(s) of ${data.ride.owner_name}'s ride from ${data.ride.from_location} to ${data.ride.to_location} on ${data.ride.start_date}. View (or modify) your bookings at <a href="/Frontend/Vehicle%20Pooling/my_ride_bookings.html" target="_blank">My Ride Bookings</a>`;
+            $('#successModalMessage').html(successMessage);
+          //}, 2000); // Adjust the delay time as needed
+        },
+        error: function (error) {
+          // Handle the error response
+          console.error('Error confirming booking:', error);
+    
+          // Close loading spinner
+          loadingSpinner.remove();
+    
+          // Show the error modal
+          $('#errorModal').modal('show');
+    
+          // Extract error message from the response and update the error modal content
+          const errorMessage = error.responseJSON.detail;
+          $('#errorModalMessage').text(errorMessage);
+        }
+      });
+    }
+
+
     $(function () {
+      $('#seatCount').attr('max', 6);
       $('#navbar-placeholder').load('/Frontend/navbar.html', function () {
         const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
         if (loggedInUser) {
@@ -291,6 +420,8 @@
           dataType: 'json',
           success: function (data) {
             displayRideDetails(data);
+            // Set the upper limit of seats in the number spinner
+            $('#seatCount').attr('max', data.vehicle_details.seats);
           },
           error: function (error) {
             console.error('Error:', error);
@@ -317,11 +448,10 @@
           $('#vehicle_type').text(`${ride.vehicle_details.vehicle_type}`);
           $('#vehicle_name').text(`${ride.vehicle_details.vehicle_name}`);
           $('#vehicle_number').text(`${ride.vehicle_details.vehicle_number}`);
-          $('#seats').text(`${ride.vehicle_details.seats}`);
           $('#extra_helmet').text(`${ride.vehicle_details.extra_helmet ? 'Yes' : 'No'}`);
 
           $('#price').text(`${ride.price}`);
-          $('#seats_available').text(`${ride.seats_available}`);
+          $('#seats_available').text(`${ride.vehicle_details.seats}`);
           $('#description').text(`${ride.description}`);
         }
       });
