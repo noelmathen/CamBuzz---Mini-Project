@@ -250,10 +250,12 @@ class BookRideView(CreateAPIView):
 @permission_classes([IsAuthenticated, IsOwnerOfBooking])
 class MyBookingsListView(ListAPIView):
     serializer_class = BookingListSerializer
+    filter_backends = [OrderingFilter]
+    ordering_fields = ['ride_details__start_date', 'ride_details__start_time']  # Specify ordering fields
 
     def get_queryset(self):
         user_bookings = Booking.objects.filter(passenger=self.request.user.student_profile)
-        return user_bookings
+        return user_bookings.order_by('ride__start_date', 'ride__start_time')
 
     def list(self, request, *args, **kwargs):
         queryset = self.get_queryset()
@@ -309,7 +311,7 @@ class EditBookingView(UpdateAPIView):
             serializer.save()
 
             # Build the success message
-            success_message = f"{booking.passenger.user.get_full_name()} edited thier number of seats from {old_num_seat} to {num_seats_updated} of {booking.ride.owner.user.get_full_name()}'s ride (id = {booking.ride.id})"
+            success_message = f"You have updated your number of seats from {old_num_seat} to {num_seats_updated} of {booking.ride.owner.user.first_name}'s ride!"
 
             # Send email to the ride owner about the seat update
             self.send_seat_update_email(booking, old_num_seat, num_seats_updated)
@@ -362,7 +364,7 @@ class CancelBookingView(DestroyAPIView):
             self.send_cancellation_email(booking, num_seats_cancelled)
 
             # Return success message
-            success_message = f"You ({booking.passenger.user.get_full_name()}) have successfully cancelled your booking on {booking.ride.owner.user.get_full_name()}'s ride from {booking.ride.from_location} to {booking.ride.to_location} on {booking.ride.start_date} at {booking.ride.start_time}"
+            success_message = f"You have successfully cancelled your booking of {booking.ride.owner.user.first_name}'s ride from {booking.ride.from_location} to {booking.ride.to_location} on {booking.ride.start_date} at {booking.ride.start_time}"
 
             # Continue with the booking cancellation
             super().destroy(request, *args, **kwargs)

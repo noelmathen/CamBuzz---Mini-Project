@@ -1,6 +1,9 @@
 #vehiclepooling/serializers.py
 from rest_framework import serializers
 from .models import VehicleListing, Booking
+from django.utils import timezone
+from django.contrib.humanize.templatetags import humanize
+
 
 class VehicleListingSerializer(serializers.ModelSerializer):
     # owner = StudentProfileSerializer()
@@ -96,10 +99,21 @@ class BookingListSerializer(serializers.ModelSerializer):
         model = Booking
         fields = ['id', 'num_seats', 'created_at', 'ride_details']
 
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+
+        # Format created_at to a human-readable format
+        created_at_pretty = humanize.naturaltime(instance.created_at)
+        representation['created_at'] = created_at_pretty
+
+        return representation
+
     def get_ride_details(self, obj):
         ride = obj.ride
+
         return {
             'owner_name': ride.owner.user.get_full_name(),
+            'owner_profile_picture': 'http://127.0.0.1:8000' + ride.owner.photo.url,
             'start_location': ride.from_location,
             'start_date': ride.start_date,
             'start_time': ride.start_time,
@@ -107,6 +121,7 @@ class BookingListSerializer(serializers.ModelSerializer):
             'end_date': ride.end_date,
             'end_time': ride.end_time,
             'price': ride.price,
+            'seats_available': ride.seats_available
         }
 
 
@@ -117,6 +132,15 @@ class BookingDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Booking
         fields = ['num_seats', 'created_at', 'ride_owner_details', 'ride_details']
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+
+        # Format created_at to a human-readable format
+        created_at_pretty = humanize.naturaltime(instance.created_at)
+        representation['created_at'] = created_at_pretty
+
+        return representation
 
     def get_ride_details(self, obj):
         ride = obj.ride
@@ -132,7 +156,8 @@ class BookingDetailSerializer(serializers.ModelSerializer):
             'vehicle_number': ride.vehicle_number,
             'price': ride.price,
             'description': ride.description,
-            # 'seats_available': ride.seats_available,
+            'seats_available': ride.seats_available,
+            'extra_helmet': ride.extra_helmet,
         }
 
     def get_ride_owner_details(self, obj):
@@ -141,8 +166,8 @@ class BookingDetailSerializer(serializers.ModelSerializer):
             'ride_owner_name': owner.user.get_full_name(),
             'ride_owner_batch': f"{owner.joining_year} - {owner.passout_year} batch",
             'ride_owner_branch': owner.branch,
+            'ride_owner_gender': owner.gender,
             'ride_owner_phone_number': owner.phone_number,
         }
-
 
 

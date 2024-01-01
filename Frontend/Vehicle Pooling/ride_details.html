@@ -39,18 +39,18 @@
       font-family: 'Arial', sans-serif;
       background-color: #f8f9fa;
     }
-
+  
     .container-lg {
       margin-top: 50px;
     }
-
+  
     .detail-box {
-      border: 1px solid #ced4da;
-      border-radius: 30px;
+      border: 2px solid #007bff;
+      border-radius: 15px;
       background-color: #ffffff;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      padding: 40px;
-      margin-bottom: 50px;
+      padding: 30px;
+      margin-bottom: 30px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -58,47 +58,54 @@
       height: 100%;
       /* Take full height of the container */
       transition: box-shadow 0.3s ease-in-out;
+      position: relative;
     }
-
+  
     .detail-box:hover {
       box-shadow: 0 0 30px rgba(5, 64, 244, 0.2)
     }
-
+  
+    .detail-section {
+      margin-bottom: 30px;
+    }
+  
     .detail-row {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
-
+  
     .detail-column {
       flex: 1;
       text-align: left;
       display: flex;
       flex-direction: column;
     }
-
+  
     h4 {
       color: #007bff;
       margin-bottom: 0;
+      font-family: 'Roboto', sans-serif; /* Cool heading font */
     }
-
+  
     strong {
       color: #343a40;
+      font-family: 'Open Sans', sans-serif; /* Cool attribute name font */
     }
-
+  
     .detail-box div {
-      margin-bottom: 10px;
+      margin-bottom: 15px; /* Increase margin between each attribute */
     }
-
+  
     .detail-box div:last-child {
       margin-bottom: 0;
     }
-
+  
     .book-button {
       text-align: center;
       margin-top: 20px;
     }
-
+  
     /* Updated Button Styles */
     .btn-book {
       width: 180px;
@@ -111,7 +118,7 @@
       /* Add position relative */
       transition: 0.8s ease-in-out;
     }
-
+  
     .btn-book svg {
       position: absolute;
       left: 0;
@@ -122,16 +129,12 @@
       stroke-dashoffset: 150;
       transition: 0.8s ease-in-out;
     }
-
+  
     .btn-book:hover {
       transition: 0.5s ease-in-out;
       background: #4F95DA;
     }
-
-    .btn-book:hover svg {
-      stroke-dashoffset: -480;
-    }
-
+  
     .btn-book span {
       color: rgb(21, 101, 118);
       font-size: 18px;
@@ -142,12 +145,31 @@
       left: 50%;
       transform: translate(-50%, -50%);
     }
-
+  
+    .section-divider {
+      position: relative;
+      margin-top: 20px;
+      border-top: 1px dashed #007bff;
+      content: "";
+    }
+  
+    .section-divider:not(:first-child) {
+      margin-top: 0;
+    }
+  
+    .detail-heading {
+      margin-bottom: 15px;
+      color: #006aff;
+      font-size: 25px;
+      font-weight: bold;
+      font-family: 'Lobster', cursive; /* Cool section heading font */
+    }
+  
     /* Modal Styles */
     .modal-body .input-group {
       margin-bottom: 15px;
     }
-
+  
     .modal-body .input-group-btn:last-child>.btn,
     .modal-body .input-group-btn:last-child>.btn-group {
       z-index: 2;
@@ -156,88 +178,71 @@
       border-bottom-left-radius: 0;
     }
   </style>
+  
 </head>
 
 <body>
   <div id="navbar-placeholder"></div>
+  <div id="navbar-placeholder"></div>
   <div class="container-lg">
-    <!-- All Details in One Box -->
+    <!-- Details Box -->
     <div class="detail-box">
-      <!-- Row 1: Heading Row -->
-      <div class="detail-row">
-        <!-- Ride Information Column -->
-        <div class="detail-column">
-          <h4>Ride Information</h4>
-        </div>
-
-        <!-- Owner Details Column -->
-        <div class="detail-column">
-          <h4>Owner Details</h4>
-        </div>
-
-        <!-- Vehicle Details Column -->
-        <div class="detail-column">
-          <h4>Vehicle Details</h4>
-        </div>
-
-        <!-- Price, Seats and Description Column -->
-        <div class="detail-column">
-          <h4>Price, Seats and Description</h4>
-        </div>
+      <!-- Ride Owner Details -->
+      <div class="detail-section">
+        <h4 class="detail-heading">Ride Owner Details</h4>
+        <div class="detail-attribute"><strong>Name:</strong> <span id="ride_owner_name"></span></div>
+        <div class="detail-attribute"><strong>Batch:</strong> <span id="ride_owner_batch"></span></div>
+        <div class="detail-attribute"><strong>Branch:</strong> <span id="ride_owner_branch"></span></div>
+        <div class="detail-attribute"><strong>Gender:</strong> <span id="ride_owner_gender"></span></div>
+        <div class="detail-attribute"><strong>Phone Number:</strong> <span id="ride_owner_phone_number"></span></div>
+        <div class="section-divider"></div>
       </div>
 
-      <!-- Row 2: Attributes Row -->
-      <div class="detail-row">
-        <!-- Ride Information Column -->
-        <div class="detail-column">
-          <div><strong>From:</strong> <span id="from_location"></span></div>
-          <div><strong>To:</strong> <span id="to_location"></span></div>
-          <div><strong>Start Date:</strong> <span id="start_date"></span></div>
-          <div><strong>End Date:</strong> <span id="end_date"></span></div>
-          <div><strong>Start Time:</strong> <span id="start_time"></span></div>
-          <div><strong>End Time:</strong> <span id="end_time"></span></div>
-        </div>
-
-        <!-- Owner Details Column -->
-        <div class="detail-column">
-          <div><strong>Full Name:</strong> <span id="full_name"></span></div>
-          <div><strong>Phone Number:</strong> <span id="phone_number"></span></div>
-          <div><strong>Branch:</strong> <span id="branch"></span></div>
-          <div><strong>Division:</strong> <span id="division"></span></div>
-          <div><strong>Batch:</strong> <span id="batch"></span></div>
-          <div><strong>Gender:</strong> <span id="gender"></span></div>
-        </div>
-
-        <!-- Vehicle Details Column -->
-        <div class="detail-column">
-          <div><strong>Vehicle Type:</strong> <span id="vehicle_type"></span></div>
-          <div><strong>Vehicle Name:</strong> <span id="vehicle_name"></span></div>
-          <div><strong>Vehicle Number:</strong> <span id="vehicle_number"></span></div>
-          <div><strong>Extra Helmet:</strong> <span id="extra_helmet"></span></div>
-        </div>
-
-        <!-- Price, Seats and Description Column -->
-        <div class="detail-column">
-          <div><strong>Price:</strong> ₹<span id="price"></span></div>
-          <div><strong>Number of Seats:</strong> <span id="seats_available"></span></div>
-          <div><strong>Description:</strong> <span id="description"></span></div>
-        </div>
+      <!-- Ride Details -->
+      <div class="detail-section">
+        <h4 class="detail-heading">Ride Details</h4>
+        <div class="detail-attribute"><strong>From Location:</strong> <span id="from_location"></span></div>
+        <div class="detail-attribute"><strong>To Location:</strong> <span id="to_location"></span></div>
+        <div class="detail-attribute"><strong>Start Date:</strong> <span id="start_date"></span></div>
+        <div class="detail-attribute"><strong>Start Time:</strong> <span id="start_time"></span></div>
+        <div class="detail-attribute"><strong>End Date:</strong> <span id="end_date"></span></div>
+        <div class="detail-attribute"><strong>End Time:</strong> <span id="end_time"></span></div>
+        <div class="detail-attribute"><strong>Vehicle Type:</strong> <span id="vehicle_type"></span></div>
+        <div class="detail-attribute"><strong>Vehicle Name:</strong> <span id="vehicle_name"></span></div>
+        <div class="detail-attribute"><strong>Vehicle Number:</strong> <span id="vehicle_number"></span></div>
+        <div class="detail-attribute"><strong>Extra Helmet:</strong> <span id="extra_helmet"></span></div>
+        <div class="section-divider"></div>
       </div>
 
-      <!-- Book This Ride Button -->
+      <!-- Price, Seats, and Description -->
+      <div class="detail-section">
+        <h4 class="detail-heading">Price, Seats, and Description</h4>
+        <div class="detail-attribute"><strong>Price:</strong> ₹<span id="price"></span></div>
+        <div class="detail-attribute"><strong>Number of Seats:</strong> <span id="seats_available"></span></div>
+        <div class="detail-attribute"><strong>Description:</strong> <span id="description"></span></div>
+        <div class="section-divider"></div>
+      </div>
+
+      <!-- Book button -->
       <div class="book-button">
-        <button class="btn-book" data-bs-toggle="modal" data-bs-target="#bookRide">
-          <svg width="180px" height="60px" viewBox="0 0 180 60" class="border">
-            <polyline points="179,1 179,59 1,59 1,1 179,1" class="bg-line" />
-            <polyline points="179,1 179,59 1,59 1,1 179,1" class="hl-line" />
+        <button type="button" class="btn btn-primary btn-book" data-bs-toggle="modal" data-bs-target="#bookRide">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="2" ry="2"></rect>
+            <line x1="7" y1="2" x2="7" y2="22"></line>
+            <line x1="17" y1="2" x2="17" y2="22"></line>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <line x1="2" y1="7" x2="7" y2="7"></line>
+            <line x1="2" y1="17" x2="7" y2="17"></line>
+            <line x1="17" y1="7" x2="22" y2="7"></line>
+            <line x1="17" y1="17" x2="22" y2="17"></line>
           </svg>
-          <span>BOOK THIS RIDE</span>
+          <span>Book Now</span>
         </button>
       </div>
-    </div>
   </div>
 
-  <!-- Modal HTML structure -->
+  <!-- Book Ride Modal -->
   <div class="modal fade" id="bookRide" tabindex="-1" aria-labelledby="bookRideLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -380,7 +385,7 @@
           // Show the success modal after a delay (to allow time for the email to be sent)
           //setTimeout(function () {
             $('#successModal').modal('show');
-            const successMessage = `You have successfully booked ${numSeats} seat(s) of ${data.ride.owner_name}'s ride from ${data.ride.from_location} to ${data.ride.to_location} on ${data.ride.start_date}. View (or modify) your bookings at <a href="/Frontend/Vehicle%20Pooling/my_ride_bookings.html" target="_blank">Your Ride Bookings</a>`;
+            const successMessage = `You have successfully booked ${numSeats} seat(s) of ${data.ride.owner_name}'s ride from ${data.ride.from_location} to ${data.ride.to_location} on ${data.ride.start_date}. View (or modify) your bookings at <a href="/Frontend/Vehicle%20Pooling/my_bookings.html" target="_blank">Your Bookings</a>`;
             $('#successModalMessage').html(successMessage);
           //}, 2000); // Adjust the delay time as needed
         },
@@ -401,7 +406,7 @@
       });
     }
 
-
+    
     $(function () {
       $('#seatCount').attr('max', 6);
       $('#navbar-placeholder').load('/Frontend/navbar.html', function () {
@@ -428,20 +433,59 @@
           }
         });
 
+        // Function to format time to am/pm
+        function formatTimeToAmPm(time) {
+          const [hours, minutes] = time.split(':');
+          const hour = parseInt(hours);
+          const period = hour >= 12 ? 'PM' : 'AM';
+          const formattedHour = hour % 12 === 0 ? 12 : hour % 12;
+          return `${formattedHour}:${minutes} ${period}`;
+        }
+
+        // Function to format date to words
+        function formatDateToWords(dateString) {
+          const options = { year: 'numeric', month: 'long', day: 'numeric' };
+          const date = new Date(dateString);
+          return date.toLocaleDateString('en-US', options);
+        }
+
         // Function to display ride details
         function displayRideDetails(ride) {
           // Update the HTML to display ride details dynamically
+
+          // Format time to am/pm
+          const startTimeAmPm = formatTimeToAmPm(ride.start_time);
+          const endTimeAmPm = formatTimeToAmPm(ride.end_time);
+
+          // Format date to words
+          const startDateWords = formatDateToWords(ride.start_date);
+          const endDateWords = formatDateToWords(ride.end_date);
+
+          // Display ride owner details
+          $('#ride_owner_name').text(`${ride.owner_details.full_name}`);
+          $('#ride_owner_batch').text(`${ride.owner_details.batch}`);
+          $('#ride_owner_branch').text(`${ride.owner_details.branch}`);
+          $('#ride_owner_gender').text(`${ride.owner_details.gender}`);
+          $('#ride_owner_phone_number').text(`${ride.owner_details.phone_number}`);
+
           $('#from_location').text(`${ride.from_location}`);
           $('#to_location').text(`${ride.to_location}`);
-          $('#start_date').text(`${ride.start_date}`);
-          $('#end_date').text(`${ride.end_date}`);
-          $('#start_time').text(`${ride.start_time}`);
-          $('#end_time').text(`${ride.end_time}`);
+          $('#start_date').text(`${startDateWords}`);
+          $('#end_date').text(`${endDateWords}`);
+          $('#start_time').text(`${startTimeAmPm}`);
+          $('#end_time').text(`${endTimeAmPm}`);
 
           $('#full_name').text(`${ride.owner_details.full_name}`);
           $('#phone_number').text(`${ride.owner_details.phone_number}`);
           $('#branch').text(`${ride.owner_details.branch}`);
-          $('#division').text(`${ride.owner_details.division}`);
+          
+          // Check if division is not N/A before displaying
+          if (ride.owner_details.division !== 'N/A') {
+            $('#division').text(`${ride.owner_details.division}`);
+          } else {
+            $('#division').hide(); // Hide the division element
+          }
+          
           $('#batch').text(`${ride.owner_details.batch}`);
           $('#gender').text(`${ride.owner_details.gender}`);
 

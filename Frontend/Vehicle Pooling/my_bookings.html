@@ -1,11 +1,11 @@
-<!-- search_ride.html -->
+<!-- my_bookings.html -->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Search Rides</title>
+  <title>My Ride Bookings</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -13,7 +13,7 @@
     body {
       background-color: rgb(246, 248, 249);
     }
-    .ride-box {
+    .booking-box {
       background-color: rgba(255, 255, 255, 0.909);
       color: #000000;
       border: 1px solid #2980b9;
@@ -24,7 +24,7 @@
       transform-origin: center bottom;
     }
 
-    .ride-box:hover {
+    .booking-box:hover {
       background-color: #e4e7e9;
       color: #000000;
       transform: scale(1.01);
@@ -37,99 +37,24 @@
 <body>
   <div id="navbar-placeholder"></div>
 
-  <div class="container-lg" style="text-align: center; margin-top: 50px;">
-    <form id="searchForm">
-      <div class="row align-items-center">
-        <div class="form-floating col">
-          <input type="input" class="form-control" id="inputLeavingFrom" placeholder="Leaving From">
-          <label for="inputLeavingFrom" class="ms-3">Leaving From</label>
-        </div>
-        <div class="form-floating col">
-          <input type="input" class="form-control" id="inputGoingTo" placeholder="Going To">
-          <label for="inputGoingTo" class="ms-3">Going To</label>
-        </div>
-        <div class="form-floating col">
-          <input type="date" class="form-control datetimepicker" id="inputDate" placeholder="Date / Time">
-          <label for="inputDate" class="ms-3">Date</label>
-        </div>
-        <div class="form-floating col">
-          <button type="button" class="btn btn-primary" onclick="searchRides()">Search</button>
-        </div>
-      </div>
-    </form>
-  </div>
-
   <div class="container" style="margin-top: 50px;">
-    <div class="row justify-content-evenly" id="rideResults">
-      <!-- Dynamic ride boxes will be appended here -->
+    <div class="row justify-content-evenly" id="bookingResults">
+      <!-- Dynamic booking boxes will be appended here -->
     </div>
   </div>
 
   <script>
-    function loadDefaultRides() {
-      // Call searchRides with empty parameters on page load
-      searchRides();
-    }
-    function searchRides() {
-      var from_location = $('#inputLeavingFrom').val();
-      var to_location = $('#inputGoingTo').val();
-      var start_date = $('#inputDate').val();
-
-      // Build the API URL based on provided parameters
-      var apiUrl = 'http://127.0.0.1:8000/api/vehiclepooling/find-ride/?';
-      if (from_location) apiUrl += 'from_location=' + from_location + '&';
-      if (to_location) apiUrl += 'to_location=' + to_location + '&';
-      if (start_date) apiUrl += 'date=' + start_date;
-      console.log(apiUrl)
-      $.ajax({
-        url: apiUrl,
-        type: 'GET',
-        dataType: 'json',
-        success: function (data) {
-          displayRideResults(data);
-        },
-        error: function (error) {
-          console.error('Error:', error);
-        }
-      });
-    }
-
-    function displayRideResults(rides) {
-      $('#rideResults').empty(); // Clear existing ride boxes
-    
-      if (rides.length === 0) {
-        // If no rides are returned, display a styled message
-        const noRidesMessage = `
-          <div style="text-align: center; margin-top: 20px; padding: 20px; background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; border-radius: 5px;">
-            <strong>Caution:</strong> No rides match the given criteria.
-          </div>`;
-        $('#rideResults').append(noRidesMessage);
-      } else {
-        // If rides are returned, display each ride box
-        rides.forEach(function (ride) {
-          var rideBox = createRideBox(ride);
-          $('#rideResults').append(rideBox);
-        });
-      }
-    }
-
-    function createRideBox(ride) {
-      // Function to format date in text format (e.g., "24th Jan 2023")
+    function createBookingBox(booking) {
+      console.log(booking)
       const formatDate = (dateString) => {
-        const options = { day: 'numeric', month: 'short', year: 'numeric' };
+        const options = { day: 'numeric', month: 'long', year: 'numeric' };
         const date = new Date(dateString);
         return date.toLocaleDateString('en-US', options);
       };
 
-      // Function to format time in AM/PM format (e.g., "01:45 PM")
-      const formatTime = (timeString) => {
-        const options = { hour: 'numeric', minute: 'numeric', hour12: true };
-        const time = new Date(`2000-01-01 ${timeString}`);
-        return time.toLocaleTimeString('en-US', options).toLowerCase().replace(/\s/g, '');
-      };
-      var rideBoxHtml = `
+      var bookingBoxHtml = `
         <div class="col-lg-4 col-md-auto mb-3">
-          <div class="card ride-box" style="border: 1px solid black; border-radius: 10px; padding: 0 0 20px 0; margin: 0 0 20px 0;">
+          <div class="card booking-box" style="border: 1px solid black; border-radius: 10px; padding: 0 0 20px 0; margin: 0 0 20px 0;">
             <div>
               <div>
                 <div>
@@ -137,8 +62,7 @@
                     <li>
                       <div style="display: flex; min-height: 60px;">
                         <div style="display: flex; flex-direction: column; width: 60px;">
-                          <!-- Add a fixed height for the time element -->
-                          <time style="height: 20px;">${formatTime(ride.start_time)}</time>
+                          <time style="height: 20px;">${booking.ride_details.start_time}</time>
                         </div>
                         <div aria-hidden="true" style="position: relative; display: flex; flex-direction: column; min-height: 30px; align-items: center; margin-left: 10px; flex-shrink: 0;">
                           <div style="width: 4px; height: calc(13px); background: transparent;"></div>
@@ -148,16 +72,15 @@
                           <div style="width: 4px; height: calc(13px); background: blue; height: 100%;"></div>
                         </div>
                         <div style="position: relative; flex: 1 1 0%; padding: 5px 0 0 10px;">
-                          <span>${ride.from_location}</span>
+                          <span>${booking.ride_details.start_location}</span>
                         </div>
                         <div style="position: relative; padding: 5px 0 0 10px; text-wrap: nowrap;">
-                          <span>${formatDate(ride.start_date)}</span>
+                          <span>${formatDate(booking.ride_details.start_date)}</span>
                         </div>
                       </div>
                       <div style="display: flex;">
                         <div style="display: flex; flex-direction: column; width: 60px; padding-top: 5px;">
-                          <!-- Add a fixed height for the time element -->
-                          <time style="height: 20px;">${formatTime(ride.end_time)}</time>
+                          <time style="height: 20px;">${booking.ride_details.end_time}</time>
                         </div>
                         <div aria-hidden="true" style="position: relative; display: flex; flex-direction: column; min-height: 30px; align-items: center; margin-left: 10px; flex-shrink: 0;">
                           <div style="width: 4px; height: calc(13px); background: blue;"></div>
@@ -167,12 +90,12 @@
                           <div style="width: 4px; height: calc(13px); background: transparent;"></div>
                         </div>
                         <div style="position: relative; flex: 1 1 0%; padding: 5px 0 0 10px;">
-                          <span>${ride.to_location}</span>
+                          <span>${booking.ride_details.end_location}</span>
                         </div>
                         <div style="position: relative; padding: 5px 0 0 10px; text-wrap: nowrap;">
-                          <span>${formatDate(ride.end_date)}</span>
+                          <span>${formatDate(booking.ride_details.end_date)}</span>
                         </div>
-                        <a href="/Frontend/Vehicle Pooling/ride_details.html?ride_id=${ride.id}" class="stretched-link"></a>
+                        <a href="/Frontend/Vehicle Pooling/my_bookings_detail.html?booking_id=${booking.id}" class="stretched-link"></a>
                       </div>
                     </li>
                   </ul>
@@ -180,31 +103,50 @@
               </div>
               <div style="display: flex; justify-content: space-between; align-items: center; margin: 0 30px;">
                 <div style="display: flex; flex-direction: column; align-items: flex-start;">
-                  <!-- Vehicle type (e.g., Bike) -->
                   <div style="margin-top: 16px;">
-                    <span>${ride.vehicle_type}</span>
+                  <span>${booking.created_at}</span>
                   </div>
-                  <!-- Profile picture and user name -->
                   <div class="d-flex align-items-center mb-2" style="margin-top: 20px;">
-                    <!-- Update the styling for the profile picture -->
-                    <span><img src="${ride.owner_profile_picture}" height="43" width="43" class="rounded-circle" style="object-fit: cover;" alt="..."></span>
-                    <label class="ms-2">${ride.owner_firstname}</label>
+                    <span><img src="${booking.ride_details.owner_profile_picture}" height="43" width="43" class="rounded-circle" style="object-fit: cover;" alt="..."></span>
+                    <label class="ms-2">${booking.ride_details.owner_name}</label>
                   </div>
                 </div>
-                <!-- Ride price and available seats -->
                 <div style="display: flex; flex-direction: column; align-items: flex-end;">
                   <div style="margin-bottom: 25px;">
-                    <span>&#8377;${ride.price}</span>
+                    <span>&#8377;${booking.ride_details.price}</span>
                   </div>
                   <div>
-                    <span>👤${ride.seats_available}</span>
+                    <span>👤${booking.num_seats}</span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>`;
-      return rideBoxHtml;
+      return bookingBoxHtml;
+    }
+
+    // Function to fetch booking data from the API
+    function fetchBookings() {
+      const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+      // Make an AJAX request to your API endpoint
+      $.ajax({
+        url: 'http://127.0.0.1:8000/api/vehiclepooling/my_bookings/',
+        type: 'GET',
+        headers: {
+          Authorization: 'Token ' + loggedInUser.token,  // Replace with your actual token
+        },
+        success: function (data) {
+          // Once data is fetched successfully, update the UI
+          const bookingResults = $('#bookingResults');
+          data.forEach(function (booking) {
+            bookingResults.append(createBookingBox(booking));
+          });
+        },
+        error: function (error) {
+          console.error('Error fetching bookings:', error);
+        },
+      });
     }
 
     $(function () {
@@ -213,9 +155,9 @@
 
         if (loggedInUser) {
           updateDynamicFeatures(loggedInUser);
+          fetchBookings();
         }
       });
-      loadDefaultRides();
     });
   </script>
 </body>

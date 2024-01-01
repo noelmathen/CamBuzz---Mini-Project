@@ -1,0 +1,581 @@
+<!-- my_bookings_detail.html. -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Bookings Details</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container-lg {
+      margin-top: 20px;
+    }
+
+    .detail-box {
+      border: 2px solid #007bff;
+      border-radius: 15px;
+      background-color: #ffffff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      margin-bottom: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      /* Align items vertically with space in between */
+      height: 100%;
+      /* Take full height of the container */
+      transition: box-shadow 0.3s ease-in-out;
+      position: relative;
+    }
+
+    .detail-box:hover {
+      box-shadow: 0 0 20px rgba(0, 123, 255, 0.3);
+    }
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+
+    .detail-column {
+      flex: 1;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+    }
+
+    h4 {
+      color: #007bff;
+      margin-bottom: 0;
+      font-family: 'Roboto', sans-serif;
+      /* Example font for headings */
+    }
+
+    strong {
+      color: #343a40;
+      font-family: 'Montserrat', sans-serif;
+      /* Example font for attribute names */
+    }
+
+    .detail-attribute {
+      margin-bottom: 20px;
+      font-size: 16px;
+      font-family: 'Open Sans', sans-serif;
+      /* Example font for attribute values (span) */
+    }
+
+    .detail-box {
+      margin-top: 20px;
+    }
+
+    .detail-section {
+      margin-bottom: 30px;
+    }
+
+    .detail-heading {
+      margin-bottom: 15px;
+      color: #006aff;
+      font-size: 25px;
+      font-weight: bold;
+      font-family: 'Lobster', cursive;
+      /* Example font for section headings */
+    }
+
+    .section-divider {
+      position: relative;
+      margin-top: 20px;
+      border-top: 1px dashed #007bff;
+      content: "";
+    }
+
+    .section-divider:not(:first-child) {
+      margin-top: 0;
+    }
+
+    .detail-box div:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Modal Styles */
+    .modal-body .input-group {
+      margin-bottom: 15px;
+    }
+
+    .modal-body .input-group-btn:last-child>.btn,
+    .modal-body .input-group-btn:last-child>.btn-group {
+      z-index: 2;
+      margin-bottom: 0;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    .event-details-dropdown {
+      display: inline-block;
+    }
+
+    .event-details-dropdown .btn-secondary {
+      background-color: #326aa6;
+      /* Blue background */
+      border-color: #2e7ccf;
+      /* Slightly darker blue border */
+      color: #fff;
+      /* White text */
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .event-details-dropdown .btn-secondary:hover,
+    .event-details-dropdown .btn-secondary:focus {
+      background-color: #2670c0;
+      /* Darker blue on hover/focus */
+      transform: scale(1.05);
+      /* Slight scale-up effect on hover/focus */
+    }
+
+    .event-details-dropdown .dropdown-menu {
+      background-color: #007bff;
+      /* Blue background for dropdown menu */
+      border: 1px solid #0056b3;
+      /* Slightly darker blue border */
+    }
+
+    .event-details-dropdown .dropdown-item {
+      color: #fff;
+      /* White text */
+      transition: background-color 0.3s ease;
+    }
+
+    .event-details-dropdown .dropdown-item:hover,
+    .event-details-dropdown .dropdown-item:focus {
+      background-color: #0056b3;
+      /* Darker blue on hover/focus */
+    }
+  </style>
+
+  <script>
+    $(document).on('click', '.number-spinner button', function () {
+      var btn = $(this),
+        oldValue = btn.closest('.number-spinner').find('input').val().trim(),
+        newVal = 0;
+      // Retrieve the maximum limit from the data-max attribute
+      var limitVal = parseInt(btn.closest('.number-spinner').find('input').attr('max')) || 6;
+
+      if (btn.attr('data-dir') == 'up') {
+        newVal = parseInt(oldValue) + 1;
+      } else {
+        if (oldValue > 1) {
+          newVal = parseInt(oldValue) - 1;
+        } else {
+          newVal = 1;
+        }
+      }
+      if (newVal > limitVal) newVal = limitVal;
+      btn.closest('.number-spinner').find('input').val(newVal);
+    });
+  </script>
+</head>
+
+<body>
+  <div id="navbar-placeholder"></div>
+  <div class="container-lg">
+    <!-- Details Box -->
+    <div class="container-lg">
+      <!-- Details Box -->
+      <div class="detail-box">
+        <!-- General Information -->
+        <div class="detail-section">
+          <h4 class="detail-heading">General Information</h4>
+          <div class="detail-attribute"><strong>Number of Seats Booked:</strong> <span id="num_seats"></span></div>
+          <div class="detail-attribute"><strong>Created At:</strong> <span id="created_at"></span></div>
+          <div class="detail-attribute"><strong>Price:</strong> <span id="price"></span></div>
+          <div class="detail-attribute"><strong>Description:</strong> <span id="description"></span></div>
+          <div class="section-divider"></div>
+        </div>
+
+        <!-- Ride Owner Details -->
+        <div class="detail-section">
+          <h4 class="detail-heading">Ride Owner Details</h4>
+          <div class="detail-attribute"><strong>Name:</strong> <span id="ride_owner_name"></span></div>
+          <div class="detail-attribute"><strong>Batch:</strong> <span id="ride_owner_batch"></span></div>
+          <div class="detail-attribute"><strong>Branch:</strong> <span id="ride_owner_branch"></span></div>
+          <div class="detail-attribute"><strong>Gender:</strong> <span id="ride_owner_gender"></span></div>
+          <div class="detail-attribute"><strong>Phone Number:</strong> <span id="ride_owner_phone_number"></span></div>
+          <div class="section-divider"></div>
+        </div>
+
+        <!-- Ride Details -->
+        <div class="detail-section">
+          <h4 class="detail-heading">Ride Details</h4>
+          <div class="detail-attribute"><strong>From Location:</strong> <span id="from_location"></span></div>
+          <div class="detail-attribute"><strong>To Location:</strong> <span id="to_location"></span></div>
+          <div class="detail-attribute"><strong>Start Date:</strong> <span id="start_date"></span></div>
+          <div class="detail-attribute"><strong>Start Time:</strong> <span id="start_time"></span></div>
+          <div class="detail-attribute"><strong>End Date:</strong> <span id="end_date"></span></div>
+          <div class="detail-attribute"><strong>End Time:</strong> <span id="end_time"></span></div>
+          <div class="detail-attribute"><strong>Vehicle Type:</strong> <span id="vehicle_type"></span></div>
+          <div class="detail-attribute"><strong>Vehicle Name:</strong> <span id="vehicle_name"></span></div>
+          <div class="detail-attribute"><strong>Vehicle Number:</strong> <span id="vehicle_number"></span></div>
+          <div class="detail-attribute"><strong>Extra Helmet:</strong> <span id="extra_helmet"></span></div>
+          <div class="section-divider"></div>
+        </div>
+
+        <!-- Dropdown for Edit and Delete options -->
+        <div class="event-details-dropdown" style="position: absolute; top: 10px; right: 10px;">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="optionsButton" data-bs-toggle="dropdown"
+            aria-expanded="false">
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="optionsButton">
+            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#EditRide"">Edit this Booking</a></li>
+            <li><a class=" dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#cancelBookingModal">Cancel
+                this Booking</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Edit Ride Modal -->
+  <div class="modal fade" id="EditRide" tabindex="-1" aria-labelledby="editRideLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit Ride</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <div class="row mb-3">
+              <label for="seatCount" class="col-sm-4 col-form-label">Select number of seats:</label>
+              <div class="col-sm-8">
+                <div class="input-group number-spinner">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" data-dir="dwn"><span
+                        class="glyphicon glyphicon-minus">-</span></button>
+                  </span>
+                  <input type="text" id="seatCount" class="form-control text-center" value="1" min="1" max="6">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" data-dir="up"><span class="glyphicon glyphicon-plus"
+                        aria-hidden="true">+</span></button>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+            data-bs-target="#confirmBookModal">Edit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONFIRMATION MODAL -->
+  <div class="modal fade" id="confirmBookModal" tabindex="-1" aria-labelledby="confirmBookModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmBookModalLabel">Confirm Edit Booking</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to edit this booking?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+          <button type="button" class="btn btn-success" onclick="editBooking()">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success Modal -->
+  <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="successModalLabel">Ride Booking Successful!</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="successModalMessage"></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cancel Booking Modal -->
+  <div class="modal fade" id="cancelBookingModal" tabindex="-1" aria-labelledby="cancelBookingModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="cancelBookingModalLabel">Cancel Booking</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to cancel this booking?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+          <button type="button" class="btn btn-danger" id="confirmCancelBtn" onclick="cancelBooking()">Yes</button>
+          <span id="cancelBookingSpinner" style="display:none;">
+            <div class="spinner-border spinner-border-sm" role="status">
+              <span class="visually-hidden">Cancelling...</span>
+            </div>
+            Cancelling your booking...
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Error Modal -->
+  <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="errorModalLabel">Error! Please Try Again!</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="errorModalMessage"></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Add the following HTML for the loading spinner -->
+  <div id="loadingSpinner"
+    style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Your script for updating dynamic features -->
+  <script>
+    $(function () {
+      $('#navbar-placeholder').load('/Frontend/navbar.html', function () {
+        const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+        if (loggedInUser) {
+          updateDynamicFeatures(loggedInUser);
+        }
+
+        // Function to close the Edit modal when Confirm modal is opened
+        $('#confirmBookModal').on('show.bs.modal', function (e) {
+          // Prevent the Edit modal from being closed
+          $('#EditRide').on('bs.modal');
+        });
+
+        // Function to close both Edit and Confirm modals when Success modal is opened
+        $('#successModal').on('show.bs.modal', function (e) {
+          // Close the Edit modal
+          $('#EditRide').modal('hide');
+          // Close the Confirm modal
+          $('#confirmBookModal').modal('hide');
+        });
+
+        // Retrieve booking ID from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const bookingId = urlParams.get('booking_id');
+        // Fetch booking details using the booking ID
+        $.ajax({
+          url: `http://127.0.0.1:8000/api/vehiclepooling/my_bookings/${bookingId}/`,
+          type: 'GET',
+          dataType: 'json',
+          headers: {
+            Authorization: 'Token ' + loggedInUser.token,  // Add your authentication token
+          },
+          success: function (data) {
+            displayBookingDetails(data);
+          },
+          error: function (error) {
+            console.error('Error:', error);
+          }
+        });
+
+        // Function to display booking details
+        function displayBookingDetails(booking) {
+          // Update the HTML to display booking details dynamically
+          // Format created_at to a human-readable format
+          $('#num_seats').text(`${booking.num_seats}`);
+          $('#created_at').text(`${booking.created_at}`);
+
+          $('#ride_owner_name').text(`${booking.ride_owner_details.ride_owner_name}`);
+          $('#ride_owner_batch').text(`${booking.ride_owner_details.ride_owner_batch}`);
+          $('#ride_owner_branch').text(`${booking.ride_owner_details.ride_owner_branch}`);
+          $('#ride_owner_gender').text(`${booking.ride_owner_details.ride_owner_gender}`);
+          $('#ride_owner_phone_number').text(`${booking.ride_owner_details.ride_owner_phone_number}`);
+
+          $('#from_location').text(`${booking.ride_details.from_location}`);
+          $('#to_location').text(`${booking.ride_details.to_location}`);
+          $('#start_date').text(`${booking.ride_details.start_date}`);
+          $('#start_time').text(`${booking.ride_details.start_time}`);
+          $('#end_date').text(`${booking.ride_details.end_date}`);
+          $('#end_time').text(`${booking.ride_details.end_time}`);
+          $('#vehicle_type').text(`${booking.ride_details.vehicle_type}`);
+          $('#vehicle_name').text(`${booking.ride_details.vehicle_name}`);
+          $('#vehicle_number').text(`${booking.ride_details.vehicle_number}`);
+          $('#extra_helmet').text(`${booking.ride_details.extra_helmet ? 'Yes' : 'No'}`);
+
+          $('#price').text(`₹${booking.ride_details.price}`);
+          $('#seats_available').text(`${booking.num_seats}`);
+          $('#description').text(`${booking.ride_details.description}`);
+
+          // Update the input field for seat count with the maximum available seats
+          const availableSeats = booking.ride_details.seats_available;
+          const bookedSeats = booking.num_seats;
+
+          // Calculate the upper limit based on available seats and booked seats
+          const upperLimit = (availableSeats <= bookedSeats) ? bookedSeats : availableSeats;
+
+          // Update the input field with the calculated upper limit
+          $('#seatCount').attr('max', upperLimit);
+
+          // Function to close both Edit and Confirm modals when Success modal is opened
+          $('#successModal').on('show.bs.modal', function (e) {
+            // Close the Edit modal
+            $('#EditRide').modal('hide');
+            // Close the Confirm modal
+            $('#confirmBookModal').modal('hide');
+          });
+
+          // Function to handle the "Close" button click event in the success modal
+          $('#successModal').on('hidden.bs.modal', function (e) {
+            // Refresh the page after the modal is closed
+            location.reload();
+          });
+
+          // Function to update the number of seats in the Edit modal when it is shown
+          $('#EditRide').on('show.bs.modal', function (e) {
+            // Retrieve the current value of num_seats
+            const numSeats = $('#num_seats').text();
+            // Set the value of the seatCount input field to num_seats
+            $('#seatCount').val(numSeats);
+          });
+        }
+      });
+    });
+
+
+    function editBooking() {
+      // Disable the "Yes" button and show a loading spinner
+      const yesButton = $('#confirmBookModal .btn-success');
+      yesButton.prop('disabled', true);
+      yesButton.html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Updating your booking...');
+
+      const newNumSeats = $('#seatCount').val();
+      const bookingId = getUrlParameter('booking_id');
+      const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+
+      $.ajax({
+        url: `http://127.0.0.1:8000/api/vehiclepooling/my_bookings/${bookingId}/edit/`,
+        type: 'PUT',
+        dataType: 'json',
+        headers: {
+          Authorization: 'Token ' + loggedInUser.token,
+        },
+        data: {
+          num_seats: newNumSeats,
+        },
+        success: function (data) {
+          // Enable the "Yes" button and reset its text
+          yesButton.prop('disabled', false);
+          yesButton.text('Yes');
+
+          // Update the success modal content based on the server's response
+          $('#successModalLabel').text('Ride Booking Successful!');
+          $('#successModalMessage').text(data.detail);
+          $('#successModal').modal('show');
+        },
+        error: function (error) {
+          // Enable the "Yes" button and reset its text
+          yesButton.prop('disabled', false);
+          yesButton.text('Yes');
+
+          // Update the error modal content based on the server's response
+          $('#errorModalLabel').text('Ride Booking Error! Please Try Again!');
+          $('#errorModalMessage').text(error.responseJSON.detail);
+          $('#errorModal').modal('show');
+          console.error('Error:', error);
+        }
+      });
+    }
+
+    // Helper function to get URL parameters
+    function getUrlParameter(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
+    }
+
+    function cancelBooking() {
+      // Retrieve booking ID from URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const bookingId = urlParams.get('booking_id');
+
+      // Disable the "Yes" button and show the loading spinner
+      const confirmCancelBtn = $('#confirmCancelBtn');
+      confirmCancelBtn.prop('disabled', true);
+      $('#cancelBookingSpinner').show();
+
+      // Add your logic to send a request to cancel the booking
+      const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+
+      $.ajax({
+        url: `http://127.0.0.1:8000/api/vehiclepooling/my_bookings/${bookingId}/cancel/`,
+        type: 'DELETE',
+        headers: {
+          Authorization: 'Token ' + loggedInUser.token,
+        },
+        success: function (data) {
+          // Update the success modal content based on the server's response
+          $('#successModalLabel').text('Booking Cancellation Successful!');
+          $('#successModalMessage').text(data.detail);
+          $('#successModal').modal('show');
+        },
+        error: function (error) {
+          // Update the error modal content based on the server's response
+          $('#errorModalLabel').text('Booking Cancellation Error! Please Try Again!');
+          $('#errorModalMessage').text(error.responseJSON.detail);
+          $('#errorModal').modal('show');
+          console.error('Error:', error);
+        },
+        complete: function () {
+          // Enable the "Yes" button and hide the loading spinner
+          confirmCancelBtn.prop('disabled', false);
+          $('#cancelBookingSpinner').hide();
+          // Close the cancel booking confirmation modal
+          $('#cancelBookingModal').modal('hide');
+        }
+      });
+      // Function to handle the "Close" button click event in the success modal
+      $('#successModal').on('hidden.bs.modal', function (e) {
+        // Redirect to the my_bookings.html page after the modal is closed
+        window.location.href = '/Frontend/Vehicle Pooling/my_bookings.html';
+      });
+    }
+  </script>
+</body>
+
+</html>
