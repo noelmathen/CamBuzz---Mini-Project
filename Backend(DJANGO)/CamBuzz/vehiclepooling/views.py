@@ -111,7 +111,7 @@ class RideDetailView(RetrieveAPIView):
 class YourRidesView(ListAPIView):
     serializer_class = YourRideDetailsSerializer
     filter_backends = [OrderingFilter]
-    ordering = ['owner']
+    ordering = ['start_date']
 
     def get_queryset(self):
         student_instance = Student.objects.get(user=self.request.user)

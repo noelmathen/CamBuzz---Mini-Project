@@ -1,4 +1,5 @@
-<!doctype html>
+<!-- edit_ride.html -->
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -21,138 +22,73 @@
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.9.4/dist/css/tempus-dominus.min.css"
         crossorigin="anonymous">
-
-
-    <!-- datetimepicker jQuery CDN -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script> -->
-
-
     <script>
-        $(function () {
-            $('#helmentQuestion').hide();
-
-            $(".datepicker").each(function () {
-                //https://getdatepicker.com/6/functions/dates.html
-                const picker = new tempusDominus.TempusDominus(this, {
-                    display: {
-                        theme: 'light',
-                        components: {
-                            calendar: true,
-                            date: true,
-                            month: true,
-                            year: true,
-                            decades: false,
-                            clock: false,
-                            hours: false,
-                            minutes: false,
-                            seconds: false,
-                            //deprecated use localization.hourCycle = 'h24' instead
-                            useTwentyfourHour: undefined
-                        }
-                    },
-                    localization: {
-                        format: 'yyyy-MM-dd'
-                    }
-                });
-
-            });
-
-            $(".timepicker").each(function () {
-                //https://getdatepicker.com/6/functions/dates.html
-                const picker = new tempusDominus.TempusDominus(this, {
-                    display: {
-                        theme: 'light',
-                        components: {
-                            calendar: false,
-                            date: false,
-                            month: false,
-                            year: false,
-                            decades: false,
-                            clock: true,
-                            hours: true,
-                            minutes: true,
-                            seconds: false,
-                            //deprecated use localization.hourCycle = 'h24' instead
-                            useTwentyfourHour: true
-                        }
-                    },
-                    localization: {
-                        format: 'HH:mm'
-                    }
-                });
-
-            });
-
-        });
-
-        function vehicleTypeCheck() {
-            var vehicleType = document.getElementById('vehicleType').value;
-            if (vehicleType == 'Car')
-                $('#helmentQuestion').hide();
-            else
-                $('#helmentQuestion').show();
-        }
+        
     </script>
 </head>
 
 <body>
     <div id="navbar-placeholder"></div>
-
-
-
-
     <div class="container-lg" style="text-align: center; margin-top: 50px;">
-        <form>
+        <form id="editRideForm" action="http://127.0.0.1:8000/api/vehiclepooling/your-rides/${rideId}/edit/" method="post">
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingtext1" placeholder="From Location">
-                <label for="floatingtext1">From Location</label>
+                <input type="text" class="form-control" id="fromLocation" placeholder="From Location"
+                    name="from_location">
+                <label for="fromLocation">From Location</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingtext2" placeholder="To Location">
-                <label for="floatingtext2">To Location</label>
+                <input type="text" class="form-control" id="toLocation" placeholder="To Location" name="to_location">
+                <label for="toLocation">To Location</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="text" class="form-control datepicker" id="startdate" placeholder="Date / Time">
-                <label for="startdate">Start Date</label>
+                <input type="date" class="form-control datepicker" id="startDate" placeholder="Date / Time"
+                    name="start_date">
+                <label for="startDate">Start Date</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="text" class="form-control timepicker" id="starttime" placeholder="Date / Time">
-                <label for="starttime">Start Time</label>
+                <input type="date" class="form-control datepicker" id="endDate" placeholder="Date / Time"
+                    name="end_date">
+                <label for="endDate">End Date</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="text" class="form-control datepicker" id="enddate" placeholder="Date / Time">
-                <label for="enddate">End Date</label>
+                <input type="time" class="form-control timepicker" id="startTime" placeholder="Date / Time"
+                    name="start_time">
+                <label for="startTime">Start Time</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="text" class="form-control timepicker" id="endtime" placeholder="Date / Time">
-                <label for="endtime">End Time</label>
+                <input type="time" class="form-control timepicker" id="endTime" placeholder="Date / Time"
+                    name="end_time">
+                <label for="endTime">End Time</label>
             </div>
             <div class="form-floating mb-3">
-                <select class="form-select" id="vehicleType" aria-label="Vehicle Type" onchange="vehicleTypeCheck();">
+                <select class="form-select" id="vehicleType" aria-label="Vehicle Type" onchange="vehicleTypeCheck();"
+                    name="vehicle_type">
                     <option selected>Select Vehicle Type</option>
                     <option value="Car">Car</option>
                     <option value="Bike">Bike</option>
+                    <option value="Scooty">Scooty</option>
                 </select>
                 <label for="vehicleType">Vehicle Type</label>
             </div>
-            <div class="form-floating mb-3" id="helmentQuestion">
-                <select class="form-select" id="extraHelmet" aria-label="Extra Helmet">
-                    <option selected>Select Extra Helmet</option>
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
+            <div class="form-floating mb-3" id="helmetQuestion">
+                <select class="form-select" id="extraHelmet" aria-label="Extra Helmet" name="extra_helmet">
+                    <option value="false">No</option>
+                    <option value="true">Yes</option>
                 </select>
-                <label for="extraHelmet">Extra Helmet</label>
+                <label for="extraHelmet">Do you have an extra helmet?</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingtext5" placeholder="Vehicle Name">
-                <label for="floatingtext5">Vehicle Name</label>
+                <input type="text" class="form-control" id="vehicleName" placeholder="Vehicle Name"
+                    name="vehicle_name">
+                <label for="vehicleName">Vehicle Name</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingtext6" placeholder="Vehicle Number">
-                <label for="floatingtext6">Vehicle Number</label>
+                <input type="text" class="form-control" id="vehicleNumber" placeholder="Vehicle Number"
+                    name="vehicle_number">
+                <label for="vehicleNumber">Vehicle Number</label>
             </div>
             <div class="form-floating mb-3">
-                <select class="form-select" id="numberOfSeats" aria-label="Number of Seats">
+                <select class="form-select" id="numberOfSeats" aria-label="Number of Seats" name="seats_available">
                     <option selected>Select Number of Seats</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -164,32 +100,124 @@
                 <label for="numberOfSeats">Number of Seats</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingtext7" placeholder="Price">
-                <label for="floatingtext7">Price</label>
+                <input type="text" class="form-control" id="price" placeholder="Price" name="price">
+                <label for="price">Price</label>
             </div>
             <div class="form-floating mb-3">
-                <textarea class="form-control" id="floatingtext8" rows="5"></textarea>
-                <label for="floatingtext8">Description</label>
+                <textarea class="form-control" id="description" rows="5" name="description"></textarea>
+                <label for="description">Description</label>
             </div>
-            <button type="submit" class="btn btn-primary">Edit</button>
+            <button type="submit" class="btn btn-primary">EDIT</button>
         </form>
-
     </div>
 
     <script>
-        $(function () {
-            $('#navbar-placeholder').load('/Frontend/navbar.html', function () {
-                // Retrieve user information from local storage
-                const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
-
-                if (loggedInUser) {
-                    // Call the function to update dynamic features
-                    updateDynamicFeatures(loggedInUser);
+        $(document).ready(function () {
+            $('#helmetQuestion').hide();
+    
+            $('#vehicleType').change(function () {
+                updateHelmetVisibility();
+            });
+    
+            // Initial check on page load
+            updateHelmetVisibility();
+    
+            function updateHelmetVisibility() {
+                var vehicleType = $('#vehicleType').val();
+    
+                // Use show/hide directly based on the condition
+                if (vehicleType === 'Bike' || vehicleType === 'Scooty') {
+                    $('#helmetQuestion').show();
+                } else {
+                    $('#helmetQuestion').hide();
                 }
+            }
+    
+            // Retrieve rideId from the URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const rideId = urlParams.get('rideId');
+            const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+    
+            // Fetch ride details based on rideId
+            $.ajax({
+                url: `http://127.0.0.1:8000/api/vehiclepooling/rides/${rideId}/`, // Replace with your actual API endpoint
+                type: 'GET',
+                headers: {
+                    'Authorization': 'Token ' + loggedInUser.token,
+                },
+                dataType: 'json',
+                success: function (ride) {
+                    console.log(ride)
+                    // Populate form fields with ride details
+                    $('#fromLocation').val(ride.from_location);
+                    $('#toLocation').val(ride.to_location);
+                    $('#startDate').val(ride.start_date);
+                    $('#endDate').val(ride.end_date);
+                    $('#startTime').val(ride.start_time);
+                    $('#endTime').val(ride.end_time);
+                    $('#vehicleType').val(ride.vehicle_details.vehicle_type);
+                    $('#extraHelmet').val(ride.vehicle_details.extra_helmet.toString());
+                    $('#vehicleName').val(ride.vehicle_details.vehicle_name);
+                    $('#vehicleNumber').val(ride.vehicle_details.vehicle_number);
+                    $('#numberOfSeats').val(ride.vehicle_details.seats);
+                    $('#price').val(ride.price);
+                    $('#description').val(ride.description);
+                },
+                error: function (error) {
+                    console.error('Error:', error);
+                }
+            });
+    
+            // Handle form submission
+            $('#editRideForm').submit(function (event) {
+                event.preventDefault();
+    
+                // Serialize the form data
+                const formData = new FormData(this);
+                const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+    
+                // Get the value of extra_helmet from the form data
+                let extraHelmetValue = formData.get('extra_helmet');
+    
+                // Convert to boolean and set the value back
+                formData.set('extra_helmet', extraHelmetValue === 'true' ? true : false);
+                const urlParams = new URLSearchParams(window.location.search);
+                const rideId = urlParams.get('rideId');
+                // Send a POST request to the backend API with the Authorization header
+                $.ajax({
+                    type: 'PUT',
+                    url: `http://127.0.0.1:8000/api/vehiclepooling/your-rides/${rideId}/edit/`,
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    headers: {
+                        'Authorization': 'Token ' + loggedInUser.token
+                    },
+                    success: function (response) {
+                        console.log(response);
+                        alert("You have edited this ride successfully!")
+                        window.location.replace('/Frontend/Vehicle Pooling/vehicle_pooling.html')
+                    },
+                    error: function (xhr, status, error) {
+                        const responseJSON = xhr.responseJSON;
+                        console.error(responseJSON);
+    
+                        if (responseJSON.end_date) {
+                            alert(responseJSON.end_date[0]);
+                        }
+    
+                        if (responseJSON.end_time) {
+                            alert(responseJSON.end_time[0]);
+                        }
+    
+                        if (responseJSON.extra_helmet) {
+                            alert(responseJSON.extra_helmet[0]);
+                        }
+                    }
+                });
             });
         });
     </script>
-
 </body>
 
 </html>

@@ -109,7 +109,7 @@
       outline: none;
       position: relative;
       /* Add position relative */
-      transition: 1s ease-in-out;
+      transition: 0.8s ease-in-out;
     }
 
     .btn-book svg {
@@ -120,11 +120,11 @@
       stroke: #ffffff;
       stroke-dasharray: 150 480;
       stroke-dashoffset: 150;
-      transition: 1s ease-in-out;
+      transition: 0.8s ease-in-out;
     }
 
     .btn-book:hover {
-      transition: 1s ease-in-out;
+      transition: 0.5s ease-in-out;
       background: #4F95DA;
     }
 
@@ -380,7 +380,7 @@
           // Show the success modal after a delay (to allow time for the email to be sent)
           //setTimeout(function () {
             $('#successModal').modal('show');
-            const successMessage = `You have successfully booked ${numSeats} seat(s) of ${data.ride.owner_name}'s ride from ${data.ride.from_location} to ${data.ride.to_location} on ${data.ride.start_date}. View (or modify) your bookings at <a href="/Frontend/Vehicle%20Pooling/my_ride_bookings.html" target="_blank">My Ride Bookings</a>`;
+            const successMessage = `You have successfully booked ${numSeats} seat(s) of ${data.ride.owner_name}'s ride from ${data.ride.from_location} to ${data.ride.to_location} on ${data.ride.start_date}. View (or modify) your bookings at <a href="/Frontend/Vehicle%20Pooling/my_ride_bookings.html" target="_blank">Your Ride Bookings</a>`;
             $('#successModalMessage').html(successMessage);
           //}, 2000); // Adjust the delay time as needed
         },

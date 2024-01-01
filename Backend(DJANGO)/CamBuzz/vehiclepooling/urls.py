@@ -28,4 +28,3 @@ urlpatterns = [
     path('my_bookings/<int:pk>/cancel/', CancelBookingView.as_view(), name='cancel-booking'),
 ]
 
-

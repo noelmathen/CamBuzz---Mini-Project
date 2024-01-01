@@ -10,13 +10,16 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <style>
+    body {
+      background-color: rgb(246, 248, 249);
+    }
     .ride-box {
-      background-color: rgb(255, 255, 255);
+      background-color: rgba(255, 255, 255, 0.909);
       color: #000000;
       border: 1px solid #2980b9;
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      transition: background-color 1s ease, transform 0.4s ease, box-shadow 0.3s ease;
+      transition: background-color 0.8s ease, transform 0.4s ease, box-shadow 0.3s ease;
       cursor: pointer;
       transform-origin: center bottom;
     }
@@ -93,11 +96,21 @@
 
     function displayRideResults(rides) {
       $('#rideResults').empty(); // Clear existing ride boxes
-
-      rides.forEach(function (ride) {
-        var rideBox = createRideBox(ride);
-        $('#rideResults').append(rideBox);
-      });
+    
+      if (rides.length === 0) {
+        // If no rides are returned, display a styled message
+        const noRidesMessage = `
+          <div style="text-align: center; margin-top: 20px; padding: 20px; background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; border-radius: 5px;">
+            <strong>Caution:</strong> No rides match the given criteria.
+          </div>`;
+        $('#rideResults').append(noRidesMessage);
+      } else {
+        // If rides are returned, display each ride box
+        rides.forEach(function (ride) {
+          var rideBox = createRideBox(ride);
+          $('#rideResults').append(rideBox);
+        });
+      }
     }
 
     function createRideBox(ride) {
