@@ -35,6 +35,52 @@
       margin-top: 10px;
       margin-right: 10px;
     }
+
+    .dropdown-menu {
+      background-color: #343a40;
+      /* Background color */
+      border: 1px solid #343a40;
+      /* Border color */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      /* Box shadow */
+      color: white;
+      /* Text color */
+      border-radius: 8px;
+      /* Border radius */
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      /* Transition effect */
+    }
+
+    .dropdown-menu.show {
+      opacity: 1;
+      /* Make the dropdown visible when shown */
+      transform: translateY(0);
+      /* Move it down smoothly */
+    }
+
+    .dropdown-item {
+      color: white;
+      /* Text color */
+      padding: 10px 15px;
+      /* Padding */
+      transition: background-color 0.3s ease;
+      /* Transition effect */
+    }
+
+    .dropdown-item:hover {
+      background-color: #76787a;
+      /* Hover background color */
+    }
+
+    .dropdown-toggle {
+      color: white;
+      /* Text color */
+    }
+
+    .dropdown-toggle:hover {
+      text-decoration: none;
+      /* Remove underline on hover */
+    }
   </style>
 </head>
 
@@ -69,11 +115,24 @@
     </div>
   </nav>
 
-  <!-- Logout Confirmation Popup -->
-  <div id="logout-confirmation-popup" class="logout-confirmation-popup">
-    <p>Are you sure you want to logout?</p>
-    <button id="confirm-logout" class="btn btn-primary">Yes</button>
-    <button id="cancel-logout" class="btn btn-secondary">No</button>
+  <!-- Logout Confirmation Modal -->
+  <div class="modal fade" id="logoutConfirmationModal" tabindex="-1" aria-labelledby="logoutConfirmationModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="logoutConfirmationModalLabel">Confirm Logout</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to logout?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-danger" id="confirmLogoutBtn">Logout</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -88,27 +147,27 @@
       const profileImage = document.getElementById('profileImage');
       const profileName = document.getElementById('profileName');
       const profileDropdown = document.getElementById('profileDropdown');
-      const logoutButton = document.getElementById('confirm-logout');
+      const logoutButton = document.getElementById('confirmLogoutBtn');
 
       const imageUrl = loggedInUser.imageUrl ? `http://127.0.0.1:8000${loggedInUser.imageUrl}` : './img/blank_profile_pic.jpg';
-      const userToken = loggedInUser.token
+      const userToken = loggedInUser.token;
       profileImage.src = imageUrl;
       profileName.innerText = loggedInUser.firstName || 'User';
 
       createDropdownMenu(loggedInUser);
-      logoutButton.addEventListener('click', showLogoutConfirmation);
+      logoutButton.addEventListener('click', showLogoutModal);
     }
 
     function createDropdownMenu(loggedInUser) {
       const profileDropdown = document.getElementById('profileDropdown');
       profileDropdown.innerHTML = '';
-      const userType = loggedInUser.userType
-      const userToken = loggedInUser.token
+      const userType = loggedInUser.userType;
+      const userToken = loggedInUser.token;
       if (userType === 'Student') {
-        createDropdownItem(profileDropdown, 'My Profile', '/Frontend/User Profiles/studprofile.html');
+        createDropdownItem(profileDropdown, 'My Profile', '');
         createDropdownItem(profileDropdown, 'My Rides', '/Frontend/Vehicle Pooling/my_rides.html');
         createDropdownItem(profileDropdown, 'My Bookings', '/Frontend/Vehicle Pooling/my_bookings.html');
-        createDropdownItem(profileDropdown, 'My Recommendations', '/Frontend/FoodSpotRecommendations/my_recommendations.html');
+        createDropdownItem(profileDropdown, 'My Reviews', '/Frontend/FoodSpotRecommendations/my_recommendations.html');
       } else if (userType === 'Organisation') {
         createDropdownItem(profileDropdown, 'My Profile', '/Frontend/User Profiles/orgprofile.html');
         createDropdownItem(profileDropdown, 'My Events', '/Frontend/eventhub/myevents.html');
@@ -117,9 +176,7 @@
       createDropdownItem(profileDropdown, 'Logout', '#');
       // Attach event listener to the Logout button
       const logoutButton = document.querySelector('#profileDropdown .dropdown-item[href="#"]');
-      logoutButton.addEventListener('click', () => {
-        showLogoutConfirmation(userToken); // Pass userToken to the function
-      });
+      logoutButton.addEventListener('click', showLogoutModal);
     }
 
     function createDropdownItem(parent, text, href) {
@@ -127,34 +184,66 @@
       const linkItem = document.createElement('a');
       linkItem.classList.add('dropdown-item');
       linkItem.innerText = text;
-      linkItem.href = href;
+
+      // Check user type and set the appropriate href
+      const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+      const userType = loggedInUser.userType;
+      if (text === 'My Profile') {
+        if (userType === 'Student') {
+          linkItem.href = '/Frontend/User Profiles/studprofile.html';
+        } else if (userType === 'Organisation') {
+          linkItem.href = '/Frontend/User Profiles/orgprofile.html';
+        }
+      } else {
+        linkItem.href = href;
+      }
+
       listItem.appendChild(linkItem);
       parent.appendChild(listItem);
     }
 
-    function showLogoutConfirmation(userToken) {
-      const popup = document.getElementById('logout-confirmation-popup');
-      popup.style.display = 'block';
+    function showLogoutModal() {
+      const backdrop = document.createElement('div');
+      backdrop.classList.add('modal-backdrop', 'fade', 'show');
+      document.body.appendChild(backdrop);
 
-      const cancelLogoutButton = document.getElementById('cancel-logout');
-      cancelLogoutButton.addEventListener('click', function () {
-        popup.style.display = 'none';
+      const modal = new bootstrap.Modal(document.getElementById('logoutConfirmationModal'), {
+        backdrop: 'static',
+        keyboard: false
       });
 
-      const confirmLogoutButton = document.getElementById('confirm-logout');
-      confirmLogoutButton.addEventListener('click', function () {
-        performLogout(userToken);
+      modal.show();
+
+      const confirmLogoutBtn = document.getElementById('confirmLogoutBtn');
+      confirmLogoutBtn.addEventListener('click', () => {
+        performLogout();
+        modal.hide();
+        document.body.removeChild(backdrop);
+      });
+
+      const cancelLogoutBtn = document.querySelector('#logoutConfirmationModal .btn-secondary');
+      cancelLogoutBtn.addEventListener('click', () => {
+        modal.hide();
+        document.body.removeChild(backdrop);
+      });
+
+      const modalCloseBtn = document.querySelector('#logoutConfirmationModal .btn-close');
+      modalCloseBtn.addEventListener('click', () => {
+        modal.hide();
+        document.body.removeChild(backdrop);
       });
     }
 
-    function performLogout(userToken) {
-    
+    function performLogout() {
+      const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+      const userToken = loggedInUser.token;
+
       // Include the token in the request headers
       const headers = new Headers({
         'Authorization': `Token ${userToken}`,
         'Content-Type': 'application/json',
       });
-    
+
       fetch('http://127.0.0.1:8000/api/accounts/logout/', {
         method: 'POST',
         headers: headers,
@@ -175,7 +264,7 @@
           console.error('Logout error:', error);
           alert('An error occurred during logout. Please try again.');
         });
-    }
+    }    
   </script>
 
 </body>

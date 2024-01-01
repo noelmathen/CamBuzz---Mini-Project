@@ -2,240 +2,263 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CamBuzz - Food Spot Details</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css">
-    <style>
-        .profile_name {
-            color: white;
-        }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CamBuzz - Food Spot Details</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    integrity="sha384-ez0j2yFDlflNlq7s1v/GWtBAdQ5eU8b/p4hG8T/nG2pTMEF7KCOJ5Z5DdExlSBJ"
+    crossorigin="anonymous">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
 
-        .food-details {
-            margin-top: 20px;
-        }
+    .food-details {
+      margin-top: 20px;
+    }
 
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
 
-        .food-info {
-            width: 48%;
-        }
+    .food-info {
+      width: 48%;
+    }
 
-        .divider {
-            border-top: 1px solid #ddd;
-            margin: 20px 0;
-        }
+    .divider {
+      border-top: 1px solid #ddd;
+      margin: 20px 0;
+    }
 
-        .reviews-container {
-            margin-top: 20px;
-        }
+    .like-button {
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
 
-        .review {
-            border: 1px solid #ddd;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
+    .liked {
+      background-color: #4CAF50;
+    }
 
-        .like-button {
-            padding: 10px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
+    .like-count {
+      font-weight: bold;
+    }
 
-        .liked {
-            background-color: #4CAF50;
-        }
+    #addReviewButton {
+      text-align: right;
+      margin-top: 20px;
+      /* Adjusted position to be right above the line */
+    }
 
-        .like-count {
-            font-weight: bold;
-        }
+    /* Custom styles for restaurant name and location */
+    .restaurant-name {
+      font-family: 'Lorem ipsum dolor sit amet';
+      /* Use your preferred font or import it */
+      font-size: 3em;
+      color: #333;
+      /* Choose your desired color */
+      margin-bottom: 5px;
+    }
 
-        #addReviewButton {
-            text-align: right;
-            position: relative;
-            top: 140px; /* Adjusted position to be right above the line */
-        }
-    </style>
+    .restaurant-location {
+      font-family: 'Lobster', cursive;
+      /* Use your preferred font or import it */
+      font-size: 1.2em;
+      color: #555;
+      /* Choose your desired color */
+    }
+
+    .overall-rating,
+    .price-per-head,
+    .number-of-reviews {
+      color: #777;
+      /* Choose your desired color */
+      font-size: 1em;
+      margin-bottom: 5px;
+      text-align: right;
+    }
+
+    /* Use a custom font for specific elements */
+    .rating-label,
+    .rating-value {
+      font-family: 'serif';
+      font-size: 2.2ex;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      /* Use your preferred font or import it */
+    }
+
+    .reviews-container {
+      margin-top: 40px;
+    }
+
+    .review {
+      border: 1px solid #ddd;
+      padding: 20px;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.3s ease;
+      border-radius: 20px;
+    }
+
+    .review:hover {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .profile-picture {
+      border-radius: 50%;
+      width: 45px;
+      /* Adjust the size as needed */
+      height: 45px;
+      /* Adjust the size as needed */
+      margin-right: 10px;
+      /* Adjust the spacing between the picture and details */
+    }
+
+    .details {
+      margin-left: 10px;
+      /* Adjust the spacing between the picture and details */
+    }
+
+    .like-button {
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .like-button:hover {
+      background-color: #0056b3;
+    }
+
+    .review img {
+      max-width: 40%;
+      /* Adjust the width as needed */
+      height: auto;
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .review:hover img {
+      transform: scale(1.002);
+    }
+
+    /* Additional Styles for Colored Boxes */
+    .rating-box {
+      background-color: #766939;
+      color: #fff;
+      padding: 2px 5px;
+      border-radius: 5px;
+      display: inline-block;
+    }
+
+/* Custom styles for the two-column layout */
+.row {
+    /* Adjust the margin-bottom to decrease space */
+    margin-bottom: 10px;
+  }
+  
+  .col-md-8 {
+    /* Adjust the margin-bottom to decrease space */
+    margin-right: -10px;
+  }
+  
+  .col-md-4 {
+    /* Adjust the margin-bottom to decrease space */
+    margin-bottom: 10px;
+  }
+  </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-dark navbar-expand-sm" style="background-color: #0e1827;">
-        <a class="navbar-brand" href="./mainpagefs.html"
-            style="background-color: #0e1827; display: inline-block; text-align: center;">
-            <img src="./img/CamBuzz_logo.png" height="50" class="d-inline-block align-top" alt=""><br />
-            CamBuzz
-        </a>
-        <div class="navbar-text text-center" style="width: 100%;">
-            <h2 style="color: white;">Food Spot Recommendation</h2>
-        </div>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
-            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarText">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
-                </li>
-            </ul>
-        </div>
-        <div class="text-center" style="margin:0 10px 0 10px;">
-            <img src="./img/blank_profile_pic.jpg" height="50" class="rounded-circle" alt="..."><br />
-            <span class="profile_name">Rehan</span>
-        </div>
-    </nav>
+  <div id="navbar-placeholder"></div>
 
-    <div class="container">
-        <!-- Add Review Button Section -->
-        <div class="add-review-button" id="addReviewButton">
-            <a class="btn btn-primary" href="./add_review.html">Add a Review for this Food Spot </a>
+  <div class="container">
+    <div id="foodDetails">
+      <!-- Food details will be displayed here -->
+      <div class="food-details">
+        <!-- Food Spot Details -->
+        <div class="header-container">
+          <div class="food-info">
+            <h2 class="restaurant-name">Thaal Kitchen</h2>
+            <p class="restaurant-location">📍 Kakkanadu</p>
+          </div>
+          <div class="food-info">
+            <p class="overall-rating">Overall Rating: ⭐4.5</p>
+            <p class="price-per-head">Price per Head: ₹100.5</p>
+            <p class="number-of-reviews">Number of Reviews: 👤 10</p>
+          </div>
         </div>
+      </div>
+    </div>
+  
+    <!-- Divider -->
+    <div class="divider"></div>
 
-        <div id="foodDetails">
-            <!-- Food details will be displayed here -->
-        </div>
-        <!-- Divider -->
-        <div class="divider"></div>
-        <!-- Reviews Section -->
-        <div class="reviews-container" id="reviewContainer">
-            <!-- Reviews will be displayed here -->
-        </div>
+    <!-- Add Review Button Section -->
+    <div class="add-review-button text-center" id="addReviewButton">
+      <a class="btn btn-primary" href="./add_review.html">Add a Review for this Food Spot</a>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Sample data, replace with actual data retrieval logic
-            const foodSpot = {
-                name: "Sample Food Spot",
-                location: "Sample Location",
-                overallRating: 4.5,
-                pricePerHead: "$$$",
-                numberOfReviews: 10,
-                reviews: [
-                    {
-                        username: "John Doe",
-                        foodRating: 4,
-                        serviceRating: 5,
-                        ambienceRating: 4,
-                        pricePerHead: "$$$",
-                        topRecommendation: "Sample Dish",
-                        description: "Sample Description",
-                        images: ["image1.jpg", "image2.jpg"],
-                        likes: 0
-                    },
-                    // Add more reviews as needed
-                ]
-            };
+    <!-- Reviews Section -->
+    <div class="reviews-container" id="reviewContainer">
+      <!-- Reviews will be displayed here -->
+      <div class="review">
+        <!-- Two-column layout -->
+        <div class="row">
+          <!-- Column 1: Profile Picture and Details (Aligned to left) -->
+          <div class="col-md-8">
+            <!-- Profile Picture -->
+            <h3><img src="/Frontend/FoodSpotRecommendations/blank_profile_pic.png" alt="Profile Picture"
+                class="profile-picture">John Doe</h3>
+            <!-- Details -->
+            <p class="rating-label">Food: <span class="rating-box"><i
+                  class="fas fa-star"></i>⭐ 4.1</span></p>
+            <p class="rating-label">Service: <span class="rating-box"><i
+                  class="fas fa-star"></i>⭐ 5.2</span></p>
+            <p class="rating-label">Ambience: <span class="rating-box"><i
+                  class="fas fa-star"></i>⭐ 3.9</span></p>
+            <p class="rating-label">Price per Head: <span class="rating-value"> ₹150</span></p>
+            <p class="rating-label">Top Recommendation: <span class="rating-value">Sample Dish</span></p>
+            <p class="rating-label">Description: <span class="rating-value">Sample Description</span></p>
+          </div>
+          <!-- Column 2: Image (Aligned to right-center) -->
+          <div class="col-md-4 d-flex align-items-center justify-content-end">
+            <img src="http://127.0.0.1:8000/media/restaurant_images/pexels-chan-walrus-958545.jpg" alt="Review Image"
+              style="max-width: 100%; border-radius: 10px; transition: transform 0.3s ease;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-            showFoodDetails(foodSpot);
-        });
+  <script>
+    $(function () {
+      $('#navbar-placeholder').load('/Frontend/navbar.html', function () {
+        const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
 
-        function showFoodDetails(foodSpot) {
-            const detailsContainer = document.getElementById("foodDetails");
-            detailsContainer.innerHTML = "";
-
-            const detailsElement = document.createElement("div");
-            detailsElement.classList.add("food-details");
-            detailsElement.innerHTML = `
-                <!-- Food Spot Details -->
-                <div class="header-container">
-                    <div class="food-info">
-                        <h2>${foodSpot.name}</h2>
-                        <p>Location: ${foodSpot.location}</p>
-                    </div>
-                    <div class="food-info">
-                        <p>Overall Rating: ${foodSpot.overallRating}</p>
-                        <p>Price per Head: ${foodSpot.pricePerHead}</p>
-                        <p>Number of Reviews: ${foodSpot.numberOfReviews}</p>
-                    </div>
-                </div>
-            `;
-
-            detailsContainer.appendChild(detailsElement);
-
-            // Show reviews
-            showReviews(foodSpot.reviews);
+        if (loggedInUser) {
+          updateDynamicFeatures(loggedInUser);
         }
-
-        function showReviews(reviews) {
-            const reviewsContainer = document.getElementById("reviewContainer");
-            reviewsContainer.innerHTML = "";
-
-            reviews.forEach((review, index) => {
-                const reviewElement = document.createElement("div");
-                reviewElement.classList.add("review");
-                reviewElement.innerHTML = `
-                    <h3>${review.username}</h3>
-                    <p>Food Rating: ${review.foodRating}</p>
-                    <p>Service Rating: ${review.serviceRating}</p>
-                    <p>Ambience Rating: ${review.ambienceRating}</p>
-                    <p>Price per Head: ${review.pricePerHead}</p>
-                    <p>Top Recommendation: ${review.topRecommendation}</p>
-                    <p>Description: ${review.description}</p>
-                    <!-- Display images -->
-                    <div>
-                        ${review.images.map(image => `<img src="${image}" alt="Review Image" style="max-width: 100%;">`).join('')}
-                    </div>
-                    <button class="like-button" onclick="toggleLike(${index}, this)">
-                        ${review.likes > 0 ? 'Liked' : 'Like'} <span class="like-count">${review.likes}</span>
-                    </button>
-                `;
-
-                reviewsContainer.appendChild(reviewElement);
-            });
-        }
-
-        function toggleLike(reviewIndex, button) {
-            const likeButton = button;
-            const likeCount = likeButton.querySelector('.like-count');
-            const liked = !hasUserLiked(reviewIndex);
-
-            if (liked) {
-                // Increment likes
-                const likes = parseInt(likeCount.innerText) + 1;
-                likeCount.innerText = likes;
-            } else {
-                // Decrement likes
-                const likes = parseInt(likeCount.innerText) - 1;
-                likeCount.innerText = likes;
-            }
-
-            // Set liked state in local storage
-            setUserLiked(reviewIndex, liked);
-
-            // Toggle the "liked" class for styling
-            likeButton.classList.toggle('liked', liked);
-        }
-
-        function hasUserLiked(reviewIndex) {
-            const likedReviews = JSON.parse(localStorage.getItem('likedReviews')) || {};
-            return likedReviews[reviewIndex] === true;
-        }
-
-        function setUserLiked(reviewIndex, value) {
-            const likedReviews = JSON.parse(localStorage.getItem('likedReviews')) || {};
-            likedReviews[reviewIndex] = value;
-            localStorage.setItem('likedReviews', JSON.stringify(likedReviews));
-        }
-    </script>
+      });
+    });
+  </script>
 </body>
 
 </html>

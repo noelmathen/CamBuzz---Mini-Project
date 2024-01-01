@@ -12,7 +12,9 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Cardo:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Cardo:ital,wght@0,400;0,700;1,400&display=swap"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -24,126 +26,127 @@
   <!-- Template Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
   <style>
-    .body{
+    .body {
       margin-top: 20px;
     }
-    .h2{
-      color:#6151eb
+
+    .h2 {
+      color: #6151eb
     }
+
     .services .service-item {
-  padding: 50px 30px;
-  transition: all ease-in-out 0.4s;
-  background: var(--color-secondary);
-  height: 100%;
-  overflow: hidden;
-  z-index: 1;
-}
+      padding: 50px 30px;
+      transition: all ease-in-out 0.4s;
+      background: var(--color-secondary);
+      height: 100%;
+      overflow: hidden;
+      z-index: 1;
+    }
 
-.services .service-item:before {
-  content: "";
-  position: absolute;
-  background: #1d1f20;
-  top: -200px;
-  transition: all 0.3s;
-  z-index: -1;
-}
+    .services .service-item:before {
+      content: "";
+      position: absolute;
+      background: #1d1f20;
+      top: -200px;
+      transition: all 0.3s;
+      z-index: -1;
+    }
 
-.services .service-item i {
-  background: var(--color-primary);
-  color: #fff;
-  font-size: 24px;
-  transition: 0.3s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-}
+    .services .service-item i {
+      background: var(--color-primary);
+      color: #fff;
+      font-size: 24px;
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+    }
 
-.services .service-item h4 {
-  font-weight: 600;
-  margin: 15px 0 0 0;
-  transition: 0.3s;
-  font-size: 20px;
-}
+    .services .service-item h4 {
+      font-weight: 600;
+      margin: 15px 0 0 0;
+      transition: 0.3s;
+      font-size: 20px;
+    }
 
-.services .service-item h4 a {
-  color: #fff;
-}
+    .services .service-item h4 a {
+      color: #fff;
+    }
 
-.services .service-item p {
-  line-height: 24px;
-  font-size: 14px;
-  margin: 15px 0 0 0;
-}
+    .services .service-item p {
+      line-height: 24px;
+      font-size: 14px;
+      margin: 15px 0 0 0;
+    }
 
-.services .service-item:hover:before {
-  background: var(color#6151eb);
-  right: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 0px;
-}
+    .services .service-item:hover:before {
+      background: var(color#6151eb);
+      right: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 0px;
+    }
 
-.services .service-item:hover h4 a,
-.services .service-item:hover p {
-  color: #fff;
-}
+    .services .service-item:hover h4 a,
+    .services .service-item:hover p {
+      color: #fff;
+    }
 
-.services .service-item:hover i {
-  background: #fff;
-  color: var(--color-primary);
-}
-
+    .services .service-item:hover i {
+      background: #fff;
+      color: var(--color-primary);
+    }
   </style>
 </head>
 
-<body style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center;">
+<body
+  style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center;">
 
   <div class="page-header" style="text-align: center;">
     <div class="container position-relative">
       <div class="row">
         <div class="col-lg-12">
-            <h2>Sign Up</h2>
-            <p>Select the category that you fall into to avail the complete services provided by CamBuzz</p>
-
-          </div>
+          <h2>Sign Up</h2>
+          <p>Select the category that you fall into to avail the complete services provided by CamBuzz</p>
         </div>
       </div>
-    </div><!-- End Page Header -->
+    </div>
   </div>
 
-    <section id="services" class="services">
-      <div class="container">
+  <section id="services" class="services">
+    <div class="container">
 
-        <div class="row gy-4">
+      <div class="row gy-4 justify-content-center"> <!-- Updated here to include justify-content-center -->
 
-          <div class="col-xl-3 col-md-6 d-flex">
-            <div class="service-item position-relative">
-              <i class="bi bi-calendar4-week"></i>
-              <h4><a href="studsignup.html" class="stretched-link">Student</a></h4>
-              <p>Sign up to access various functionalities like food recommendations, vehicle pooling and events hub.</p>
-            </div>
-          </div><!-- End Service Item -->
+        <div class="col-xl-3 col-md-6 d-flex">
+          <div class="service-item position-relative">
+            <i class="bi bi-calendar4-week"></i>
+            <h4><a href="studsignup.html" class="stretched-link">Student</a></h4>
+            <p>Sign up to access various functionalities like food recommendations, vehicle pooling and events hub.</p>
+          </div>
+        </div><!-- End Service Item -->
 
-          <div class="col-xl-3 col-md-6 d-flex">
-            <div class="service-item position-relative">
-              <i class="bi bi-broadcast"></i>
-              <h4><a href="orgsignup.html" class="stretched-link">Organisation</a></h4>
-              <p>Sign up to create a verified profile of your organisations and promote your events on our website.</p>
-            </div>
-          </div><!-- End Service Item -->
-        </div>
-
+        <div class="col-xl-3 col-md-6 d-flex">
+          <div class="service-item position-relative">
+            <i class="bi bi-broadcast"></i>
+            <h4><a href="orgsignup.html" class="stretched-link">Organisation</a></h4>
+            <p>Sign up to create a verified profile of your organisations and promote your events on our website.</p>
+          </div>
+        </div><!-- End Service Item -->
       </div>
-    </section><!-- End Services Section -->
+
+    </div>
+  </section><!-- End Services Section -->
 
 
   </main><!-- End #main -->
-  
-  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

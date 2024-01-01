@@ -1,229 +1,185 @@
-<!DOCTYPE html>
+<!-- publish_ride.html -->
+<!doctype html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Add Review</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css">
+    <title>CamBuzz - Vehicle Pooling</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="/Frontend/css/fontawesome.min.css" rel="stylesheet">
+    <!-- Popperjs -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha256-BRqBN7dYgABqtY9Hd4ynE+1slnEw+roEPFzQ7TRRfcg=" crossorigin="anonymous"></script>
+    <!-- Tempus Dominus JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.9.4/dist/js/tempus-dominus.min.js"
+        crossorigin="anonymous"></script>
+
+    <!-- Tempus Dominus Styles -->
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.9.4/dist/css/tempus-dominus.min.css"
+        crossorigin="anonymous">
+
     <style>
         body {
-            width: 100%;
-            height: 100vh;
-            margin: 0;
-            background-color: #1b1b32;
-            color: #f5f6f7;
-            font-family: Tahoma;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .food-details {
+            margin-top: 20px;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+
+        .divider {
+            border-top: 1px solid #ddd;
+            margin: 20px 0;
+        }
+
+        /* Custom styles for restaurant name and location */
+        .restaurant-name {
+            font-family: 'Lorem ipsum dolor sit amet';
+            /* Use your preferred font or import it */
+            font-size: 3em;
+            color: #333;
+            /* Choose your desired color */
+            margin-bottom: 5px;
+        }
+
+        .restaurant-location {
+            font-family: 'Lobster', cursive;
+            /* Use your preferred font or import it */
+            font-size: 1.2em;
+            color: #555;
+            /* Choose your desired color */
+        }
+
+        .overall-rating,
+        .price-per-head,
+        .number-of-reviews {
+            color: #777;
+            /* Choose your desired color */
+            font-size: 1em;
+            margin-bottom: 5px;
+            text-align: right;
+        }
+
+        .form-select {
+            appearance: none;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 8px 12px;
             font-size: 16px;
-        }
-
-        h1,
-        p {
-            margin: 1em auto;
-            text-align: center;
-        }
-
-        form {
-            width: 60vw;
-            max-width: 500px;
-            min-width: 300px;
-            margin: 0 auto;
-            padding-bottom: 2em;
-        }
-
-        fieldset {
-            border: none;
-            padding: 2rem 0;
-        }
-
-        fieldset:not(:last-of-type) {
-            border-bottom: 3px solid #3b3b4f;
-        }
-
-        label {
-            display: block;
-            margin: 0.5rem 0;
-        }
-
-        input,
-        textarea,
-        select {
-            margin: 10px 0 0 0;
+            line-height: 1.42857143;
+            color: #555;
             width: 100%;
-            min-height: 2em;
         }
 
-        input,
-        textarea {
-            background-color: #0a0a23;
-            border: 1px solid #0a0a23;
-            color: #ffffff;
-        }
-
-        .inline {
-            width: unset;
-            margin: 0 0.5em 0 0;
-            vertical-align: middle;
-        }
-
-        input[type="submit"] {
-            display: block;
-            width: 60%;
-            margin: 1em auto;
-            height: 2em;
-            font-size: 1.1rem;
-            background-color: #3b3b4f;
-            border-color: white;
-            min-width: 300px;
-        }
-
-        input[type="file"] {
-            padding: 1px 2px;
-        }
-
-        a {
-            color: #dfdfe2;
-        }
-
-        .profile_name {
-            color: white;
-        }
-
-        .btn-circle.btn-lg {
-            width: 200px;
-            height: 200px;
-            padding: 6px 0px;
-            border-radius: 100px;
-            font-size: 15px;
-            text-align: center;
+        .form-select:focus {
+            border-color: #66afe9;
+            outline: 0;
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, 0.6);
         }
     </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-dark navbar-expand-sm" style="background-color: #0e1827;">
-        <a class="navbar-brand" href="./mainpagefs.html"
-          style="background-color: #0e1827; display: inline-block; text-align: center;">
-          <img src="./img/CamBuzz_logo.png" height="50" class="d-inline-block align-top" alt=""><br />
-          CamBuzz
-        </a>
-        <div class="navbar-text text-center" style="width: 100%;">
-            <h2 style="color: white;">Food Spot Recommendation</h2>
+    <div id="navbar-placeholder"></div>
+    <div class="container">
+        <div id="foodDetails">
+            <!-- Food details will be displayed here -->
+            <div class="food-details">
+                <!-- Food Spot Details -->
+                <div class="header-container">
+                    <div class="food-info">
+                        <h2 class="restaurant-name">Thaal Kitchen</h2>
+                        <p class="restaurant-location">📍 Kakkanadu</p>
+                    </div>
+                    <div class="food-info">
+                        <p class="overall-rating">Overall Rating: ⭐4.5</p>
+                        <p class="price-per-head">Price per Head: ₹100.5</p>
+                        <p class="number-of-reviews">Number of Reviews: 👤 10</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
-          aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarText">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
-            </li>
-          </ul>
-        </div>
-        <div class="text-center" style="margin:0 10px 0 10px;">
-          <img src="./img/blank_profile_pic.jpg" height="50" class="rounded-circle" alt="..."><br />
-          <span class="profile_name">Rehan</span>
-        </div>
-      </nav>
+    </div>
+    <div class="divider"></div>
 
-    <h1>Add Review</h1>
-    <p>Recommendation For <span id="foodSpotName"></span></p>
-    <form id="addReviewForm" onsubmit="return submitForm()">
-        <fieldset>
-            <label for="foodRating">Food Rating:[1-5]</label>
-            <input type="number" id="foodRating" name="foodRating" step="0.1" min="1" max="5" required>
+    <div class="container-lg" style="text-align: center; margin-top: 50px;">
+        <form id="publishRideForm" action="http://127.0.0.1:8000/api/foodrecommendation/addreviewfrommainpage/"
+            method="post">
+            <!-- Add a heading for "Add a Review" -->
+            <h2 style="font-family: 'Gearogia', sans-serif; color: #000000; margin-bottom: 60px;">Add a Review</h2>
 
-            <label for="serviceRating">Service Rating:[1-5]</label>
-            <input type="number" id="serviceRating" name="serviceRating" step="0.1" min="1" max="5" required>
+            <div class="form-floating mb-3">
+                <input type="number" step="0.1" class="form-control" id="foodRating" placeholder="Food Rating"
+                    name="food_rating" max="5" min="0.1" required />
+                <label for="foodRating">Food Rating</label>
+            </div>
 
+            <div class="form-floating mb-3">
+                <input type="number" step="0.1" class="form-control" id="serviceRating" placeholder="Service Rating"
+                    name="service_rating" max="5" min="0.1" required />
+                <label for="serviceRating">Service Rating</label>
+            </div>
 
+            <div class="form-floating mb-3">
+                <input type="number" step="0.1" class="form-control" id="ambienceRating" placeholder="Ambience Rating"
+                    name="ambience_rating" max="5" min="0.1" required />
+                <label for="ambienceRating">Ambience Rating</label>
+            </div>
 
-            <label for="ambienceRating">Ambience Rating:[1-5]</label>
-            <input type="number" id="ambienceRating" name="ambienceRating" step="0.1" min="1" max="5" required>
+            <div class="form-floating mb-3">
+                <input type="number" class="form-control" id="avgUserPrice" placeholder="Average User Price per Head"
+                    name="avg_user_price_per_head" required />
+                <label for="avgUserPrice">Average User Price per Head</label>
+            </div>
 
-            <label for="totalRating">Total Rating:[1-5]</label>
-            <input type="number" id="totalRating" name="totalRating" step="0.1" min="1" max="5" required>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="topRecommendation" placeholder="Top Recommendation"
+                    name="top_recommendation" required>
+                <label for="topRecommendation">Top Recommendation</label>
+            </div>
 
-            <label for="topRecommendedDish">Top Recommended Dish: <input type="text" id="topRecommendedDish" placeholder="Recommended Dish" required></label>
-            <label for="reviewDescription">Review Description: <textarea id="reviewDescription" rows="3" placeholder="Describe your review..." required></textarea></label>
-            <label for="photo">Upload Photographs (optional): <input type="file" id="photo" accept="image/*"></label>
-        </fieldset>
-        <input type="submit" value="Submit" />
-    </form>
+            <div class="form-floating mb-3">
+                <textarea class="form-control" id="description" rows="5" name="description"></textarea>
+                <label for="description">Description</label>
+            </div>
 
-    <script src="foodSpotDetails.js"></script>
+            <div class="form-floating mb-3">
+                <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                <label for="image">Image</label>
+            </div>
+            <button type="submit" class="btn btn-primary">ADD REVIEW</button>
+        </form>
+        <p></p>
+    </div>
+
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const foodSpotName = getParameterByName('foodSpotName');
-            document.getElementById('foodSpotName').innerText = foodSpotName;
+        $(function () {
+            $('#navbar-placeholder').load('/Frontend/navbar.html', function () {
+                // Retrieve user information from local storage
+                const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+
+                if (loggedInUser) {
+                    // Call the function to update dynamic features
+                    updateDynamicFeatures(loggedInUser);
+                }
+            });
+            // Handle form submission
         });
-
-        function submitForm() {
-            const foodRating = document.getElementById("foodRating").value;
-            const serviceRating = document.getElementById("serviceRating").value;
-            const ambienceRating = document.getElementById("ambienceRating").value;
-            const totalRating = document.getElementById("totalRating").value;
-            const topRecommendedDish = document.getElementById("topRecommendedDish").value;
-            const reviewDescription = document.getElementById("reviewDescription").value;
-            const photo = document.getElementById("photo").value;
-
-            // Validate form fields (add more validation as needed)
-            if (!foodRating || !serviceRating || !ambienceRating || !totalRating || !topRecommendedDish || !reviewDescription) {
-                alert("Please fill in all required fields.");
-                return false;
-            }
-
-            // Perform any other actions before submitting (e.g., API calls, data processing)
-
-            // Example: Display review details using the script
-            displayReviewDetails(foodRating, serviceRating, ambienceRating, totalRating, topRecommendedDish, reviewDescription, photo);
-
-            // Clear the form fields
-            document.getElementById("foodRating").value = "1";
-            document.getElementById("serviceRating").value = "1";
-            document.getElementById("ambienceRating").value = "1";
-            document.getElementById("totalRating").value = "1";
-            document.getElementById("topRecommendedDish").value = "";
-            document.getElementById("reviewDescription").value = "";
-            document.getElementById("photo").value = ""; // Reset file input
-
-            // Prevent form submission
-            return false;
-        }
-
-        function getParameterByName(name, url) {
-            if (!url) url = window.location.href;
-            name = name.replace(/[\[\]]/g, "\\$&");
-            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-                results = regex.exec(url);
-            if (!results) return null;
-            if (!results[2]) return '';
-            return decodeURIComponent(results[2].replace(/\+/g, " "));
-        }
-
-        function displayReviewDetails(foodRating, serviceRating, ambienceRating, totalRating, topRecommendedDish, reviewDescription, photo) {
-            // You can implement how you want to display the review details
-            // For example, you can append the details to the reviews section on the food details page
-            // or make an API call to store the review details
-
-            // For now, let's log the details to the console
-            console.log("Food Rating:", foodRating);
-            console.log("Service Rating:", serviceRating);
-            console.log("Ambience Rating:", ambienceRating);
-            console.log("Total Rating:", totalRating);
-            console.log("Top Recommended Dish:", topRecommendedDish);
-            console.log("Review Description:", reviewDescription);
-            console.log("Photo:", photo);
-        }
     </script>
 </body>
 

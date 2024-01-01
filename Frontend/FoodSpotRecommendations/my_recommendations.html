@@ -4,270 +4,350 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CamBuzz - My Recommendations</title>
+    <title>CamBuzz - Food Spot Details</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" crossorigin="anonymous">
     <style>
-        .profile_name {
-            color: white;
+        body {
+            font-family: 'Roboto', sans-serif;
         }
 
-        .btn-circle.btn-lg {
-            width: 200px;
-            height: 200px;
-            padding: 6px 0px;
-            border-radius: 100px;
-            font-size: 15px;
-            text-align: center;
-        }
-
-        .food-spot-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
+        .food-details {
             margin-top: 20px;
         }
 
-        .food-spot {
-            width: calc(33.33% - 20px);
-            margin: 10px;
-            text-align: center;
-            border: 1px solid #ddd;
-            padding: 15px;
-            box-sizing: border-box;
-            cursor: pointer;
-            transition: all 0.3s ease-in-out;
-        }
-
-        @media (max-width: 768px) {
-            .food-spot {
-                width: calc(50% - 20px);
-            }
-        }
-
-        @media (max-width: 576px) {
-            .food-spot {
-                width: 100%;
-            }
-        }
-
-        .food-spot:hover {
-            transform: scale(1.05);
-        }
-
-        .add-food-form {
-            margin-top: 20px;
-        }
-
-        .rating {
+        .header-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            grid-gap: .5rem;
-            font-size: 2rem;
-            color: var(--yellow);
-            margin-bottom: 2rem;
+            margin-bottom: 20px;
         }
 
-        .rating .star {
+        .food-info {
+            width: 48%;
+        }
+
+        .divider {
+            border-top: 1px solid #ddd;
+            margin: 20px 0;
+        }
+
+        .like-button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
             cursor: pointer;
         }
 
-        .rating .star.active {
-            opacity: 0;
-            animation: animate .5s calc(var(--i) * .1s) ease-in-out forwards;
+        .liked {
+            background-color: #4CAF50;
         }
 
-        @keyframes animate {
-            0% {
-                opacity: 0;
-                transform: scale(1);
-            }
-
-            50% {
-                opacity: 1;
-                transform: scale(1.2);
-            }
-
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
+        .like-count {
+            font-weight: bold;
         }
 
-        .rating .star:hover {
-            transform: scale(1.1);
-        }
-
-        .review-container {
+        #addReviewButton {
+            text-align: right;
             margin-top: 20px;
+            /* Adjusted position to be right above the line */
         }
 
-        .review-box {
+        /* Custom styles for restaurant name and location */
+        .restaurant-name {
+            font-family: 'Lorem ipsum dolor sit amet';
+            /* Use your preferred font or import it */
+            font-size: 3em;
+            color: #333;
+            /* Choose your desired color */
+            margin-bottom: 5px;
+        }
+
+        .restaurant-location {
+            font-family: 'Lobster', cursive;
+            /* Use your preferred font or import it */
+            font-size: 1.2em;
+            color: #555;
+            /* Choose your desired color */
+        }
+
+        .overall-rating,
+        .price-per-head,
+        .number-of-reviews {
+            color: #777;
+            /* Choose your desired color */
+            font-size: 1em;
+            margin-bottom: 5px;
+            text-align: right;
+        }
+
+        /* Use a custom font for specific elements */
+        .rating-label,
+        .rating-value {
+            font-family: 'serif';
+            font-size: 2.2ex;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            /* Use your preferred font or import it */
+        }
+
+        .reviews-container {
+            margin-top: 40px;
+        }
+
+        .review {
             border: 1px solid #ddd;
-            padding: 15px;
+            padding: 20px;
             margin-bottom: 20px;
             position: relative;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Added box-shadow */
+            overflow: hidden;
+            transition: box-shadow 0.3s ease;
+            border-radius: 20px;
         }
 
-        .options-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-            font-weight: bold; /* Make the three dots bold */
-            font-size: 20px; /* Adjust font size as needed */
-            color: #333; /* Set the color of the three dots */
+        .review:hover {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
 
-        .options-menu {
-            display: none;
-            position: absolute;
-            top: 30px;
-            right: 10px;
-            background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border: 1px solid #ddd;
-            z-index: 1;
-        }
-
-        .options-menu a {
-            display: block;
-            padding: 10px;
-            text-decoration: none;
-            color: #333;
-        }
-
-        .uploaded-images {
-            display: flex;
-            flex-wrap: wrap;
-            margin-top: 10px;
-        }
-
-        .uploaded-image {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
+        .profile-picture {
+            border-radius: 50%;
+            width: 45px;
+            /* Adjust the size as needed */
+            height: 45px;
+            /* Adjust the size as needed */
             margin-right: 10px;
+            /* Adjust the spacing between the picture and details */
+        }
+
+        .details {
+            margin-left: 10px;
+            /* Adjust the spacing between the picture and details */
+        }
+
+        .like-button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .like-button:hover {
+            background-color: #0056b3;
+        }
+
+        .review img {
+            max-width: 40%;
+            /* Adjust the width as needed */
+            height: auto;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        /* Additional Styles for Colored Boxes */
+        .rating-box {
+            background-color: #766939;
+            color: #fff;
+            padding: 2px 5px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        /* Custom styles for the two-column layout */
+        .row {
+            /* Adjust the margin-bottom to decrease space */
             margin-bottom: 10px;
+        }
+
+        .col-md-8 {
+            /* Adjust the margin-bottom to decrease space */
+            margin-right: -10px;
+        }
+
+        .col-md-4 {
+            /* Adjust the margin-bottom to decrease space */
+            margin-bottom: 10px;
+        }
+
+        .event-details-dropdown .dropdown-toggle {
+            background-color: #444444;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    
+        .event-details-dropdown .dropdown-toggle:hover {
+            background-color: #191a1b;
+        }
+    
+        .event-details-dropdown .dropdown-menu {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+    
+        .event-details-dropdown .dropdown-item {
+            color: #333;
+            padding: 10px 15px;
+            transition: background-color 0.3s ease;
+        }
+    
+        .event-details-dropdown .dropdown-item:hover {
+            background-color: #b0b4b9;
         }
     </style>
 </head>
 
 <body>
-    <!-- Header -->
-    <nav class="navbar navbar-dark navbar-expand-sm" style="background-color: #0e1827;">
-        <a class="navbar-brand" href="./mainpagefs.html"
-            style="background-color: #0e1827; display: inline-block; text-align: center;">
-            <img src="./img/CamBuzz_logo.png" height="50" class="d-inline-block align-top" alt=""><br />
-            CamBuzz
-        </a>
-        <div class="navbar-text text-center" style="width: 100%;">
-          <h2 style="color: white;">Food Spot Recommendation</h2>
-        </div>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
-            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarText">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
-                </li>
-            </ul>
-        </div>
-        <div class="text-center" style="margin:0 10px 0 10px;">
-            <img src="./img/blank_profile_pic.jpg" height="50" class="rounded-circle" alt="..."><br />
-            <span class="profile_name">Rehan</span>
-        </div>
-    </nav>
+    <div id="navbar-placeholder"></div>
 
     <div class="container">
-        <h2>Welcome, [User's Name]</h2>
-        <div class="review-container" id="reviewContainer">
+        <div id="foodDetails">
+            <div class="food-details">
+                <div class="header-container">
+                    <h2 class="restaurant-name">YOUR REVIEWS</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="divider"></div>
+
+        <!-- Reviews Section -->
+        <div class="reviews-container" id="reviewContainer">
             <!-- Reviews will be displayed here -->
+            <div class="review">
+                <!-- Two-column layout -->
+                <div class="row">
+                    <!-- Column 1: Profile Picture and Details (Aligned to left) -->
+                    <div class="col-md-8">
+                        <!-- Details -->
+                        <p class="rating-label">Food: <span class="rating-box"><i class="fas fa-star"></i>⭐ 4.1</span>
+                        </p>
+                        <p class="rating-label">Service: <span class="rating-box"><i class="fas fa-star"></i>⭐
+                                5.2</span></p>
+                        <p class="rating-label">Ambience: <span class="rating-box"><i class="fas fa-star"></i>⭐
+                                3.9</span></p>
+                        <p class="rating-label">Price per Head: <span class="rating-value"> ₹150</span></p>
+                        <p class="rating-label">Top Recommendation: <span class="rating-value">Sample Dish</span></p>
+                        <p class="rating-label">Description: <span class="rating-value">Sample Description</span></p>
+                    </div>
+                    <!-- Column 2: Image (Aligned to right-center) -->
+                    <div class="col-md-4 d-flex align-items-center justify-content-end">
+                        <img src="http://127.0.0.1:8000/media/restaurant_images/pexels-chan-walrus-958545.jpg"
+                            alt="Review Image"
+                            style="max-width: 100%; border-radius: 10px; transition: transform 0.3s ease;">
+                    </div>
+                </div>
+
+                <!-- Dropdown for Edit and Delete options -->
+                <div class="event-details-dropdown" style="position: absolute; top: 10px; right: 10px;">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="optionsButton"
+                        data-bs-toggle="dropdown" aria-expanded="false" data-ride-id="${ride.id}">
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="optionsButton">
+                        <li><a class="dropdown-item" href="#"
+                                onclick="window.location.href = '/Frontend/FoodSpotRecommendations/edit_review.html'">Edit
+                                this Review</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="confirmDelete()">Delete this Review</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
+    <!-- CONFIRM DELETE MODAL -->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Delete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete this review?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-danger" onclick="deleteRide()">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Review Deleted Successfully!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="successModalMessage"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="refreshPage()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="errorModalLabel">Review Delete Error! Please Try Again!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="errorModalMessage"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Replace this with the actual user data retrieval logic
-            const userData = {
-                name: "User's Name",
-                reviews: [
-                    { foodSpot: "Food Spot 1", foodRating: 4, serviceRating: 5, ambienceRating: 4, totalRating: 4.3, topRecommendedDish: "Sample Dish", description: "Sample Description", likes: 0, images: ['image1.jpg', 'image2.jpg'] },
-                    { foodSpot: "Food Spot 2", foodRating: 5, serviceRating: 5, ambienceRating: 5, totalRating: 5, topRecommendedDish: "Another Dish", description: "Another Description", likes: 0, images: ['image3.jpg'] },
-                    // Add more reviews as needed
-                ]
-            };
+        $(function () {
+            $('#navbar-placeholder').load('/Frontend/navbar.html', function () {
+                const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
 
-            showUserReviews(userData);
+                if (loggedInUser) {
+                    updateDynamicFeatures(loggedInUser);
+                }
+            });
         });
 
-        function showUserReviews(userData) {
-            const container = document.getElementById("reviewContainer");
-            container.innerHTML = ""; // Clear previous content
-
-            userData.reviews.forEach((review, index) => {
-                const reviewBox = document.createElement("div");
-                reviewBox.classList.add("review-box");
-                reviewBox.innerHTML = `
-                    <h3>${review.foodSpot} Review</h3>
-                    <p>Food Rating: ${review.foodRating}</p>
-                    <p>Service Rating: ${review.serviceRating}</p>
-                    <p>Ambience Rating: ${review.ambienceRating}</p>
-                    <p>Total Rating: ${review.totalRating}</p>
-                    <p>Top Recommended Dish: ${review.topRecommendedDish}</p>
-                    <p>Description: ${review.description}</p>
-
-                    <div class="uploaded-images">
-                        ${renderImages(review.images)}
-                    </div>
-
-                    <div class="options-btn" onclick="toggleOptionsMenu(${index})">
-                        <span style="font-weight: bold; font-size: 24px;">&#8285;</span>
-                        <div class="options-menu" id="optionsMenu${index}">
-                            <a href="#" onclick="editReview(${index})">Edit</a>
-                            <a href="#" onclick="confirmDelete(${index})">Delete</a>
-                        </div>
-                    </div>
-                `;
-
-                container.appendChild(reviewBox);
-            });
+        function confirmDelete() {
+            // Using Bootstrap's modal function to show the modal
+            $('#confirmDeleteModal').modal('show');
         }
 
-        function renderImages(images) {
-            return images.map(image => `<img src="${image}" alt="Uploaded Image" class="uploaded-image">`).join('');
+        // Function to handle the delete action
+        function deleteRide() {
+            // Your delete logic goes here
+            // Replace the alert with your actual delete logic
+            // Close the modal after handling the delete action
+            $('#confirmDeleteModal').modal('hide');
+            $('#successModal').modal('show');
         }
 
-        function toggleOptionsMenu(index) {
-            const optionsMenu = document.getElementById(`optionsMenu${index}`);
-            optionsMenu.style.display = optionsMenu.style.display === "block" ? "none" : "block";
-        }
-
-        function editReview(index) {
-        // Redirect to edit_review.html with the specific review index
-        window.location.href = `edit_review.html?index=${index}`;
-        }
-
-        function confirmDelete(index) {
-            const confirmation = confirm("Are you sure you want to delete this review?");
-            if (confirmation) {
-                // Implement the logic to delete the review here
-                console.log(`Deleting review at index ${index}`);
-            }
+        function refreshPage() {
+            // Reload the current page
+            $('#successModal').modal('hide');
+            window.location.reload();
         }
     </script>
 </body>
