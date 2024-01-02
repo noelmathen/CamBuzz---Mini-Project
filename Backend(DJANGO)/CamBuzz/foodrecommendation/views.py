@@ -23,6 +23,7 @@ from rest_framework.permissions import IsAuthenticated
 from .permissions import IsOwnerOrReadOnly
 from random import choice
 
+
 class AddReviewFromMainPage(APIView):
     permission_classes = [IsAuthenticated]
     def post(self, request, *args, **kwargs):
@@ -53,7 +54,7 @@ class AddReviewFromMainPage(APIView):
 
             if existing_recommendation:
                 return Response(
-                    {"message": "You have already made a recommendation for this restaurant."},
+                    {"message": "You have already made a recommendation for this restaurant!"},
                     status=status.HTTP_400_BAD_REQUEST
                 )
     
@@ -109,9 +110,9 @@ class AddReviewFromMainPage(APIView):
             first_name = request.user.first_name
             user_id = request.user.id
             if created:
-                success_message = f"{first_name}(user_id:{user_id}) successfully created a recommendation for {restaurant.name}, {restaurant.location}(restaurant_id:{restaurant.id}). Also, {first_name} is the first one to add a review/ recommendation for this restaurant!" 
+                success_message = f"You have successfully created a recommendation for {restaurant.name}, {restaurant.location}. Also, you're the first user to add a review for this restaurant!" 
             else:
-                success_message = f"{first_name}(user_id:{user_id}) successfully created a recommendation for {restaurant.name}, {restaurant.location}(restaurant_id:{restaurant.id})" 
+                success_message = f"You've successfully created a recommendation for {restaurant.name}, {restaurant.location}" 
             return Response({"message": success_message},status=status.HTTP_201_CREATED)
 
 

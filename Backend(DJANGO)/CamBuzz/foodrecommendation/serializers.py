@@ -13,7 +13,7 @@ class AddReviewFromMainPageSerializer(serializers.Serializer):
     ambience_rating = serializers.DecimalField(max_digits=2, decimal_places=1)
     avg_user_price_per_head = serializers.DecimalField(max_digits=6, decimal_places=2)
     top_recommendation = serializers.CharField(max_length=100)
-    description = serializers.CharField(max_length=1000)
+    description = serializers.CharField(max_length=1000, required=False)
     image = serializers.ImageField(required=False)
 
 
@@ -164,6 +164,7 @@ class YourFoodRecommendationsSerializer(serializers.ModelSerializer):
         )
 
 
+
 class EditReviewSerialzier(serializers.Serializer):
     food_rating = serializers.DecimalField(max_digits=2, decimal_places=1)
     service_rating = serializers.DecimalField(max_digits=2, decimal_places=1)
@@ -203,6 +204,7 @@ class EditReviewSerialzier(serializers.Serializer):
         restaurant.overall_rating = total_ratings / len(recommendations_for_restaurant)
         restaurant.save()
         return instance
+
 
 
 class DeleteReviewSerializer(serializers.ModelSerializer):

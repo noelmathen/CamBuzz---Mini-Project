@@ -269,10 +269,6 @@
                         console.log('Review added successfully:', response.message);
                         $('#successModalMessage').text(response.message);
                         $('#successModal').modal('show');
-                        // Optionally, you can redirect to the details page after a delay
-                        setTimeout(function () {
-                            redirectToDetails();
-                        }, 2000);
                     },
                     error: function (xhr, status, error) {
                         // Display error modal

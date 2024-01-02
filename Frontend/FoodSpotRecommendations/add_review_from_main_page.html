@@ -1,4 +1,4 @@
-<!-- publish_ride.html -->
+<!-- add_review_from_main_page.html -->
 <!doctype html>
 <html lang="en">
 
@@ -27,14 +27,15 @@
 <body>
     <div id="navbar-placeholder"></div>
     <div class="container-lg" style="text-align: center; margin-top: 50px;">
-        <form id="publishRideForm" action="http://127.0.0.1:8000/api/foodrecommendation/addreviewfrommainpage/" method="post">
+        <form id="addReviewForm" action="http://127.0.0.1:8000/api/foodrecommendation/addreviewfrommainpage/"
+            method="post" enctype="multipart/form-data">
             <!-- Add a heading for "Add a Review" -->
             <h2 style="font-family: 'Arial', sans-serif; color: #000000; margin-bottom: 60px;">Add a Review</h2>
 
             <!-- New input fields for restaurant details -->
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="restaurantName" placeholder="Restaurant Name"
-                    name="restaurant_name" required>
+                    name="restaurant_name"  required>
                 <label for="restaurantName">Restaurant Name</label>
             </div>
 
@@ -52,19 +53,19 @@
 
             <div class="form-floating mb-3">
                 <input type="number" step="0.1" class="form-control" id="serviceRating" placeholder="Service Rating"
-                    name="service_rating" max="5" min="0.1" required />
+                    name="service_rating" max="5" min="0.1"  required />
                 <label for="serviceRating">Service Rating</label>
             </div>
 
             <div class="form-floating mb-3">
                 <input type="number" step="0.1" class="form-control" id="ambienceRating" placeholder="Ambience Rating"
-                    name="ambience_rating" max="5" min="0.1" required />
+                    name="ambience_rating" max="5" min="0.1"  required />
                 <label for="ambienceRating">Ambience Rating</label>
             </div>
 
             <div class="form-floating mb-3">
                 <input type="number" class="form-control" id="avgUserPrice" placeholder="Average User Price per Head"
-                    name="avg_user_price_per_head" required />
+                    name="avg_user_price_per_head"  required />
                 <label for="avgUserPrice">Average User Price per Head</label>
             </div>
 
@@ -75,17 +76,50 @@
             </div>
 
             <div class="form-floating mb-3">
-                <textarea class="form-control" id="description" rows="5" name="description"></textarea>
+                <textarea class="form-control" id="description" rows="5" name="description" value="Good place with very good food!" ></textarea>
                 <label for="description">Description</label>
             </div>
 
             <div class="form-floating mb-3">
-                <input type="file" class="form-control" id="image" name="image" accept="image/*" >
+                <input type="file" class="form-control" id="image" name="image" accept="image/*">
                 <label for="image">Image</label>
             </div>
             <button type="submit" class="btn btn-primary">ADD REVIEW</button>
         </form>
         <p></p>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Add Review successful!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="successModalMessage"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        onclick="redirectToDetails()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="errorModalLabel">Error! Please Try Again!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="errorModalMessage"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -99,7 +133,47 @@
                     updateDynamicFeatures(loggedInUser);
                 }
             });
+
             // Handle form submission
+            $('#addReviewForm').submit(function (e) {
+                e.preventDefault();
+                const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+                // Perform AJAX request
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: 'post',
+                    data: new FormData(this),
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    headers: {
+                        'Authorization': 'Token ' + loggedInUser.token
+                    },
+                    success: function (response) {
+                        // Display success modal
+                        $('#successModalMessage').text(response.message);
+                        $('#successModal').modal('show');
+                    },
+                    error: function (xhr, status, error) {
+                        // Display error modal
+                        const errorMessage = xhr.responseJSON ? xhr.responseJSON.message : 'An error occurred.';
+                        $('#errorModalMessage').text(errorMessage);
+                        $('#errorModal').modal('show');
+                    }
+                });
+            });
+
+            // Handle success modal close button click
+            $('#successModal').on('hidden.bs.modal', function () {
+                redirectToDetails();  // This will only be called when the modal is closed
+            });
+
+            function redirectToDetails() {
+                // Add the redirection logic here
+                console.log('Redirecting to details page');
+                // Extract restaurant_id from the URL or use any logic as per your application
+                window.location.replace('/Frontend/FoodSpotRecommendations/mainpagefs.html');
+            }
         });
     </script>
 </body>
