@@ -1,7 +1,16 @@
 #foodrecommendation/views.py
 from rest_framework import viewsets
 from .models import Restaurant, Recommendation
-from .serializers import AddReviewFromMainPageSerializer, AddReviewFromRestaurantPageSerializer, ListTopRatedRestaurantsSerializer, RecommendationDetailSerializer, RestaurantDetailSerializer, YourFoodRecommendationsSerializer
+from .serializers import (
+    AddReviewFromMainPageSerializer, 
+    AddReviewFromRestaurantPageSerializer, 
+    ListTopRatedRestaurantsSerializer, 
+    RecommendationDetailSerializer, 
+    RestaurantDetailSerializer, 
+    YourFoodRecommendationsSerializer,
+    EditReviewSerialzier,
+    DeleteReviewSerializer,
+)
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -246,7 +255,7 @@ class YourFoodRecommendationsView(ListAPIView):
 
 class EditRecommendationView(RetrieveUpdateAPIView):
     queryset = Recommendation.objects.all()
-    serializer_class = AddReviewFromRestaurantPageSerializer
+    serializer_class = EditReviewSerialzier
     permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
     lookup_field = 'pk'
 
@@ -260,9 +269,10 @@ class EditRecommendationView(RetrieveUpdateAPIView):
         return Response(data={'message':message,'data':serializer.data }, status=status.HTTP_200_OK)
     
 
+
 class DeleteRecommendationView(RetrieveDestroyAPIView):
     queryset = Recommendation.objects.all()
-    serializer_class = RecommendationDetailSerializer
+    serializer_class = DeleteReviewSerializer
     permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
     lookup_field = 'pk'
 
@@ -283,11 +293,10 @@ class DeleteRecommendationView(RetrieveDestroyAPIView):
         if recommendations_for_restaurant.count() == 0:
             restaurant_name = restaurant.name
             restaurant.delete()
-            message = f"The last recommendation for {restaurant_name} has been deleted by {first_name}, and the restaurant({restaurant_name}) is removed."
+            message = f"You just deleted the last review for {restaurant_name}.Thus {restaurant_name} is removed from our restaurants list!"
         else:
-            message = f"Recommendation deleted successfully by {first_name}"
+            message = f"You have successfully deleted your review!"
 
-        return Response({"detail": message}, status=status.HTTP_204_NO_CONTENT)
-
-
+        # Return a JSON response with a status code of 200
+        return Response({"detail": message}, status=status.HTTP_200_OK)
 

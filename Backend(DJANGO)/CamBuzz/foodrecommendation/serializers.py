@@ -139,6 +139,7 @@ class RestaurantDetailSerializer(serializers.ModelSerializer):
         )
 
 
+
 class YourFoodRecommendationsSerializer(serializers.ModelSerializer):
     restaurant_name = serializers.CharField(source='restaurant.name', read_only=True)
     restaurant_location = serializers.CharField(source='restaurant.location', read_only=True)
@@ -147,6 +148,7 @@ class YourFoodRecommendationsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Recommendation
         fields = (
+            'id',
             'user_name',
             'restaurant_id',
             'restaurant_name',
@@ -162,4 +164,61 @@ class YourFoodRecommendationsSerializer(serializers.ModelSerializer):
         )
 
 
+class EditReviewSerialzier(serializers.Serializer):
+    food_rating = serializers.DecimalField(max_digits=2, decimal_places=1)
+    service_rating = serializers.DecimalField(max_digits=2, decimal_places=1)
+    ambience_rating = serializers.DecimalField(max_digits=2, decimal_places=1)
+    avg_user_price_per_head = serializers.DecimalField(max_digits=6, decimal_places=2)
+    top_recommendation = serializers.CharField(max_length=100)
+    description = serializers.CharField(max_length=1000)
+    image = serializers.ImageField(required=False)
 
+    def update(self, instance, validated_data):
+        # Your logic to update the recommendation instance
+        instance.food_rating = validated_data.get('food_rating', instance.food_rating)
+        instance.service_rating = validated_data.get('service_rating', instance.service_rating)
+        instance.ambience_rating = validated_data.get('ambience_rating', instance.ambience_rating)
+        instance.top_recommendation = validated_data.get('top_recommendation', instance.top_recommendation)
+        instance.avg_user_price_per_head = validated_data.get('avg_user_price_per_head', instance.avg_user_price_per_head)
+        instance.description = validated_data.get('description', instance.description)
+        instance.ambience_rating = validated_data.get('ambience_rating', instance.ambience_rating)
+        
+        # Check if a new image is provided
+        new_image = validated_data.get('image', None)
+        if new_image:
+            instance.image = new_image
+
+        instance.save()
+        
+        instance.save()
+
+        # Update overall_price and overall_rating of the associated restaurant
+        restaurant = instance.restaurant
+        recommendations_for_restaurant = Recommendation.objects.filter(restaurant=restaurant)
+        total_prices = sum([r.avg_user_price_per_head for r in recommendations_for_restaurant])
+        total_ratings = sum([r.avg_user_rating for r in recommendations_for_restaurant])
+
+        # Calculate new overall_price and overall_rating
+        restaurant.overall_price = total_prices / len(recommendations_for_restaurant)
+        restaurant.overall_rating = total_ratings / len(recommendations_for_restaurant)
+        restaurant.save()
+        return instance
+
+
+class DeleteReviewSerializer(serializers.ModelSerializer):
+    user_name = serializers.CharField(source='user.first_name', read_only=True)
+
+    class Meta:
+        model = Recommendation
+        fields = (
+            'user_name',  # Change this to user_name
+            'profile_picture',
+            'food_rating',
+            'service_rating',
+            'ambience_rating',
+            'avg_user_rating',
+            'avg_user_price_per_head',
+            'top_recommendation',
+            'description',
+            'full_image_url',
+        )
