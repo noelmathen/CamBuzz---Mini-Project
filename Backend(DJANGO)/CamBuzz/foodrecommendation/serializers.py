@@ -1,6 +1,8 @@
 #foodrecommendation/serializers.py
 from rest_framework import serializers
 from .models import Restaurant, Recommendation
+import random
+from django.contrib.sites.shortcuts import get_current_site
 
 
 class AddReviewFromMainPageSerializer(serializers.Serializer):
@@ -13,6 +15,7 @@ class AddReviewFromMainPageSerializer(serializers.Serializer):
     top_recommendation = serializers.CharField(max_length=100)
     description = serializers.CharField(max_length=1000)
     image = serializers.ImageField(required=False)
+
 
 
 class AddReviewFromRestaurantPageSerializer(serializers.Serializer):
@@ -48,19 +51,42 @@ class AddReviewFromRestaurantPageSerializer(serializers.Serializer):
         return instance
 
 
+
 class ListTopRatedRestaurantsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Restaurant
         fields = ['id', 'name', 'location', 'overall_rating', 'overall_price', 'image', 'number_of_recommendations']
 
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+
+        # Retrieve all recommendations for the current restaurant
+        recommendations = instance.recommendation_set.all()
+
+        # Check if there are any recommendations with images
+        recommendations_with_images = [rec for rec in recommendations if rec.image]
+
+        if recommendations_with_images:
+            # Randomly select an image from recommendations
+            random_recommendation = random.choice(recommendations_with_images)
+            representation['image'] = 'http://127.0.0.1:8000/'+random_recommendation.image.url
+        else:
+            representation['image'] = None
+
+        return representation
+
+
 
 class RecommendationDetailSerializer(serializers.ModelSerializer):
     user_name = serializers.CharField(source='user.username', read_only=True)
+    profile_picture = serializers.SerializerMethodField()
+    full_image_url = serializers.SerializerMethodField()
 
     class Meta:
         model = Recommendation
         fields = (
             'user_name',
+            'profile_picture',
             'food_rating',
             'service_rating',
             'ambience_rating',
@@ -68,8 +94,34 @@ class RecommendationDetailSerializer(serializers.ModelSerializer):
             'avg_user_price_per_head',
             'top_recommendation',
             'description',
-            'image',
+            'full_image_url',  # Include the full image URL in the response
         )
+
+    def get_profile_picture(self, obj):
+        request = self.context.get('request')
+        user = obj.user
+        profile_picture_url = None
+
+        # Check if the user has a profile picture
+        if hasattr(user, 'student_profile') and user.student_profile.photo:
+            profile_picture_url = 'http://127.0.0.1:8000'+(user.student_profile.photo.url)
+        elif user.profile_picture:
+            profile_picture_url = 'http://127.0.0.1:8000'+(user.profile_picture.url)
+
+        return profile_picture_url
+
+    def get_full_image_url(self, obj):
+        try:
+            if(obj.image):
+                print(obj.image)
+                full_image_url = 'http://127.0.0.1:8000' + obj.image.url
+                print(full_image_url)
+            else:
+                return
+        except AttributeError:  # Handle cases where 'image' might not be present
+            full_image_url = 'http://127.0.0.1:8000/media/restaurant_images/default_rest_img.jpg'  # Or use a placeholder image URL here
+        return full_image_url
+
 
 
 class RestaurantDetailSerializer(serializers.ModelSerializer):

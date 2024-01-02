@@ -39,7 +39,7 @@ class Recommendation(models.Model):
     service_rating = models.DecimalField(max_digits=2, decimal_places=1)
     ambience_rating = models.DecimalField(max_digits=2, decimal_places=1)
     top_recommendation = models.CharField(max_length=100)
-    description = models.TextField()
+    description = models.TextField(blank=True, null=True)
     # Fields for calculated values
     avg_user_rating = models.DecimalField(max_digits=2, decimal_places=1, blank=True, null=True)
     avg_user_price_per_head = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)

@@ -12,6 +12,7 @@ from rest_framework.generics import RetrieveAPIView, ListAPIView, RetrieveUpdate
 from django.db import transaction
 from rest_framework.permissions import IsAuthenticated
 from .permissions import IsOwnerOrReadOnly
+from random import choice
 
 class AddReviewFromMainPage(APIView):
     permission_classes = [IsAuthenticated]
@@ -105,6 +106,7 @@ class AddReviewFromMainPage(APIView):
             return Response({"message": success_message},status=status.HTTP_201_CREATED)
 
 
+
 class AddReviewForRestaurant(APIView):
     permission_classes = [IsAuthenticated]
     def post(self, request, restaurant_id, *args, **kwargs):
@@ -177,8 +179,9 @@ class AddReviewForRestaurant(APIView):
 
         first_name = request.user.first_name
         user_id = request.user.id
-        success_message = f"{first_name}(user_id:{user_id}) successfully created a recommendation for {restaurant.name}, {restaurant.location}(restaurant_id:{restaurant.id})" 
+        success_message = f"You successfully created a recommendation for {restaurant.name}, {restaurant.location}!" 
         return Response({"message": success_message},status=status.HTTP_201_CREATED)
+
 
 
 class ListTopRatedRestaurants(APIView):
@@ -208,6 +211,7 @@ class ListTopRatedRestaurants(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+
 class RestaurantDetailView(RetrieveAPIView):
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantDetailSerializer
@@ -229,6 +233,7 @@ class RestaurantDetailView(RetrieveAPIView):
         return Response(response_data)
 
 
+
 class YourFoodRecommendationsView(ListAPIView):
     serializer_class = YourFoodRecommendationsSerializer
     permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
@@ -236,6 +241,7 @@ class YourFoodRecommendationsView(ListAPIView):
     def get_queryset(self):
         # Retrieve recommendations made by the authenticated user
         return Recommendation.objects.filter(user=self.request.user).order_by('-avg_user_rating')
+
 
 
 class EditRecommendationView(RetrieveUpdateAPIView):
