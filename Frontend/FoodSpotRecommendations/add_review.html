@@ -1,4 +1,4 @@
-<!-- publish_ride.html -->
+<!-- add_review.html -->
 <!doctype html>
 <html lang="en">
 
@@ -103,25 +103,28 @@
                 <!-- Food Spot Details -->
                 <div class="header-container">
                     <div class="food-info">
-                        <h2 class="restaurant-name">Thaal Kitchen</h2>
-                        <p class="restaurant-location">📍 Kakkanadu</p>
+                        <h2 class="restaurant-name" id="restaurantName"></h2>
+                        <p class="restaurant-location" id="restaurantLocation"></p>
                     </div>
                     <div class="food-info">
-                        <p class="overall-rating">Overall Rating: ⭐4.5</p>
-                        <p class="price-per-head">Price per Head: ₹100.5</p>
-                        <p class="number-of-reviews">Number of Reviews: 👤 10</p>
+                        <p class="overall-rating" id="overallRating"></p>
+                        <p class="price-per-head" id="pricePerHead"></p>
+                        <p class="number-of-reviews" id="numberOfReviews"></p>
                     </div>
                 </div>
             </div>
-        </div>
+        </div>        
     </div>
     <div class="divider"></div>
 
     <div class="container-lg" style="text-align: center; margin-top: 50px;">
-        <form id="publishRideForm" action="http://127.0.0.1:8000/api/foodrecommendation/addreviewfrommainpage/"
-            method="post">
+        <form id="addReviewForm"
+            action="http://127.0.0.1:8000/api/foodrecommendation/restaurants/${restaurant_id}/add_review/"
+            method="post" enctype="multipart/form-data">
             <!-- Add a heading for "Add a Review" -->
-            <h2 style="font-family: 'Gearogia', sans-serif; color: #000000; margin-bottom: 60px;">Add a Review</h2>
+            <h2 id="reviewHeading" style="font-family: 'Gearogia', sans-serif; color: #000000; margin-bottom: 60px;">Add a Review for
+                <span id="restaurantNamePlaceholder"></span>
+            </h2>
 
             <div class="form-floating mb-3">
                 <input type="number" step="0.1" class="form-control" id="foodRating" placeholder="Food Rating"
@@ -167,20 +170,135 @@
         <p></p>
     </div>
 
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Add Review successful!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="successModalMessage"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="redirectToDetails()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="errorModalLabel">Add Review Error! Please Try Again!</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="errorModalMessage"></div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" >Close</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
     <script>
         $(function () {
+            console.log('Page loaded');
+    
             $('#navbar-placeholder').load('/Frontend/navbar.html', function () {
                 // Retrieve user information from local storage
                 const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
-
+                console.log('Navbar loaded');
+    
                 if (loggedInUser) {
                     // Call the function to update dynamic features
                     updateDynamicFeatures(loggedInUser);
                 }
             });
+    
+            // Extract restaurant_id from the URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const restaurantId = urlParams.get('restaurant_id');
+    
+            // Fetch restaurant details from the API
+            $.ajax({
+                url: `http://127.0.0.1:8000/api/foodrecommendation/restaurants/${restaurantId}/`,
+                type: 'GET',
+                success: function (data) {
+                    console.log('Restaurant details fetched successfully');
+    
+                    const restaurantDetails = data.restaurant_details;
+    
+                    // Update elements with actual values
+                    $('#restaurantName').text(restaurantDetails.name);
+                    $('#restaurantLocation').text(`📍 ${restaurantDetails.location}`);
+                    $('#overallRating').text(`Overall Rating: ⭐${restaurantDetails.overall_rating}`);
+                    $('#pricePerHead').text(`Price per Head: ₹${restaurantDetails.overall_price}`);
+                    $('#numberOfReviews').text(`Number of Reviews: 👤 ${restaurantDetails.number_of_recommendations}`);
+                    $('#restaurantNamePlaceholder').text(restaurantDetails.name);
+                },
+                error: function (xhr, status, error) {
+                    console.log('Error fetching restaurant details:', error);
+                }
+            });
+
+            // Set the restaurant_id in the hidden input field
+            $('#restaurantIdInput').val(restaurantId);
+    
             // Handle form submission
+            $('#addReviewForm').submit(function (e) {
+                e.preventDefault();
+                console.log('Form submitted');
+    
+                // You may want to perform client-side validation here
+                const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+                // Perform AJAX request
+                $.ajax({
+                    url: `http://127.0.0.1:8000/api/foodrecommendation/restaurants/${restaurantId}/add_review/`,
+                    type: 'post',
+                    data: new FormData(this),
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    headers: {
+                        'Authorization': 'Token ' + loggedInUser.token
+                    },
+                    success: function (response) {
+                        // Display success modal
+                        console.log('Review added successfully:', response.message);
+                        $('#successModalMessage').text(response.message);
+                        $('#successModal').modal('show');
+                        // Optionally, you can redirect to the details page after a delay
+                        setTimeout(function () {
+                            redirectToDetails();
+                        }, 2000);
+                    },
+                    error: function (xhr, status, error) {
+                        // Display error modal
+                        const errorMessage = xhr.responseJSON ? xhr.responseJSON.message : 'An error occurred.';
+                        console.log('Error adding review:', errorMessage);
+                        $('#errorModalMessage').html(errorMessage);
+                        $('#errorModal').modal('show');
+                    }
+                });
+            });
+            // Handle success modal close button click
+            $('#successModal').on('hidden.bs.modal', function () {
+                console.log('Success modal closed');
+                redirectToDetails();  // This will only be called when the modal is closed
+            });
+            return false;
         });
+    
+        function redirectToDetails() {
+            console.log('Redirecting to details page');
+            // Extract restaurant_id from the URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const restaurantId = urlParams.get('restaurant_id');
+            console.log('Restaurant ID:', restaurantId);
+            window.location.replace(`/Frontend/FoodSpotRecommendations/foodspot_details.html?id=${restaurantId}`);
+        }
     </script>
 </body>
-
 </html>

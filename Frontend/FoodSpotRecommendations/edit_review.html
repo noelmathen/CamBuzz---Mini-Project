@@ -1,4 +1,4 @@
-<!-- publish_ride.html -->
+<!-- edit_review.html -->
 <!doctype html>
 <html lang="en">
 
@@ -22,25 +22,38 @@
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.9.4/dist/css/tempus-dominus.min.css"
         crossorigin="anonymous">
+
+    <style>
+        /* Add this style to differentiate non-editable fields */
+        .non-editable {
+            background-color: #f8f9fa;
+            /* Light gray background */
+            color: #495057;
+            /* Dark text color */
+            cursor: not-allowed;
+            /* Show not-allowed cursor on hover */
+        }
+    </style>
 </head>
 
 <body>
     <div id="navbar-placeholder"></div>
     <div class="container-lg" style="text-align: center; margin-top: 50px;">
-        <form id="publishRideForm" action="http://127.0.0.1:8000/api/foodrecommendation/addreviewfrommainpage/" method="post">
+        <form id="editReviewForm" action="http://127.0.0.1:8000/api/foodrecommendation/edit_recommendation/{review_id}/"
+            method="put">
             <!-- Add a heading for "Add a Review" -->
             <h2 style="font-family: 'Arial', sans-serif; color: #000000; margin-bottom: 60px;">Edit this Review</h2>
 
             <!-- New input fields for restaurant details -->
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="restaurantName" placeholder="Restaurant Name"
-                    name="restaurant_name" required>
+                <input type="text" class="form-control non-editable" id="restaurantName" placeholder="Restaurant Name"
+                    name="restaurant_name" required readonly>
                 <label for="restaurantName">Restaurant Name</label>
             </div>
 
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="restaurantLocation" placeholder="Restaurant Location"
-                    name="restaurant_location" required>
+                <input type="text" class="form-control non-editable" id="restaurantLocation"
+                    placeholder="Restaurant Location" name="restaurant_location" required readonly>
                 <label for="restaurantLocation">Restaurant Location</label>
             </div>
 
@@ -80,12 +93,48 @@
             </div>
 
             <div class="form-floating mb-3">
-                <input type="file" class="form-control" id="image" name="image" accept="image/*" >
-                <label for="image">Image</label>
+                <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                <label for="image">Change Image</label>
+                <!-- Image preview placeholder -->
+                <img id="imagePreview" src="" alt="Image Preview"
+                    style="max-width: 100%; border-radius: 10px; margin-top: 10px; margin-right: 1000px;float: left;">
             </div>
-            <button type="submit" class="btn btn-primary">EDIT REVIEW</button>
+
+            <!-- "Edit Review" button moved outside the form fields -->
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">EDIT REVIEW</button>
+            </div>
         </form>
         <p></p>
+    </div>
+
+    <!-- Add modals for success and error messages -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Success</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="successMessage">
+                    <!-- Success message goes here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="errorMessage">
+                    <!-- Error message goes here -->
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -99,8 +148,106 @@
                     updateDynamicFeatures(loggedInUser);
                 }
             });
+
+            // Function to populate form fields with existing data
+            function populateFormFields(reviewId) {
+                const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+
+                // Make an API call to retrieve review details
+                $.ajax({
+                    url: `http://127.0.0.1:8000/api/foodrecommendation/edit_recommendation/${reviewId}/`,
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Token ${loggedInUser.token}`
+                    },
+                    success: function (data) {
+                        // Populate form fields with existing data
+                        $('#restaurantName').val(restaurantName);
+                        $('#restaurantLocation').val(restaurantLocation);
+                        $('#foodRating').val(data.food_rating);
+                        $('#serviceRating').val(data.service_rating);
+                        $('#ambienceRating').val(data.ambience_rating);
+                        $('#avgUserPrice').val(data.avg_user_price_per_head);
+                        $('#topRecommendation').val(data.top_recommendation);
+                        $('#description').val(data.description);
+
+                        // Handle image preview if an image is already uploaded
+                        if (data.image) {
+                            // Update this part based on your image preview logic
+                            $('#imagePreview').attr('src', data.image)
+                        }
+                    },
+                    error: function (error) {
+                        console.error('Error fetching review details:', error);
+                    }
+                });
+            }
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const reviewId = urlParams.get('recommendation_id');
+            const restaurantName = urlParams.get('restaurant_name');
+            const restaurantLocation = urlParams.get('restaurant_location');
+
+            // Populate form fields with existing data
+            populateFormFields(reviewId, restaurantName, restaurantLocation);
+
             // Handle form submission
+            $('#editReviewForm').submit(function (event) {
+                event.preventDefault();
+
+                // Capture form data
+                const formData = new FormData(this);
+                const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+
+                // Make a PUT request to update the review
+                $.ajax({
+                    url: `http://127.0.0.1:8000/api/foodrecommendation/edit_recommendation/${reviewId}/`,
+                    method: 'PUT',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    headers: {
+                        'Authorization': `Token ${loggedInUser.token}`
+                    },
+                    success: function (response) {
+                        console.log('Review updated successfully:', response);
+
+                        // Display success modal with message
+                        $('#successMessage').text('Review updated successfully!');
+                        $('#successModal').modal('show');
+
+                        // Add any success handling logic here
+                    },
+                    error: function (error) {
+                        console.error('Error updating review:', error);
+
+                        // Display error modal with message
+                        $('#errorMessage').text('Error updating review. Please try again.');
+                        $('#errorModal').modal('show');
+
+                        // Add error handling logic here
+                    }
+                });
+            });
+
+            // Handle success modal close event
+            $('#successModal').on('hidden.bs.modal', function (e) {
+                window.location.replace = "/Frontend/FoodSpotRecommendations/my_recommendations.html";
+            });
+
+            // Handle error modal close event
+            $('#errorModal').on('hidden.bs.modal', function (e) {
+                // Handle any additional logic if needed
+            });
         });
+
+        // Reload the page after being redirected to my_bookings.html
+        window.onload = function () {
+            // Check if the URL contains "my_bookings.html" to avoid reloading on other pages
+            if (window.location.href.includes('my_bookings.html')) {
+                location.reload();
+            }
+        };
     </script>
 </body>
 

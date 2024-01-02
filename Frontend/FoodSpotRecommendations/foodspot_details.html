@@ -1,3 +1,4 @@
+<!-- foodspot_details.html -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,9 +14,7 @@
     crossorigin="anonymous"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-    integrity="sha384-ez0j2yFDlflNlq7s1v/GWtBAdQ5eU8b/p4hG8T/nG2pTMEF7KCOJ5Z5DdExlSBJ"
-    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" crossorigin="anonymous">
   <style>
     body {
       font-family: 'Roboto', sans-serif;
@@ -116,35 +115,21 @@
     }
 
     .review:hover {
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      box-shadow: 30px 30px 30px rgba(0, 0, 0, 0.2);
     }
 
     .profile-picture {
       border-radius: 50%;
-      width: 45px;
-      /* Adjust the size as needed */
-      height: 45px;
-      /* Adjust the size as needed */
+      width: 60px;
+      height: 75px;
       margin-right: 10px;
-      /* Adjust the spacing between the picture and details */
+      object-fit: cover; /* Maintain aspect ratio and cover the container */
+      overflow: hidden; /* Ensure content is hidden outside the circle */
     }
 
     .details {
       margin-left: 10px;
       /* Adjust the spacing between the picture and details */
-    }
-
-    .like-button {
-      padding: 10px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    .like-button:hover {
-      background-color: #0056b3;
     }
 
     .review img {
@@ -168,21 +153,59 @@
       display: inline-block;
     }
 
-/* Custom styles for the two-column layout */
-.row {
-    /* Adjust the margin-bottom to decrease space */
-    margin-bottom: 10px;
-  }
-  
-  .col-md-8 {
-    /* Adjust the margin-bottom to decrease space */
-    margin-right: -10px;
-  }
-  
-  .col-md-4 {
-    /* Adjust the margin-bottom to decrease space */
-    margin-bottom: 10px;
-  }
+    /* Custom styles for the two-column layout */
+    .row {
+      /* Adjust the margin-bottom to decrease space */
+      margin-bottom: 10px;
+    }
+
+    .col-md-8 {
+      /* Adjust the margin-bottom to decrease space */
+      margin-right: -10px;
+    }
+
+    .col-md-4 {
+      /* Adjust the margin-bottom to decrease space */
+      margin-bottom: 10px;
+    }
+
+    /* Style for the "Add a Review" button */
+    .add-review-button {
+      display: inline-block;
+      background-color: #127dab;
+      color: #ffffff;
+      border: none;
+      padding: 15px 20px;
+      font-size: 18px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out;
+      animation: pulse 1.5s infinite;
+      /* Add animation for pulse effect */
+    }
+
+    .add-review-button:hover {
+      background-color: #2980b9;
+    }
+
+    .add-review-icon {
+      font-size: 24px;
+      margin-right: 10px;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.03);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
   </style>
 </head>
 
@@ -196,55 +219,30 @@
         <!-- Food Spot Details -->
         <div class="header-container">
           <div class="food-info">
-            <h2 class="restaurant-name">Thaal Kitchen</h2>
-            <p class="restaurant-location">📍 Kakkanadu</p>
+            <h2 class="restaurant-name"></h2>
+            <p class="restaurant-location">📍 </p>
           </div>
           <div class="food-info">
-            <p class="overall-rating">Overall Rating: ⭐4.5</p>
-            <p class="price-per-head">Price per Head: ₹100.5</p>
-            <p class="number-of-reviews">Number of Reviews: 👤 10</p>
+            <p class="overall-rating">Overall Rating: ⭐</p>
+            <p class="price-per-head">Price per Head: </p>
+            <p class="number-of-reviews">Number of Reviews: </p>
           </div>
         </div>
       </div>
     </div>
-  
+
     <!-- Divider -->
     <div class="divider"></div>
 
     <!-- Add Review Button Section -->
-    <div class="add-review-button text-center" id="addReviewButton">
-      <a class="btn btn-primary" href="./add_review.html">Add a Review for this Food Spot</a>
+    <div class="add-food-form text-center">
+      <button class="add-review-button btn btn-primary" onclick="redirectToReviewPage()">
+        <span class="add-review-icon">+</span> Add a Review for this Restaurant
+      </button>
     </div>
 
     <!-- Reviews Section -->
     <div class="reviews-container" id="reviewContainer">
-      <!-- Reviews will be displayed here -->
-      <div class="review">
-        <!-- Two-column layout -->
-        <div class="row">
-          <!-- Column 1: Profile Picture and Details (Aligned to left) -->
-          <div class="col-md-8">
-            <!-- Profile Picture -->
-            <h3><img src="/Frontend/FoodSpotRecommendations/blank_profile_pic.png" alt="Profile Picture"
-                class="profile-picture">John Doe</h3>
-            <!-- Details -->
-            <p class="rating-label">Food: <span class="rating-box"><i
-                  class="fas fa-star"></i>⭐ 4.1</span></p>
-            <p class="rating-label">Service: <span class="rating-box"><i
-                  class="fas fa-star"></i>⭐ 5.2</span></p>
-            <p class="rating-label">Ambience: <span class="rating-box"><i
-                  class="fas fa-star"></i>⭐ 3.9</span></p>
-            <p class="rating-label">Price per Head: <span class="rating-value"> ₹150</span></p>
-            <p class="rating-label">Top Recommendation: <span class="rating-value">Sample Dish</span></p>
-            <p class="rating-label">Description: <span class="rating-value">Sample Description</span></p>
-          </div>
-          <!-- Column 2: Image (Aligned to right-center) -->
-          <div class="col-md-4 d-flex align-items-center justify-content-end">
-            <img src="http://127.0.0.1:8000/media/restaurant_images/pexels-chan-walrus-958545.jpg" alt="Review Image"
-              style="max-width: 100%; border-radius: 10px; transition: transform 0.3s ease;">
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -252,12 +250,117 @@
     $(function () {
       $('#navbar-placeholder').load('/Frontend/navbar.html', function () {
         const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
-
+  
         if (loggedInUser) {
           updateDynamicFeatures(loggedInUser);
         }
       });
+  
+      // Fetch restaurant details and reviews on page load
+      const restaurantId = getParameterByName('id'); // Function to get query parameters
+      if (restaurantId) {
+        fetchRestaurantDetails(restaurantId);
+      }
     });
+  
+    function fetchRestaurantDetails(restaurantId) {
+      // Make AJAX request to your backend for restaurant details
+      $.ajax({
+        url: `http://127.0.0.1:8000/api/foodrecommendation/restaurants/${restaurantId}/`,
+        type: 'GET',
+        success: function (data) {
+          // Handle the successful response
+          updateRestaurantDetails(data);
+        },
+        error: function (error) {
+          // Handle the error
+          console.log('Error fetching restaurant details:', error);
+        }
+      });
+    }
+  
+    function updateRestaurantDetails(data) {
+      // Update restaurant details section
+      const restaurantDetailsContainer = $('#foodDetails');
+  
+      // Check if the data contains restaurant details
+      if (data.restaurant_details) {
+        const restaurant = data.restaurant_details;
+  
+        // Update restaurant name, location, and other details
+        restaurantDetailsContainer.find('.restaurant-name').text(restaurant.name);
+        restaurantDetailsContainer.find('.restaurant-location').text(`📍 ${restaurant.location}`);
+        restaurantDetailsContainer.find('.overall-rating').text(`Overall Rating: ⭐${restaurant.overall_rating}`);
+        restaurantDetailsContainer.find('.price-per-head').text(`Price per Head: ₹${restaurant.overall_price}`);
+        restaurantDetailsContainer.find('.number-of-reviews').text(`Number of Reviews: 👤 ${restaurant.number_of_recommendations}`);
+      }
+  
+      // Update reviews section
+      const reviewContainer = $('#reviewContainer');
+  
+      // Check if the data contains reviews
+      if (data.recommendations && data.recommendations.length > 0) {
+        const reviews = data.recommendations;
+  
+        // Clear existing reviews
+        reviewContainer.empty();
+  
+        // Iterate through reviews and update HTML
+        reviews.forEach(function (review) {
+          console.log(review)
+          const reviewHtml = `
+          <!-- Reviews will be displayed here -->
+          <div class="review">
+            <!-- Two-column layout -->
+            <div class="row">
+              <!-- Column 1: Profile Picture and Details (Aligned to left) -->
+              <div class="col-md-8">
+                <!-- Profile Picture -->
+                <h3><img src="${review.profile_picture}" alt="Profile Picture" class="profile-picture">${review.user_name}</h3>
+                <!-- Details -->
+                <p class="rating-label">Food: <span class="rating-box"><i></i>⭐ ${review.food_rating}</span></p>
+                <p class="rating-label">Service: <span class="rating-box"><i></i>⭐ ${review.service_rating}</span></p>
+                <p class="rating-label">Ambience: <span class="rating-box"><i></i>⭐ ${review.ambience_rating}</span></p>
+                <p class="rating-label">Price per Head: <span class="rating-value"> ₹${review.avg_user_price_per_head}</span></p>
+                <p class="rating-label">Top Recommendation: <span class="rating-value">${review.top_recommendation}</span></p>
+                <p class="rating-label">Description: <span class="rating-value">${review.description}</span></p>
+              </div>
+              <!-- Column 2: Image (Aligned to right-center) -->
+              <div class="col-md-4 d-flex align-items-center justify-content-end">
+                ${review.full_image_url ? `
+                    <img src="${review.full_image_url}" alt="Review Image" style="max-width: 100%; border-radius: 10px; transition: transform 0.3s ease;">
+                ` : ''}
+            </div>
+            </div>
+          </div>`;
+        
+          reviewContainer.append(reviewHtml);
+        });
+      } else {
+        // Display a message when there are no reviews
+        const noReviewsMessage = $('<div class="text-center">No reviews available.</div>');
+        reviewContainer.append(noReviewsMessage);
+      }
+    }
+  
+    // Function to get query parameters from the URL
+    function getParameterByName(name, url) {
+      if (!url) url = window.location.href;
+      name = name.replace(/[\[\]]/g, '\\$&');
+      const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+
+    function redirectToReviewPage() {
+      // Get the restaurant ID from the URL or other source (modify as needed)
+      const restaurantId = getParameterByName('id');
+  
+      // Redirect to the add review page with the restaurant ID
+      window.location.href = `/Frontend/FoodSpotRecommendations/add_review.html?restaurant_id=${restaurantId}`;
+    }
   </script>
 </body>
 
