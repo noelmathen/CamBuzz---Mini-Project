@@ -10,6 +10,7 @@ from .serializers import (
     OrganisationRegistrationSerializer, 
     OrganisationProfileEditSerializer,
     OrganisationListSerializer,
+    OrganisationSerializer,
 )
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
@@ -83,3 +84,18 @@ class OrganisationProfileEditView(UpdateAPIView):
 class OrganisationListView(generics.ListAPIView):
     queryset = CustomUser.objects.filter(is_active=True, is_organisation=True)
     serializer_class = OrganisationListSerializer
+
+
+class OrganisationInfoView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        # Get the organization associated with the logged-in user
+        organisation = Organisation.objects.get(user=request.user)
+        
+        # Serialize the organization information
+        serializer = OrganisationSerializer(organisation)
+
+        # Return the serialized data
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    

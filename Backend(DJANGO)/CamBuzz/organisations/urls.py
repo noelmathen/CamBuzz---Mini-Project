@@ -6,6 +6,7 @@ from .views import (
     OrganisationRegistrationView,
     OrganisationProfileEditView,
     OrganisationListView,
+    OrganisationInfoView,
 )
 
 urlpatterns = [
@@ -14,5 +15,6 @@ urlpatterns = [
     path('profile/editprofile/', OrganisationProfileEditView.as_view(), name='organisation-profile-edit'),        
     path('register/', OrganisationRegistrationView.as_view(), name='organisation-register'),
     path('organisationlist/', OrganisationListView.as_view(), name='organisation_list'),
+    path('info/', OrganisationInfoView.as_view(), name='organisation-info'),
 ]
 

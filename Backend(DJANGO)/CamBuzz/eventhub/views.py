@@ -24,6 +24,7 @@ class EventCreateView(generics.CreateAPIView):
         response.data["detail"] = success_message
         return response
 
+
 class EventUpdateView(generics.UpdateAPIView):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
@@ -133,7 +134,6 @@ class YourEventsView(generics.ListAPIView):
         return Response(response_data, status=status.HTTP_200_OK)
 
 
-
 class ViewEventsView(generics.ListAPIView):
     serializer_class = ViewEventsSerializer
 
@@ -200,3 +200,4 @@ class ViewEventDetailsView(generics.RetrieveAPIView):
             'event_details': serializer.data,
         }
         return Response(response_data, status=status.HTTP_200_OK)
+

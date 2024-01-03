@@ -11,6 +11,7 @@ from .permissions import IsOwnerOrReadOnly
 from .serializers import (
     UserRegistrationSerializer,
     UserProfileEditSerializer,
+    StudentSerializer,
 )
 
 class StudentRegistrationView(APIView):
@@ -51,3 +52,16 @@ class StudentProfileEditView(UpdateAPIView):
         self.perform_update(serializer)
         return Response(serializer.data)
 
+
+class StudentInfoView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        # Get the student associated with the logged-in user
+        student = Student.objects.get(user=request.user)
+        
+        # Serialize the student information
+        serializer = StudentSerializer(student)
+
+        # Return the serialized data
+        return Response(serializer.data, status=status.HTTP_200_OK)

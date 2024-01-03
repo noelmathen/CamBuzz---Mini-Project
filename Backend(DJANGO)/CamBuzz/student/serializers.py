@@ -6,11 +6,13 @@ from rest_framework import serializers
 from .models import Student
 from accounts.models import CustomUser
 from django.contrib.auth import authenticate
+from django.conf import settings
 
 class StudentRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
         fields = ('joining_year', 'branch', 'division', 'phone_number', 'gender', 'photo')
+
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
     student_data = StudentRegistrationSerializer(required=False)
@@ -45,12 +47,11 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         return custom_user
 
 
-
-
 class StudentProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
         fields = ('joining_year', 'phone_number', 'photo')
+
 
 class UserProfileEditSerializer(serializers.ModelSerializer):
     student_data = StudentProfileSerializer(required=False)
@@ -89,3 +90,33 @@ class UserProfileEditSerializer(serializers.ModelSerializer):
             student_instance.save()
 
         return instance
+
+
+class StudentSerializer(serializers.ModelSerializer):
+    # Include fields from the associated user model
+    full_name = serializers.SerializerMethodField()
+    username = serializers.SerializerMethodField()
+    email = serializers.SerializerMethodField()
+    photo = serializers.SerializerMethodField()
+    batch = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Student
+        fields = ('user', 'batch', 'branch', 'division', 'gender', 'phone_number', 'full_name', 'username', 'email', 'photo', )
+
+    def get_full_name(self, obj):
+        return obj.user.get_full_name()
+
+    def get_username(self, obj):
+        return obj.user.username
+
+    def get_email(self, obj):
+        return obj.user.email
+    
+    def get_photo(self, obj):
+        if obj.photo:
+            return  'http://127.0.0.1:8000' + obj.photo.url
+        return None
+    
+    def get_batch(self, obj):
+        return f"{obj.joining_year} - {obj.passout_year}"

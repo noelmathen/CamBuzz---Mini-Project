@@ -1,0 +1,281 @@
+body {
+    background-color: #666464;
+    color: #aa5050;
+    /* Change text color to black */
+}
+
+section {
+    background-color: #1176a1;
+}
+
+.breadcrumb {
+    background-color: #fffafa;
+    border-radius: 0.25rem;
+    display: flex;
+    justify-content: center;
+}
+
+
+.breadcrumb .mb-0 {
+    background-color: #fffbfb;
+    border-radius: 0.25rem;
+    margin: 10 15px;
+}
+
+.breadcrumb-item {
+    margin: 0 50px;
+    /* Adjust margin as needed for spacing between buttons */
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+    display: none;
+}
+
+.card {
+    background-color: #fff9f9;
+    border: none;
+    border-radius: 0.5rem;
+    transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.001);
+    background-color: #f3f4f6;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.rounded-circle {
+    border: 4px solid #282727;
+}
+
+.btn-primary,
+.btn-outline-primary {
+    width: 100%;
+}
+
+.btn-no-outline:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.list-group-item {
+    background-color: #ffffff;
+    border: none;
+}
+
+.list-group-item i {
+    margin-right: 10px;
+}
+
+hr {
+    margin: 1rem 0;
+    color: #a83131;
+    background-color: #555;
+    height: 1px;
+    border: none;
+}
+
+.progress-bar {
+    border-radius: 0.25rem;
+    background-color: #b09090;
+}
+
+/* New Styles */
+.breadcrumb-item a {
+    text-decoration: none;
+    color: #333;
+    /* Change link color */
+}
+
+.breadcrumb-item.active {
+    color: #333;
+    /* Change active link color */
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+    color: #333;
+    /* Change separator color */
+}
+
+.btn-breadcrumb {
+    background-color: #ae7f7f;
+    color: #fff;
+    border: none;
+    border-radius: 0.25rem;
+    padding: 5px 10px;
+    text-decoration: none;
+}
+
+.btn-breadcrumb:hover {
+    background-color: #a83131;
+}
+
+.card-body {
+    font-family: 'Arial', sans-serif;
+    /* Default font for card body */
+}
+
+.row {
+    margin-bottom: 1.5rem;
+}
+
+.row hr {
+    margin: 0.5rem 0.5;
+}
+
+.card-body .row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Left (label) attributes styling */
+.card-body .row .col-sm-3 p {
+    margin: 0;
+    font-weight: bolder;
+    color: #a83131;
+    /* Dark red for label */
+    font-family: 'Montserrat', sans-serif;
+    font-size: 17px;
+    /* Different font for labels */
+}
+
+/* Right (value) attributes styling */
+.card-body .row .col-sm-9 p {
+    margin: 0;
+    font-family: 'Georgia', serif;
+    /* Different font for values */
+}
+
+/* Additional styling for specific attributes */
+.card-body .row .col-sm-3:nth-child(odd) p {
+    color: #2c3e50;
+    /* Dark blue for odd labeled attributes */
+}
+
+.card-body .row .col-sm-3:nth-child(even) p {
+    color: #27ae60;
+    /* Dark green for even labeled attributes */
+}
+
+.card-body .row .col-sm-3:nth-child(3) p {
+    color: #f39c12;
+    /* Orange for "Batch" label */
+}
+
+.card-body .row .col-sm-3:nth-child(5) p {
+    color: #8e44ad;
+    /* Purple for "Gender" label */
+}
+
+.card-body h5 {
+    font-family: 'Pacifico', cursive;
+    color: rgb(15, 88, 136);
+    font-size: xx-large;
+}
+
+.card-body .text-muted.mb-1 {
+    font-family: 'Montserrat', sans-serif;
+    color: #1b8346;
+}
+
+
+.custom-button {
+    font-size: 18px;
+    border-radius: 10px;
+    transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+    background-color: #133a61;
+    color: #000000 !important;
+    /* Custom text color */
+}
+
+.custom-button:hover {
+    transform: scale(1.05);
+    background-color: #3f7ebc;
+    color: #04252e !important;
+}
+
+.custom-button .card-body {
+    padding: 20px;
+}
+
+.custom-button span {
+    font-weight: bold;
+    font-family: 'Trebuchet MS', sans-serif;
+    color: #000000;
+    /* Custom text color */
+}
+
+.home-button {
+    background-color: #ffffff;
+    color: #fff;
+    border: none;
+    border-radius: 0.25rem;
+    padding: 5px 10px;
+    text-decoration: none;
+    font-weight: bold;
+    font-family: 'Trebuchet MS', sans-serif;
+}
+
+.home-button:hover {
+    background-color: #ffffff;
+}
+
+.edit-profile-button {
+    background-color: #ffffff;
+    color: #fff;
+    border: none;
+    border-radius: 0.25rem;
+    padding: 5px 10px;
+    text-decoration: none;
+    font-weight: bold;
+    font-family: 'Trebuchet MS', sans-serif;
+}
+
+.edit-profile-button:hover {
+    background-color: #ffffff;
+}
+
+.change-password-button {
+    background-color: #ffffff;
+    color: #fff;
+    border: none;
+    border-radius: 0.25rem;
+    padding: 5px 10px;
+    text-decoration: none;
+    font-weight: bold;
+    font-family: 'Trebuchet MS', sans-serif;
+}
+
+.change-password-button:hover {
+    background-color: #ffffff;
+}
+
+.logout-button {
+    background-color: #ffffff;
+    color: #fff8f8;
+    border: none;
+    border-radius: 0.25rem;
+    padding: 5px 10px;
+    text-decoration: none;
+    font-weight: bold;
+    font-family: 'Trebuchet MS', sans-serif;
+}
+
+.logout-button:hover {
+    background-color: #ffffff;
+}
+
+.list-group-horizontal .list-group-item {
+    display: inline-block;
+}
+
+.list-group-horizontal .list-group-item {
+    margin-right: 10px; /* Adjust spacing between icons as needed */
+    border: none; /* Remove border from list items */
+    border-radius: 50%; /* Make the icons round */
+    padding: 10px; /* Adjust padding as needed */
+}
