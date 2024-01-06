@@ -14,6 +14,7 @@ class CustomUserRegistrationSerializer(serializers.ModelSerializer):
         model = CustomUser
         fields = ['first_name', 'email', 'username', 'password']
 
+
 class OrganisationRegistrationSerializer(serializers.ModelSerializer):
     user_data = CustomUserRegistrationSerializer(required=False)
 
@@ -37,11 +38,11 @@ class OrganisationRegistrationSerializer(serializers.ModelSerializer):
         return organisation
  
 
-
 class OrganisationProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Organisation
         fields = ('about', 'website_link', 'instagram_username', 'facebook', 'photo')
+
 
 class OrganisationProfileEditSerializer(serializers.ModelSerializer):
     user_data = OrganisationProfileSerializer(required=False)
@@ -87,15 +88,40 @@ class OrganisationProfileEditSerializer(serializers.ModelSerializer):
         return instance
     
 
+class OrganisationProfileEditDataSerializer(serializers.ModelSerializer):
+    first_name = serializers.SerializerMethodField()
+    last_name = serializers.SerializerMethodField()
+    username = serializers.SerializerMethodField()
+    email = serializers.SerializerMethodField()
+    photo = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Organisation
+        fields = ('user', 'about', 'website_link', 'linkedin_profile_link', 'instagram_username', 'facebook', 'first_name', 'last_name', 'username', 'email', 'photo')
+
+    def get_first_name(self, obj):
+        return obj.user.first_name
+    
+    def get_last_name(self, obj):
+        return obj.user.last_name
+
+    def get_username(self, obj):
+        return obj.user.username
+
+    def get_email(self, obj):
+        return obj.user.email
+    
+    def get_photo(self, obj):
+        if obj.photo:
+            return  'http://127.0.0.1:8000' + obj.photo.url
+        return None
+ 
+
 class OrganisationListSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = ['first_name']
 
-
-# organisations/serializers.py
-from rest_framework import serializers
-from .models import Organisation
 
 class OrganisationSerializer(serializers.ModelSerializer):
     full_name = serializers.SerializerMethodField()
@@ -120,4 +146,5 @@ class OrganisationSerializer(serializers.ModelSerializer):
         if obj.photo:
             return  'http://127.0.0.1:8000' + obj.photo.url
         return None
-    
+
+   

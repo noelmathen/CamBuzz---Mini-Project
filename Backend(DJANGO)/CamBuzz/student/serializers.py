@@ -97,36 +97,6 @@ class UserProfileEditSerializer(serializers.ModelSerializer):
         return instance
 
 
-class StudentSerializer(serializers.ModelSerializer):
-    # Include fields from the associated user model
-    full_name = serializers.SerializerMethodField()
-    username = serializers.SerializerMethodField()
-    email = serializers.SerializerMethodField()
-    photo = serializers.SerializerMethodField()
-    batch = serializers.SerializerMethodField()
-
-    class Meta:
-        model = Student
-        fields = ('user', 'batch', 'branch', 'division', 'gender', 'phone_number', 'full_name', 'username', 'email', 'photo', )
-
-    def get_full_name(self, obj):
-        return obj.user.get_full_name()
-
-    def get_username(self, obj):
-        return obj.user.username
-
-    def get_email(self, obj):
-        return obj.user.email
-    
-    def get_photo(self, obj):
-        if obj.photo:
-            return  'http://127.0.0.1:8000' + obj.photo.url
-        return None
-    
-    def get_batch(self, obj):
-        return f"{obj.joining_year} - {obj.passout_year}"
-
-
 class ProfileEditDataSerializer(serializers.ModelSerializer):
     # Include fields from the associated user model
     username = serializers.SerializerMethodField()
@@ -159,3 +129,36 @@ class ProfileEditDataSerializer(serializers.ModelSerializer):
     
     def get_batch(self, obj):
         return f"{obj.joining_year} - {obj.passout_year}"
+
+
+
+class StudentSerializer(serializers.ModelSerializer):
+    # Include fields from the associated user model
+    full_name = serializers.SerializerMethodField()
+    username = serializers.SerializerMethodField()
+    email = serializers.SerializerMethodField()
+    photo = serializers.SerializerMethodField()
+    batch = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Student
+        fields = ('user', 'batch', 'branch', 'division', 'gender', 'phone_number', 'full_name', 'username', 'email', 'photo', )
+
+    def get_full_name(self, obj):
+        return obj.user.get_full_name()
+
+    def get_username(self, obj):
+        return obj.user.username
+
+    def get_email(self, obj):
+        return obj.user.email
+    
+    def get_photo(self, obj):
+        if obj.photo:
+            return  'http://127.0.0.1:8000' + obj.photo.url
+        return None
+    
+    def get_batch(self, obj):
+        return f"{obj.joining_year} - {obj.passout_year}"
+
+

@@ -34,10 +34,6 @@ class Organisation(models.Model):
         return self.user.first_name
     
 
-# # Add related_name to avoid clashes
-# Organisation._meta.get_field('groups').remote_field.related_name = 'organisation_groups'
-# Organisation._meta.get_field('user_permissions').remote_field.related_name = 'organisation_user_permissions'
-
 
 class OrganisationRegistrationRequest(models.Model):
     PENDING = 'pending'
@@ -101,6 +97,7 @@ class OrganisationRegistrationRequest(models.Model):
 
         send_rejection_email(self.organisation)
 
+
 # Handle Email Notifications
 def send_approval_email(organisation):
     try: 
@@ -111,6 +108,7 @@ def send_approval_email(organisation):
         send_mail(subject, message, from_email, recipient_list)
     except Exception as e:
         print(f"Error sending approval email: {e}")
+
 
 def send_rejection_email(organisation):
     subject = 'Your registration request has been rejected'

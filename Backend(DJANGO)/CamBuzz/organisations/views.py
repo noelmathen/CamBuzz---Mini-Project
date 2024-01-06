@@ -11,6 +11,7 @@ from .serializers import (
     OrganisationProfileEditSerializer,
     OrganisationListSerializer,
     OrganisationSerializer,
+    OrganisationProfileEditDataSerializer,
 )
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
@@ -27,6 +28,7 @@ class OrganisationRegistrationRequestApproveView(generics.UpdateAPIView):
         instance.organisation.user.save()
         instance.send_approval_email()
         return Response({'detail': 'Registration request approved successfully.'}, status=status.HTTP_200_OK)
+
 
 class OrganisationRegistrationRequestRejectView(generics.UpdateAPIView):
     queryset = OrganisationRegistrationRequest.objects.all()
@@ -65,6 +67,20 @@ class OrganisationRegistrationView(generics.CreateAPIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
     
 
+class OrganisationProfileEditData(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        # Get the student associated with the logged-in user
+        student = Organisation.objects.get(user=request.user)
+        
+        # Serialize the student information
+        serializer = OrganisationProfileEditDataSerializer(student)
+
+        # Return the serialized data
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
 class OrganisationProfileEditView(UpdateAPIView):
     serializer_class = OrganisationProfileEditSerializer
     permission_classes = [IsAuthenticated]
@@ -99,3 +115,4 @@ class OrganisationInfoView(APIView):
         # Return the serialized data
         return Response(serializer.data, status=status.HTTP_200_OK)
     
+
