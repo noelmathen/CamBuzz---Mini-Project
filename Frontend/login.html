@@ -194,6 +194,7 @@
         <label>Select the category you fall into:</label>
         <label><input type="radio" name="user-type" value="student" class="inline" /> Student</label>
         <label><input type="radio" name="user-type" value="organisation" class="inline" /> Organisation</label>
+        <label><input type="radio" name="user-type" value="superuser" class="inline" /> Admin</label>
       </p>
     </div>
     <p class="p-container">
@@ -210,6 +211,7 @@
         'password': document.getElementById('password').value,
         'is_student': document.querySelector('input[name="user-type"][value="student"]').checked,
         'is_organisation': document.querySelector('input[name="user-type"][value="organisation"]').checked,
+        'is_superuser': document.querySelector('input[name="user-type"][value="superuser"]').checked,
       };
 
       // Make AJAX request
@@ -237,7 +239,12 @@
           alert(data.message);
 
           // Redirect to the next page after a successful login
-          if (data.token) {  // Assuming that 'token' is present in the successful response
+          if (formData.is_superuser && data.success) {
+            // If logging in as admin, redirect to Django admin page
+            window.open('http://127.0.0.1:8000/admin/', '_blank');
+            window.location.reload();
+          } else if (data.token) {
+            // If logging in as a regular user, redirect to the homepage
             localStorage.setItem('loggedInUser', JSON.stringify({
               firstName: data.first_name,
               imageUrl: data.photo_url,

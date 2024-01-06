@@ -21,6 +21,9 @@ class Organisation(models.Model):
         # Set is_active to False when creating a new instance
         if not self.user.id:
             self.user.is_active = False
+        
+        if not self.photo:
+            self.photo = 'profile_photos/blank_profile_pic.png'  # Update with your default photo path
 
         super().save(*args, **kwargs)
     
@@ -29,6 +32,7 @@ class Organisation(models.Model):
     
     def __str__(self):
         return self.user.first_name
+    
 
 # # Add related_name to avoid clashes
 # Organisation._meta.get_field('groups').remote_field.related_name = 'organisation_groups'

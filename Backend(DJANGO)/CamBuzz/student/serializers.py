@@ -47,10 +47,11 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         return custom_user
 
 
+
 class StudentProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ('joining_year', 'phone_number', 'photo')
+        fields = ('joining_year', 'phone_number', 'photo', 'branch', 'division', 'gender',)
 
 
 class UserProfileEditSerializer(serializers.ModelSerializer):
@@ -82,6 +83,10 @@ class UserProfileEditSerializer(serializers.ModelSerializer):
             student_instance.phone_number = student_data.get('phone_number', student_instance.phone_number)
             student_instance.photo = student_data.get('photo', student_instance.photo)
 
+            student_instance.branch = student_data.get('branch', student_instance.branch)
+            student_instance.division = student_data.get('division', student_instance.division)
+            student_instance.gender = student_data.get('gender', student_instance.gender)
+
             # Automatically update passout_year if joining_year is provided
             if 'joining_year' in student_data:
                 student_instance.passout_year = student_data['joining_year'] + 4
@@ -109,6 +114,40 @@ class StudentSerializer(serializers.ModelSerializer):
 
     def get_username(self, obj):
         return obj.user.username
+
+    def get_email(self, obj):
+        return obj.user.email
+    
+    def get_photo(self, obj):
+        if obj.photo:
+            return  'http://127.0.0.1:8000' + obj.photo.url
+        return None
+    
+    def get_batch(self, obj):
+        return f"{obj.joining_year} - {obj.passout_year}"
+
+
+class ProfileEditDataSerializer(serializers.ModelSerializer):
+    # Include fields from the associated user model
+    username = serializers.SerializerMethodField()
+    first_name = serializers.SerializerMethodField()
+    last_name = serializers.SerializerMethodField()
+    email = serializers.SerializerMethodField()
+    photo = serializers.SerializerMethodField()
+    batch = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Student
+        fields = ('user', 'batch', 'branch', 'division', 'gender', 'phone_number', 'first_name', 'last_name', 'username', 'email', 'photo', )
+
+    def get_username(self, obj):
+        return obj.user.username
+    
+    def get_first_name(self, obj):
+        return obj.user.first_name
+    
+    def get_last_name(self, obj):
+        return obj.user.last_name
 
     def get_email(self, obj):
         return obj.user.email

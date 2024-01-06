@@ -28,13 +28,16 @@
                 <div class="col">
                     <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4 text-center">
                         <ol class="breadcrumb mb-0">
-                            <li class="breadcrumb-item"><a href="#" class="home-button">HOME</a></li>
+                            
                             <li class="breadcrumb-item">
-                                <a href="#" class="edit-profile-button" id="changePasswordLink">EDIT PROFILE</a>
+                                <a href="#" class="edit-profile-button" id="editProfileLink">EDIT PROFILE</a>
                             </li>
-                            <li class="breadcrumb-item"><a href="#" class="change-password-button">CHANGE PASSWORD</a>
+                            <li class="breadcrumb-item"><a href="#" class="change-password-button" id="changePasswordLink">CHANGE PASSWORD</a>
                             </li>
                             <li class="breadcrumb-item"><a href="#" class="logout-button">LOGOUT</a></li>
+                            <li class="breadcrumb-item">
+                                <a href="#" class="delete-account-button" id="deleteAccountLink">DELETE ACCOUNT</a>
+                            </li>
                         </ol>
                     </nav>
                 </div>
@@ -171,8 +174,12 @@
                                 name="confirmNewPassword" required>
                         </div>
 
+                        <!-- Success Message -->
+                        <div id="successMessage" class="alert alert-success" style="display: none;"></div>
+
+
                         <!-- Error Messages -->
-                        <div class="alert alert-danger" id="errorMessages" style="display: none;"></div>
+                        <div id="errorMessages" class="alert alert-danger" style="display: none;"></div>
 
                         <!-- Submit Button -->
                         <button type="button" class="btn btn-primary" onclick="changePassword()">Change Password</button>
@@ -182,6 +189,145 @@
             </div>
         </div>
     </div>
+
+
+    <!-- Add a new modal for editing the user profile -->
+    <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form for editing the user profile -->
+                    <form id="editProfileForm">
+                        <!-- First Name -->
+                        <div class="mb-3">
+                            <label for="editFirstName" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="editFirstName" name="first_name">
+                        </div>
+
+                        <!-- Last Name -->
+                        <div class="mb-3">
+                            <label for="editLastName" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="editLastName" name="last_name">
+                        </div>
+
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label for="editEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="editEmail" name="email">
+                        </div>
+
+                        <!-- Username -->
+                        <div class="mb-3">
+                            <label for="editUsername" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="editUsername" name="username">
+                        </div>
+
+                        <!-- Student Data (if applicable) -->
+                        <div id="studentDataFields">
+                            <!-- Branch -->
+                            <div class="mb-3">
+                                <label for="editBranch" class="form-label">Branch</label>
+                                <select class="form-select" id="editBranch" name="student_data.branch">
+                                    <option value="CSBS">CSBS</option>
+                                    <option value="AI&DS">AI&DS</option>
+                                    <option value="IT">IT</option>
+                                    <option value="ME">ME</option>
+                                    <option value="CE">CE</option>
+                                    <option value="CSE">CSE</option>
+                                    <option value="EEE">EEE</option>
+                                    <option value="ECE">ECE</option>
+                                    <option value="AEI">AEI</option>
+                                </select>
+                            </div>
+
+                            <!-- Division -->
+                            <div class="mb-3">
+                                <label for="editDivision" class="form-label">Division</label>
+                                <select class="form-select" id="editDivision" name="student_data.division">
+                                    <option value="N/A">N/A</option>
+                                    <option value="Alpha">Alpha</option>
+                                    <option value="Beta">Beta</option>
+                                    <option value="Gamma">Gamma</option>
+                                </select>
+                            </div>
+
+                            <!-- Joining Year -->
+                            <div class="mb-3">
+                                <label for="editJoiningYear" class="form-label">Joining Year</label>
+                                <input type="text" class="form-control" id="editJoiningYear" name="student_data.joining_year">
+                            </div>
+
+                            <!-- Phone Number -->
+                            <div class="mb-3">
+                                <label for="editPhoneNumber" class="form-label">Phone Number</label>
+                                <input type="text" class="form-control" id="editPhoneNumber" name="student_data.phone_number">
+                            </div>
+
+                            <!-- Gender -->
+                            <div class="mb-3">
+                                <label for="editGender" class="form-label">Gender</label>
+                                <select class="form-select" id="editGender" name="student_data.gender">
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Others">Others</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Success Message for Profile Edit -->
+                        <div id="editProfileSuccessMessage" class="alert alert-success" style="display: none;"></div>
+
+                        <!-- Error Messages -->
+                        <div class="alert alert-danger" id="editProfileErrorMessages" style="display: none;"></div>
+
+                        <!-- Submit Button -->
+                        <button type="button" class="btn btn-primary" onclick="editProfile()">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add a new modal for deleting the account -->
+    <div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteAccountModalLabel">Delete Account</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <!-- Confirm Deletion -->
+                    <p>Are you sure you want to delete your account?</p>
+
+                    <!-- Password Confirmation Form -->
+                    <form id="confirmPasswordForm">
+                        <!-- Password -->
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password:</label>
+                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                        </div>
+
+                        <!-- Success Message -->
+                        <div id="deleteAccountSuccessMessage" class="alert alert-success" style="display: none;"></div>
+
+                        <!-- Error Messages -->
+                        <div id="deleteAccountErrorMessages" class="alert alert-danger" style="display: none;"></div>
+
+                        <!-- Submit Button -->
+                        <button type="button" class="btn btn-danger" onclick="confirmDeleteAccount()">Delete Account</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Include Bootstrap and jQuery scripts with the correct versions -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"
@@ -233,7 +379,17 @@
                 $('#changePasswordModal').modal('show');
             });
 
-            // ... (remaining code) ...
+            $('#changePasswordModal').on('hidden.bs.modal', function (e) {
+                // Clear the password fields
+                $('#currentPassword').val('');
+                $('#newPassword').val('');
+                $('#confirmNewPassword').val('');
+        
+                // Clear error and success messages
+                $('#errorMessages').hide().html('');
+                $('#errorMessages').removeClass('alert-danger alert-success');
+                $('#changePasswordModal .modal-content').removeClass('modal-error modal-success');
+            });
         });
 
         function changePassword() {
@@ -257,19 +413,195 @@
                 success: function (response) {
                     // Password changed successfully
                     console.log(response.detail);
-                    alert(response.detail)
-                    // You can display a success message or perform any other action
-                    $('#changePasswordModal').modal('hide');
+                    // Hide error messages and show success message
+                    $('#errorMessages').hide();
+                    $('#successMessage').html(response.detail).addClass('alert alert-success').show();
+
+                    // Change the color of the modal to green
+                    $('#changePasswordModal .modal-content').removeClass('modal-error').addClass('modal-success');
+                    //window.location.reload()
                 },
                 error: function (xhr, status, error) {
                     // Error changing password
-                    var errorMessage = JSON.parse(xhr.responseText).detail;
-                    console.log(errorMessage);
-                    // Display the error message in your modal or any other way you prefer
-                    $('#errorMessages').text(errorMessage).show();
+                    var responseText = JSON.parse(xhr.responseText);
+                    if (xhr.status === 400 && responseText.non_field_errors) {
+                        // Display non-field errors
+                        var errorMessage = responseText.non_field_errors.join('<br>');
+                        $('#errorMessages').html(errorMessage).addClass('alert alert-danger').show();
+                    } else {
+                        // Display other errors
+                        var errorMessage = responseText.detail;
+                        console.log(errorMessage);
+                        // Display the error message in your modal or any other way you prefer
+                        $('#errorMessages').text(errorMessage).show();
+                    }
                 }
             });
         }
+
+        // Use jQuery or JavaScript to dynamically trigger the modal
+        $(document).ready(function () {
+            // Example using jQuery
+            $('#editProfileLink').click(function () {
+                // Clear previous error messages when opening the modal
+                $('#editProfileErrorMessages').hide().text('');
+
+                // Fetch user details from backend and populate the form
+                const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+
+                $.ajax({
+                    url: 'http://127.0.0.1:8000/api/student/profileeditdata/',  // Update with your endpoint
+                    type: 'get',
+                    headers: {
+                        'Authorization': 'Token ' + loggedInUser.token
+                    },
+                    success: function (response) {
+                        // Update form fields with user details
+                        $('#editFirstName').val(response.first_name);
+                        $('#editLastName').val(response.last_name);
+                        $('#editLastName').val(response.last_name);
+                        $('#editEmail').val(response.email);
+                        $('#editUsername').val(response.username);
+                        var joiningYear = response.batch.substring(0, 4);
+                        $('#editJoiningYear').val(joiningYear);
+                        $('#editPhoneNumber').val(response.phone_number);
+                        $('#editDivision').val(response.division);
+                        $('#editBranch').val(response.branch);
+                        $('#editGender').val(response.gender);
+
+                        // Show the modal
+                        $('#editProfileModal').modal('show');
+                    },
+                    error: function (xhr, status, error) {
+                        console.log('Error fetching user details');
+                    }
+                });
+            });
+        });
+
+        function editProfile() {
+            // Retrieve edited profile details from the form
+            var editedProfileData = $('#editProfileForm').serializeArray();
+        
+            const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+        
+            // AJAX call to the backend API
+            $.ajax({
+                url: 'http://127.0.0.1:8000/api/student/profile/editprofile/',  // Update with your endpoint
+                type: 'put',  // Use PUT method for updating
+                headers: {
+                    'Authorization': 'Token ' + loggedInUser.token
+                },
+                data: editedProfileData,
+                success: function (response) {
+                    // Profile edited successfully
+                    console.log(response.detail);
+        
+                    // Display success message inside the modal
+                    $('#editProfileErrorMessages').hide();
+                    $('#editProfileSuccessMessage').text("Your profile has been updated successfully").show();
+        
+                    // Close the modal after 2 seconds
+                    setTimeout(function () {
+                        $('#editProfileModal').modal('hide');
+                    }, 2000);
+        
+                    // Refresh the page after the modal is closed
+                    setTimeout(function () {
+                        location.reload();
+                    }, 3000);
+                },
+                error: function (xhr, status, error) {
+                    // Error editing profile
+                    var errorMessage = JSON.parse(xhr.responseText).detail;
+                    console.log(errorMessage);
+        
+                    // Display the error message in your modal or any other way you prefer
+                    $('#editProfileErrorMessages').text(errorMessage).show();
+                }
+            });
+        }
+
+        // Use jQuery or JavaScript to dynamically trigger the modal
+        $(document).ready(function () {
+            // Example using jQuery
+            $('.logout-button').click(function () {
+                // Call the logout function from navbar.html
+                showLogoutModal();
+            });
+        });
+
+        // Use jQuery or JavaScript to dynamically trigger the modal
+        $(document).ready(function () {
+            // Example using jQuery
+            $('#deleteAccountLink').click(function () {
+                // Clear previous error messages when opening the modal
+                $('#deleteAccountErrorMessages').hide().text('');
+                $('#deleteAccountSuccessMessage').hide().text('');
+
+                // Show the "Delete Account" modal
+                $('#deleteAccountModal').modal('show');
+            });
+
+            $('#deleteAccountModal').on('hidden.bs.modal', function (e) {
+                // Clear the password field
+                $('#confirmPassword').val('');
+
+                // Clear error and success messages
+                $('#deleteAccountErrorMessages').hide().html('');
+                $('#deleteAccountErrorMessages').removeClass('alert-danger');
+                $('#deleteAccountSuccessMessage').hide().html('');
+            });
+        });
+
+        function confirmDeleteAccount() {
+            // Retrieve password from the form
+            var confirmPassword = $('#confirmPassword').val();
+            const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+
+            // AJAX call to the backend API
+            $.ajax({
+                url: 'http://127.0.0.1:8000/api/accounts/deleteaccount/',
+                type: 'post',
+                headers: {
+                    'Authorization': 'Token ' + loggedInUser.token
+                },
+                data: {
+                    password: confirmPassword
+                },
+                success: function (response) {
+                    // Account deleted successfully
+                    console.log(response.detail);
+
+                    // Hide error messages and show success message
+                    $('#deleteAccountErrorMessages').hide();
+                    $('#deleteAccountSuccessMessage').html(response.detail).addClass('alert alert-success').show();
+
+                    // Redirect to the index.html page after a timeout
+                    setTimeout(function () {
+                        console.log('Redirecting to index.html');
+                        window.location.replace('/Frontend/index.html');
+                        history.replaceState(null, null, window.location.href);
+                    }, 2000);
+                },
+                error: function (xhr, status, error) {
+                    // Error deleting account
+                    var responseText = JSON.parse(xhr.responseText);
+                    if (xhr.status === 400 && responseText.non_field_errors) {
+                        // Display non-field errors
+                        var errorMessage = responseText.non_field_errors.join('<br>');
+                        $('#deleteAccountErrorMessages').html(errorMessage).addClass('alert alert-danger').show();
+                    } else {
+                        // Display other errors
+                        var errorMessage = responseText.detail;
+                        console.log(errorMessage);
+                        // Display the error message in your modal or any other way you prefer
+                        $('#deleteAccountErrorMessages').text(errorMessage).show();
+                    }
+                }
+            });
+        }
+
     </script>
 </body>
 

@@ -279,3 +279,13 @@ hr {
     border-radius: 50%; /* Make the icons round */
     padding: 10px; /* Adjust padding as needed */
 }
+
+.modal-error {
+    background-color: #f8d7da; /* Light red background color */
+    color: red;
+}
+
+.modal-success {
+    background-color: #d4edda; /* Light green background color */
+    color: #27ae60;
+}

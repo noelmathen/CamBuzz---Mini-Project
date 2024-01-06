@@ -44,7 +44,13 @@ class Student(models.Model):
     photo = models.ImageField(upload_to='profile_photos/', blank=True, null=True)
 
     def __str__(self):
-        return self.user.username
+        return self.user.first_name
+    
+    def save(self, *args, **kwargs):
+        # Set a default profile photo if none is provided
+        if not self.photo:
+            self.photo = 'profile_photos/blank_profile_pic.png'  # Update with your default photo path
+        super().save(*args, **kwargs)
 
     
 

@@ -11,6 +11,7 @@ class LoginSerializer(serializers.Serializer):
     password = serializers.CharField(write_only=True)
     is_student = serializers.BooleanField()
     is_organisation = serializers.BooleanField()
+    is_superuser = serializers.BooleanField()
 
 
 class ChangePasswordSerializer(serializers.Serializer):

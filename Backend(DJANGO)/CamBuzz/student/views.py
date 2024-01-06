@@ -12,6 +12,7 @@ from .serializers import (
     UserRegistrationSerializer,
     UserProfileEditSerializer,
     StudentSerializer,
+    ProfileEditDataSerializer,
 )
 
 class StudentRegistrationView(APIView):
@@ -53,6 +54,7 @@ class StudentProfileEditView(UpdateAPIView):
         return Response(serializer.data)
 
 
+
 class StudentInfoView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -65,3 +67,18 @@ class StudentInfoView(APIView):
 
         # Return the serialized data
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+
+class StudentProfileEditData(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        # Get the student associated with the logged-in user
+        student = Student.objects.get(user=request.user)
+        
+        # Serialize the student information
+        serializer = ProfileEditDataSerializer(student)
+
+        # Return the serialized data
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    

@@ -46,6 +46,9 @@ class CustomUser(AbstractUser):
             raise ValueError("Incorrect password. Account deletion failed.")
         self.delete()
 
+    def __str__(self):
+        return self.first_name
+
 
 # # Add related_name to avoid clashes
 # CustomUser._meta.get_field('groups').remote_field.related_name = 'customuser_groups'
