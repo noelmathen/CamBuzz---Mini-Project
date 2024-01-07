@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -13,14 +13,77 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
 
   <style>
-    .btn-circle.btn-lg {
-      width: 200px;
-      height: 200px;
-      padding: 6px 0px;
-      border-radius: 100px;
-      font-size: 15px;
-      text-align: center;
+    body {
+      background-color: #e8f1f8; /* Light blue background color */
+      font-family: 'Arial', sans-serif;
+      color: #333; /* Dark text color */
     }
+
+    .btn-image {
+      width: 250px;
+      height: 250px;
+      margin: 20px;
+      background-size: 97%; /* Adjusted background-size */
+      border: 5px solid #fff; /* White border color */
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s ease-in-out;
+      border-radius: 50%;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Box shadow for a lifted effect */
+    }
+
+    .btn-image:hover {
+      transform: scale(1.1);
+    }
+
+    .search-ride {
+      background-image: url('./img/searchride.png');
+    }
+
+    .publish-ride {
+      background-image: url('./img/publishride.png');
+    }
+
+    /* Additional styling for text overlay on the buttons */
+    .btn-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      font-size: 1.8em; /* Larger font size */
+      font-weight: bold;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .btn-image:hover .btn-overlay {
+      opacity: 1;
+    }
+
+    /* Additional styling for the description container */
+    .description-container {
+      background-color: #4d91c4; /* Blue background color */
+      color: #fff; /* White text color */
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      margin-top: 70px;
+    }
+
+    /* Additional styling for links */
+    a {
+      color: #4285f4; /* Blue link color */
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
   </style>
 </head>
 
@@ -28,21 +91,20 @@
   <div id="navbar-placeholder"></div>
 
   <div class="container-lg" style="text-align: center; margin-top: 50px;">
-    <a class="btn btn-primary btn-circle btn-lg" role="button"
-      style="background-color: blue; padding-top: 88px; margin:10px;" href="./search_ride.html">Search for a Ride</a>
-    <a class="btn btn-primary btn-circle btn-lg" role="button"
-      style="background-color: darkblue; padding-top: 88px; margin:10px;" href="./publish_ride.html">Publish a Ride</a>
-  </div>
-  <div class="container-sm" style="margin-top: 50px;">
-    Student vehicle pooling provides a cost-effective and eco-friendly solution, enabling easy ride-sharing for daily
-    commutes or special events. With customizable fares, the system ensures fair cost-sharing, fostering a
-    community-driven approach to transportation. Whether heading to campus or events, this feature streamlines student
-    travel, optimizing resources and reducing expenses while promoting a sustainable and efficient transportation
-    network.
+    <a class="btn btn-primary btn-image search-ride" role="button" href="./search_ride.html">
+    </a>
+    <a class="btn btn-primary btn-image publish-ride" role="button" href="./publish_ride.html">
+    </a>
+    <!-- Description container -->
+    <div class="description-container">
+      <p>
+        The vehicle pooling functionality in CamBuzz offers a streamlined and efficient solution for users to share rides, reducing individual carbon footprints and promoting a sense of community. Users can create ride listings, specifying details such as departure and arrival locations, date, time, vehicle type, available seats, and pricing. Other users can then search for rides based on their travel preferences and join available listings. The system ensures a secure and personalized experience by integrating user profiles, allowing participants to view essential details about the ride owner, including their full name, branch, and contact information. Additionally, automated notifications and email alerts enhance communication, providing updates about booking changes and cancellations. Through these features, CamBuzz's vehicle pooling fosters a collaborative and eco-friendly travel ecosystem while maintaining a user-friendly and organized interface for seamless ride sharing.
+      </p>
+    </div>
   </div>
   <script>
-    $(function() {
-      $('#navbar-placeholder').load('../navbar.html', function() {
+    $(function () {
+      $('#navbar-placeholder').load('../navbar.html', function () {
         // Retrieve user information from local storage
         const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
 
@@ -57,6 +119,3 @@
 </body>
 
 </html>
-
-<!-- href="./search_ride.html" -->
-<!-- href="./publish_ride.html" -->

@@ -11,43 +11,152 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+  <style>
+    body {
+      background-color: #f8f9fa; /* Set your preferred background color */
+    }
+
+    .image-container {
+      margin-top: 200px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .image-container a {
+      text-decoration: none;
+      overflow: hidden;
+      position: relative;
+      display: inline-block;
+      border: 2px solid #343a40; /* Set your preferred border color */
+      border-radius: 10px;
+      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .image-container a:hover {
+      transform: scale(1.05);
+      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .image-container img {
+      width: 100%;
+      height: auto;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .image-container a:hover img {
+      transform: scale(1.2);
+      filter: grayscale(0%); /* Remove grayscale on hover */
+    }
+
+    .image-container a::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(52, 58, 64, 0.5); /* Set your preferred overlay color */
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .image-container a:hover::before {
+      opacity: 1;
+    }
+
+    .image-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff; /* Set your preferred text color */
+      font-size: 1.5em;
+      font-weight: bold;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .image-container a:hover .image-text {
+      opacity: 1;
+    }
+
+    .welcome-section {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .welcome-message {
+      font-size: 2em;
+      font-weight: bold;
+      color: #343a40; /* Set your preferred text color */
+      margin-bottom: 30px;
+    }
+
+    .feature-container {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .feature-card {
+      text-align: center;
+      padding: 20px;
+      border: 2px solid #343a40; /* Set your preferred border color */
+      border-radius: 10px;
+      background-color: #f8f9fa; /* Set your preferred background color */
+      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .feature-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .feature-title {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #343a40; /* Set your preferred text color */
+      margin-bottom: 10px;
+    }
+
+    .feature-description {
+      font-size: 1.2em;
+      color: #555;
+    }
+  </style>
 </head>
 
 <body>
   <div id="navbar-placeholder"></div>
-  <div class="container-lg" style="text-align: center; margin-top: 50px;">
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
-        
-        // Check if the user is an organization
-        if (loggedInUser && loggedInUser.userType === 'Organisation') {
-          // If the user is an organization, hide the images related to vehicle pooling and food spot recommendations
-          document.getElementById('vehiclePoolingImage').style.display = 'none';
-          document.getElementById('foodSpotImage').style.display = 'none';
-        }
-      });
-    </script>
+  <div class="container-lg text-center">
+    <div class="image-container">
+      <!-- Vehicle Pooling Image -->
+      <a href="./Vehicle Pooling/vehicle_pooling.html" id="vehiclePoolingImage">
+        <img src="./img/vehicle_pooling.png" alt="Vehicle Pooling" style="height: 300px;">
+      </a>
 
-    <!-- Vehicle Pooling Image (with an id for easy reference) -->
-    <a href="./Vehicle Pooling/vehicle_pooling.html" id="vehiclePoolingImage">
-      <img src="./img/vehicle_pooling.png" alt="Vehicle Pooling" style="height: 300px;"></a>
-    <!-- Event Hub Image -->
-    <a href="eventhub/ehorgmp.html"><img src="./img/event_hub.png" alt="Event Hub" style="height: 300px;"></a>
+      <!-- Event Hub Image -->
+      <a href="eventhub/ehorgmp.html">
+        <img src="./img/event_hub.png" alt="Event Hub" style="height: 300px;">
+      </a>
 
-    <!-- Food Spot Recommendations Image (with an id for easy reference) -->
-    <!-- Food Spot Recommendations Image (with an id for easy reference) -->
-    <a href="./FoodSpotRecommendations/mainpagefs.html" id="foodSpotImage">
-      <img src="./img/food_spot_recommendation.png" alt="Food Spot Recommendations" style="height: 300px;">
-    </a>
-
-
+      <!-- Food Spot Recommendations Image -->
+      <a href="./FoodSpotRecommendations/mainpagefs.html" id="foodSpotImage">
+        <img src="./img/food_spot_recommendation.png" alt="Food Spot Recommendations" style="height: 300px;">
+      </a>
+    </div>
   </div>
-  
+
   <script>
-    $(function() {
-      $('#navbar-placeholder').load('/Frontend/navbar.html', function() {
+    $(function () {
+      $('#navbar-placeholder').load('/Frontend/navbar.html', function () {
         // Retrieve user information from local storage
         const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
 
@@ -58,6 +167,6 @@
       });
     });
   </script>
-
 </body>
+
 </html>
