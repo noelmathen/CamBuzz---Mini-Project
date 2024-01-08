@@ -129,6 +129,20 @@
       return bookingBoxHtml;
     }
 
+    // Function to display a styled message when there are no bookings
+    function displayNoBookingsMessage() {
+      var bookingResults = $('#bookingResults');
+      var messageHtml = `
+        <div style="text-align: center; margin-top: 50px;">
+          <p style="font-size: 20px; color: #555; font-weight: bold;">You haven't booked any rides yet.</p>
+          <p style="font-size: 16px; color: #777;">Why not explore and book a ride today?</p>
+          <a href="/Frontend/Vehicle Pooling/search_ride.html" class="btn btn-primary" style="margin-top: 20px;">Search for a Ride</a>
+        </div>
+      `;
+
+      bookingResults.html(messageHtml);
+    }
+
     // Function to fetch booking data from the API
     function fetchBookings() {
       const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
@@ -140,11 +154,14 @@
           Authorization: 'Token ' + loggedInUser.token,  // Replace with your actual token
         },
         success: function (data) {
-          // Once data is fetched successfully, update the UI
-          const bookingResults = $('#bookingResults');
-          data.forEach(function (booking) {
-            bookingResults.append(createBookingBox(booking));
-          });
+          if (data.length > 0) {
+            const bookingResults = $('#bookingResults');
+            data.forEach(function (booking) {
+              bookingResults.append(createBookingBox(booking));
+            });
+          } else {
+            displayNoBookingsMessage();
+          }
         },
         error: function (error) {
           console.error('Error fetching bookings:', error);

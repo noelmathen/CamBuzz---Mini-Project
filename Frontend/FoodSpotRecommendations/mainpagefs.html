@@ -220,11 +220,39 @@
       margin-top: 20px;
       border-radius: 5px;
     }
+
+    .loading-spinner {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+      text-align: center;
+    }
+  
+    .loading-spinner .spinner-border {
+      width: 5rem;
+      height: 5rem;
+      border-width: 0.5em;
+    }
+  
+    .loading-message {
+      margin-top: 20px;
+      font-size: 1.5em;
+      color: #007bff; /* Adjust the color as needed */
+    }
   </style>
 </head>
 
 <body>
   <div id="navbar-placeholder"></div>
+  <div class="loading-spinner" id="loadingSpinner">
+    <div class="spinner-border text-primary" role="status">
+    </div>
+    <div class="loading-message">Fetching the best spots for you...</div>
+  </div>
+  
   <div class="container mt-4">
 
     <div class="container-lg" style="text-align: center; margin-top: 50px;">
@@ -279,21 +307,30 @@
     });
   
     function searchRides() {
+      // Show loading spinner
+      $('#loadingSpinner').show();
+
       // Fetch values from the form
       const name = $('#name').val();
       const location = $('#location').val();
       const overall_price = $('#overall_price').val();
-  
+
       // Make AJAX request to your backend
       $.ajax({
         url: 'http://127.0.0.1:8000/api/foodrecommendation/list_top_rated_restaurants/',
         type: 'GET',
         data: { name, location, overall_price },
         success: function (data) {
+          // Hide loading spinner on success
+          $('#loadingSpinner').hide();
+
           // Handle the successful response
           updateFoodSpots(data);
         },
         error: function (error) {
+          // Hide loading spinner on error
+          $('#loadingSpinner').hide();
+
           // Handle the error
           console.log('Error fetching data:', error);
         }

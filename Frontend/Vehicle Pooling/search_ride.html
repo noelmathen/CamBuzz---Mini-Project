@@ -36,7 +36,12 @@
 
 <body>
   <div id="navbar-placeholder"></div>
-
+  <div id="loadingSpinner" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+    <div class="spinner-border text-primary" role="status" style="width: 4rem; height: 4rem;">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <div style="margin-top: 10px; font-size: 18px; color: #555;">Fetching rides...</div>
+  </div>
   <div class="container-lg" style="text-align: center; margin-top: 50px;">
     <form id="searchForm">
       <div class="row align-items-center">
@@ -68,6 +73,7 @@
   <script>
     function loadDefaultRides() {
       // Call searchRides with empty parameters on page load
+      showLoadingSpinner();
       searchRides();
     }
     function searchRides() {
@@ -95,6 +101,7 @@
     }
 
     function displayRideResults(rides) {
+      hideLoadingSpinner();
       $('#rideResults').empty(); // Clear existing ride boxes
     
       if (rides.length === 0) {
@@ -111,6 +118,16 @@
           $('#rideResults').append(rideBox);
         });
       }
+    }
+
+    function showLoadingSpinner() {
+      // Show the loading spinner
+      $('#loadingSpinner').show();
+    }
+  
+    function hideLoadingSpinner() {
+      // Hide the loading spinner
+      $('#loadingSpinner').hide();
     }
 
     function createRideBox(ride) {

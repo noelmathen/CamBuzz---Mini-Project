@@ -156,7 +156,11 @@
         },
         dataType: 'json',
         success: function (data) {
-          displayUserRides(data);
+          if (data.length > 0) {
+            displayUserRides(data);
+          } else {
+            displayNoRidesMessage();
+          }
         },
         error: function (error) {
           console.error('Error:', error);
@@ -175,6 +179,23 @@
         var rideHtml = createRideHtml(ride);
         rideList.append(rideHtml);
       });
+    }
+
+    function displayNoRidesMessage() {
+      var rideList = $('#rideList');
+      var messageHtml = `
+        <div style="text-align: center; margin-top: 50px;">
+          <p style="font-size: 20px; color: #555; font-weight: bold;">You haven't published any rides yet.</p>
+          <p style="font-size: 16px; color: #777;">Why not share a ride and make someone's journey better?</p>
+          <button class="btn btn-primary" onclick="redirectToAddRide()">Publish a Ride</button>
+        </div>
+      `;
+      rideList.html(messageHtml);
+    }
+
+    function redirectToAddRide() {
+      // Redirect to the page where users can add a new ride
+      window.location.href = '/Frontend/Vehicle Pooling/publish_ride.html';
     }
 
     // Function to format date as words (e.g., "21st January, 2024")

@@ -314,11 +314,22 @@
 
 			function displayReviews(reviews) {
 				const reviewContainer = $('#reviewContainer');
-
+	
 				// Clear existing reviews
 				reviewContainer.html('');
-
-				// Loop through each review and append to the review container
+	
+				if (reviews.length === 0) {
+					// Display a message when there are no reviews
+					const noReviewsHtml = `
+						<div style="text-align: center; margin-top: 50px;">
+							<p style="font-size: 20px; color: #555; font-weight: bold;">You haven't added any reviews yet.</p>
+							<p style="font-size: 16px; color: #777;">Why not add a review today?</p>
+							<button class="btn btn-primary" onclick="window.location.href = '/Frontend/FoodSpotRecommendations/add_review_from_main_page.html'" style="margin-top: 20px;">Add a Review</button>
+						</div>
+					`;
+					reviewContainer.append(noReviewsHtml);
+				} else {
+					// Loop through each review and append to the review container
 				reviews.forEach(function (review) {
 					const imageHtml = review.image ? `<img src="${review.image}" alt="Review Image" style="max-width: 100%; border-radius: 10px; transition: transform 0.3s ease;">` : '';
 
@@ -352,6 +363,7 @@
 
 					reviewContainer.append(reviewHtml);
 				});
+				}
 			}
 			// Your existing functions (confirmDelete, deleteRide, refreshPage) remain unchanged
 		});
