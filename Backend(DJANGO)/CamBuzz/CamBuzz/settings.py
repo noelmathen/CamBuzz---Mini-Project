@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,8 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-c#hgix)i&k=*kz9&yvz*#hevijf@73g!gs$vm+s#ut5o1+a0yq'
-
+SECRET_KEY = config('DJANGO_SECRET_KEY', default='your_default_secret_key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -92,10 +92,10 @@ WSGI_APPLICATION = 'CamBuzz.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'CamBuzz',
-        'USER' : 'postgres',
-        'PASSWORD' : '1234',
-        'HOST' : 'localhost'
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
     }
 }
 
@@ -124,7 +124,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -168,13 +168,11 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'cambuzz03@gmail.com'  # Your Gmail address
-EMAIL_HOST_PASSWORD = 'gxjz sgdd qzsz jkew'  # Your Gmail password or app-specific password
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')  # Your Gmail address
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')  # Your Gmail password or app-specific password
 
 # Define the media root directory
 MEDIA_ROOT = BASE_DIR / 'media'
 
 # Define the URL for serving media files during development
 MEDIA_URL = '/media/'
-
-TIME_ZONE = 'Asia/Kolkata'
