@@ -1,0 +1,100 @@
+<mxfile host="app.diagrams.net" modified="2023-11-24T18:11:26.982Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="_-FXG8naGd9ciC2PPnzp" version="22.1.3" type="google">
+  <diagram name="Page-1" id="a7904f86-f2b4-8e86-fa97-74104820619b">
+    <mxGraphModel grid="1" page="1" gridSize="4" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="24794b860abc3c2d-1" value="&lt;p style=&quot;margin: 4px 0px 0px; text-align: center;&quot;&gt;Student&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;&lt;b&gt;&lt;u&gt;userid&lt;/u&gt; (PK)&lt;/b&gt;&lt;br&gt;first_name&lt;br&gt;last_name&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;username&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;password&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;emailid&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;joining_year&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;passout_year&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;branch&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;division&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;gender&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;photo&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;date_joined&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;is_active&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1" vertex="1" parent="1">
+          <mxGeometry x="-370" y="115" width="150" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="5JkHT3Ut8EcRTSLTAwqF-2" value="&lt;p style=&quot;margin: 4px 0px 0px; text-align: center;&quot;&gt;RidedListing&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;&lt;b&gt;&lt;u&gt;rideid&lt;/u&gt; (PK)&lt;/b&gt;&lt;br&gt;from_location&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;to_location&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;start_date&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;end_date&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;start_time&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;end_time&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;vehicle_type&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;extra_helmet&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;vehicle_name&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;vehicle_numer&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;seats_available&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;price&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;description&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;owner_id&amp;nbsp; (FK)&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;booking_id&amp;nbsp; (FK)&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1" vertex="1" parent="1">
+          <mxGeometry x="-150" y="-230" width="150" height="266" as="geometry" />
+        </mxCell>
+        <mxCell id="5JkHT3Ut8EcRTSLTAwqF-3" value="&lt;p style=&quot;margin: 4px 0px 0px; text-align: center;&quot;&gt;Restaurant&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;&lt;b&gt;&lt;u&gt;restaurant_id&lt;/u&gt; (PK)&lt;/b&gt;&lt;br&gt;name&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;location&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;overall_price_per_head&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;overall_rating&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;number_of_recommendations&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1" vertex="1" parent="1">
+          <mxGeometry x="-150" y="416" width="170" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="5JkHT3Ut8EcRTSLTAwqF-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" edge="1" parent="1" source="5JkHT3Ut8EcRTSLTAwqF-4">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-448" y="156" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="-447" y="600" />
+              <mxPoint x="-447" y="156" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5JkHT3Ut8EcRTSLTAwqF-4" value="&lt;p style=&quot;margin: 4px 0px 0px; text-align: center;&quot;&gt;Recommendation&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;&lt;b&gt;&lt;u&gt;recommendation id&lt;/u&gt; (PK)&lt;/b&gt;&lt;br&gt;food_rating&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;service_rating&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;ambience_rating&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;average_user_rating&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;user_average_price_per_head&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;top_recommendation&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;description&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;image&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;restaurant_id&amp;nbsp; (FK)&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;owner_id&amp;nbsp; (FK)&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1" vertex="1" parent="1">
+          <mxGeometry x="-416" y="416" width="200" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="5JkHT3Ut8EcRTSLTAwqF-5" value="&lt;p style=&quot;margin: 4px 0px 0px; text-align: center;&quot;&gt;RideBooking&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;&lt;b&gt;&lt;u&gt;booking_id&lt;/u&gt; (PK)&lt;/b&gt;&lt;br&gt;ride_id&amp;nbsp; (FK)&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;user_id&amp;nbsp; (FK)&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;booking_date&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;booking_status&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1" vertex="1" parent="1">
+          <mxGeometry x="-496" y="-120" width="150" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="5JkHT3Ut8EcRTSLTAwqF-6" value="&lt;p style=&quot;margin: 4px 0px 0px; text-align: center;&quot;&gt;Organisation&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;&lt;b&gt;&lt;u&gt;organisation_id&lt;/u&gt; (PK)&lt;/b&gt;&lt;br&gt;name&lt;br&gt;email&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;username&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;password&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;about&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;website_link&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;instagram_link&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;linkedin_link&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;instagram_link&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;photo&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1" vertex="1" parent="1">
+          <mxGeometry x="-140" y="155" width="150" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="5JkHT3Ut8EcRTSLTAwqF-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="5JkHT3Ut8EcRTSLTAwqF-7">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="12" y="196" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="34" y="324" />
+              <mxPoint x="34" y="196" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5JkHT3Ut8EcRTSLTAwqF-7" value="&lt;p style=&quot;margin: 4px 0px 0px; text-align: center;&quot;&gt;EventListing&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;&lt;b&gt;&lt;u&gt;event_id&lt;/u&gt; (PK)&lt;/b&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;name&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;start_date&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;end_date&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;start_time&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;end_time&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;location&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;registration_link&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;description&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;poster&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;organisation_id&amp;nbsp; (FK)&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;number_of_people_interested&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1" vertex="1" parent="1">
+          <mxGeometry x="56" y="140" width="170" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="5JkHT3Ut8EcRTSLTAwqF-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.11;entryDx=0;entryDy=0;entryPerimeter=0;labelBorderColor=default;exitX=-0.009;exitY=0.383;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="5JkHT3Ut8EcRTSLTAwqF-5" target="5JkHT3Ut8EcRTSLTAwqF-2">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-510" y="-78.9885057471264" as="sourcePoint" />
+            <mxPoint x="-159.54999999999995" y="-196.918" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="-550" y="-78" />
+              <mxPoint x="-550" y="-199" />
+              <mxPoint x="-260" y="-199" />
+              <mxPoint x="-260" y="-201" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5JkHT3Ut8EcRTSLTAwqF-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=-0.007;entryY=0.175;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-498.95" y="-56" as="sourcePoint" />
+            <mxPoint x="-369.99999999999994" y="155" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="-538.95" y="-56" />
+              <mxPoint x="-538.95" y="155" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5JkHT3Ut8EcRTSLTAwqF-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1.006;entryY=0.16;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="5JkHT3Ut8EcRTSLTAwqF-2" target="24794b860abc3c2d-1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="16" y="8" />
+              <mxPoint x="16" y="100" />
+              <mxPoint x="-192" y="100" />
+              <mxPoint x="-192" y="153" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5JkHT3Ut8EcRTSLTAwqF-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1.006;entryY=0.336;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="5JkHT3Ut8EcRTSLTAwqF-2" target="5JkHT3Ut8EcRTSLTAwqF-5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-250" y="24" />
+              <mxPoint x="-250" y="-83" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5JkHT3Ut8EcRTSLTAwqF-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=-0.006;entryY=0.323;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="5JkHT3Ut8EcRTSLTAwqF-4" target="5JkHT3Ut8EcRTSLTAwqF-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-183" y="584" />
+              <mxPoint x="-183" y="458" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5JkHT3Ut8EcRTSLTAwqF-21" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;perimeterSpacing=1;strokeWidth=4;" vertex="1" parent="1">
+          <mxGeometry x="-572" y="-240" width="840" height="868" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
