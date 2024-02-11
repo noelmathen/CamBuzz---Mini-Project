@@ -4,8 +4,19 @@ Sure! Here's a revised version of the README with a focus on the functionalities
 
 # CamBuzz: Student Lifestyle Management System
 
+## Mini Project Video
+
+Check out the video demonstration of our mini project on YouTube:
+
+[![CamBuzz Demonstration Video](https://img.youtube.com/vi/_2PM9simBrc/0.jpg)](https://www.youtube.com/watch?v=_2PM9simBrc)
+
 ## Introduction
-CamBuzz is a comprehensive web application designed to simplify and enrich the lives of college students by addressing various challenges within the college community. The platform offers three main functionalities: vehicle pooling, event organization, and food spot recommendation.
+CamBuzz is a comprehensive web application designed to simplify and enrich the lives of college students by addressing various challenges within the college community. The platform offers three main functionalities: vehicle pooling, event organization, and food spot recommendation. It was developed as a mini project during our Semester 5 of the B.Tech course in Computer Science and Business Systems (CSBS) at Rajagiri School of Engineering and Technology.
+
+## Other Team Members
+1. [Bride Benson](https://github.com/BRIDEBENSON) - U2109020@rajagiri.edu.in
+2. [Dea Elizabeth Varghese](https://github.com/deaeliz) - U2109024@rajagiri.edu.in
+3. [Rehan Renju](https://github.com/rehanrenju) - U2109056@rajagiri.edu.in
 
 ## Main Functionalities
 
