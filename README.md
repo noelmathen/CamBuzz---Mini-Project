@@ -1,13 +1,8 @@
-Sure! Here's a revised version of the README with a focus on the functionalities:
-
----
-
 # CamBuzz: Student Lifestyle Management System
 
 ## Mini Project Video
 
 Check out the video demonstration of our mini project on YouTube:
-
 [![CamBuzz Demonstration Video](https://img.youtube.com/vi/_2PM9simBrc/0.jpg)](https://www.youtube.com/watch?v=_2PM9simBrc)
 
 ## Introduction
