@@ -109,7 +109,7 @@
 
                     <div class="row justify-content-center">
                         <div class="col-md-6">
-                            <a href="/Frontend/Vehicle%20Pooling/my_rides.html"
+                            <a href="/Codebase/Frontend/Vehicle%20Pooling/my_rides.html"
                                 class="card mb-4 mb-md-0 btn btn-primary btn-block custom-button">
                                 <div class="card-body text-center">
                                     <p class="mb-4"><span class="text-white font-italic me-1">My Rides</span></p>
@@ -117,7 +117,7 @@
                             </a>
                         </div>
                         <div class="col-md-6">
-                            <a href="/Frontend/Vehicle%20Pooling/my_bookings.html"
+                            <a href="/Codebase/Frontend/Vehicle%20Pooling/my_bookings.html"
                                 class="card mb-4 mb-md-0 btn btn-primary btn-block custom-button">
                                 <div class="card-body text-center">
                                     <p class="mb-4"><span class="text-white font-italic me-1">My Bookings</span></p>
@@ -128,7 +128,7 @@
 
                     <div class="row justify-content-center">
                         <div class="col-md-6">
-                            <a href="/Frontend/FoodSpotRecommendations/my_recommendations.html"
+                            <a href="/Codebase/Frontend/FoodSpotRecommendations/my_recommendations.html"
                                 class="card mb-4 mb-md-0 btn btn-primary btn-block custom-button">
                                 <div class="card-body text-center">
                                     <p class="mb-4"><span class="text-white font-italic me-1">My Reviews</span></p>
@@ -337,7 +337,7 @@
         crossorigin="anonymous"></script>
     <script>
         $(function () {
-            $('#navbar-placeholder').load('/Frontend/navbar.html', function () {
+            $('#navbar-placeholder').load('/Codebase/Frontend/navbar.html', function () {
                 const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
                 console.log('Navbar loaded');
                 if (loggedInUser) {
@@ -579,7 +579,7 @@
                     // Redirect to the index.html page after a timeout
                     setTimeout(function () {
                         console.log('Redirecting to index.html');
-                        window.location.replace('/Frontend/index.html');
+                        window.location.replace('/Codebase/Frontend/index.html');
                         history.replaceState(null, null, window.location.href);
                     }, 2000);
                 },

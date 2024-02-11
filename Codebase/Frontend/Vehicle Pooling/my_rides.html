@@ -136,7 +136,7 @@
 
   <script>
     $(function () {
-      $('#navbar-placeholder').load('/Frontend/navbar.html', function () {
+      $('#navbar-placeholder').load('/Codebase/Frontend/navbar.html', function () {
         const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
         if (loggedInUser) {
           updateDynamicFeatures(loggedInUser);
@@ -195,7 +195,7 @@
 
     function redirectToAddRide() {
       // Redirect to the page where users can add a new ride
-      window.location.href = '/Frontend/Vehicle Pooling/publish_ride.html';
+      window.location.href = '/Codebase/Frontend/Vehicle Pooling/publish_ride.html';
     }
 
     // Function to format date as words (e.g., "21st January, 2024")
@@ -383,7 +383,7 @@
     }
 
     function editRide(rideId) {
-      window.location.href = `/Frontend/Vehicle Pooling/edit_ride.html?rideId=${rideId}`;
+      window.location.href = `/Codebase/Frontend/Vehicle Pooling/edit_ride.html?rideId=${rideId}`;
     }
 
     function confirmDelete(rideId) {
@@ -415,7 +415,7 @@
           console.log(response);
           alert("You have deleted this ride successfully!");
           // Redirect to a different page or reload the current page after successful deletion
-          window.location.replace('/Frontend/Vehicle Pooling/vehicle_pooling.html');
+          window.location.replace('/Codebase/Frontend/Vehicle Pooling/vehicle_pooling.html');
         },
         error: function (xhr, status, error) {
           const responseJSON = xhr.responseJSON;

@@ -98,7 +98,7 @@
 
   <script>
     $(function () {
-      $('#navbar-placeholder').load('/Frontend/navbar.html', function () {
+      $('#navbar-placeholder').load('/Codebase/Frontend/navbar.html', function () {
         const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
         if (loggedInUser) {
           updateDynamicFeatures(loggedInUser);
@@ -135,7 +135,7 @@
 
     // Function to handle click on a poster
     function viewEventDetails(eventId) {
-      window.location.href = '/Frontend/eventhub/eventdetails/eventdetail.html?event_id=' + eventId;
+      window.location.href = '/Codebase/Frontend/eventhub/eventdetails/eventdetail.html?event_id=' + eventId;
     }
 
     function appendPosters(containerId, posters) {

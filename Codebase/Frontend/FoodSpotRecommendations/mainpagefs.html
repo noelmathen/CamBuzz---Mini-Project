@@ -279,7 +279,7 @@
 
 
     <div class="add-food-form text-center">
-      <button class="add-review-button btn btn-primary" onclick="window.location.href = '/Frontend/FoodSpotRecommendations/add_review_from_main_page.html'">
+      <button class="add-review-button btn btn-primary" onclick="window.location.href = '/Codebase/Frontend/FoodSpotRecommendations/add_review_from_main_page.html'">
         <span class="add-review-icon">+</span> Add a Review
       </button>
     </div>
@@ -294,7 +294,7 @@
 
   <script>
     $(function () {
-      $('#navbar-placeholder').load('/Frontend/navbar.html', function () {
+      $('#navbar-placeholder').load('/Codebase/Frontend/navbar.html', function () {
         const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
   
         if (loggedInUser) {
@@ -352,7 +352,7 @@
         restaurants.forEach(function (restaurant) {
           const foodSpot = $('<div class="food-spot"></div>');
     
-          const imageSrc = restaurant.image ? restaurant.image : '/Frontend/FoodSpotRecommendations/img/default_rest_img.jpg';
+          const imageSrc = restaurant.image ? restaurant.image : '/Codebase/Frontend/FoodSpotRecommendations/img/default_rest_img.jpg';
     
           // Use the image container to control the size
           const imageContainer = $('<div class="food-image-container"></div>');
@@ -389,7 +389,7 @@
           foodSpotContainer.append(foodSpot);
 
           foodSpot.click(function () {
-            window.location.href = `/Frontend/FoodSpotRecommendations/foodspot_details.html?id=${restaurant.id}`;
+            window.location.href = `/Codebase/Frontend/FoodSpotRecommendations/foodspot_details.html?id=${restaurant.id}`;
           });
     
           foodSpotContainer.append(foodSpot);

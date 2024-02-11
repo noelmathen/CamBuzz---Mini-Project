@@ -248,7 +248,7 @@
 
   <script>
     $(function () {
-      $('#navbar-placeholder').load('/Frontend/navbar.html', function () {
+      $('#navbar-placeholder').load('/Codebase/Frontend/navbar.html', function () {
         const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
   
         if (loggedInUser) {
@@ -359,7 +359,7 @@
       const restaurantId = getParameterByName('id');
   
       // Redirect to the add review page with the restaurant ID
-      window.location.href = `/Frontend/FoodSpotRecommendations/add_review.html?restaurant_id=${restaurantId}`;
+      window.location.href = `/Codebase/Frontend/FoodSpotRecommendations/add_review.html?restaurant_id=${restaurantId}`;
     }
   </script>
 </body>

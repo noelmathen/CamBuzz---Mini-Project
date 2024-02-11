@@ -287,7 +287,7 @@
 
 	<script>
 		$(function () {
-			$('#navbar-placeholder').load('/Frontend/navbar.html', function () {
+			$('#navbar-placeholder').load('/Codebase/Frontend/navbar.html', function () {
 				const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
 
 				if (loggedInUser) {
@@ -324,7 +324,7 @@
 						<div style="text-align: center; margin-top: 50px;">
 							<p style="font-size: 20px; color: #555; font-weight: bold;">You haven't added any reviews yet.</p>
 							<p style="font-size: 16px; color: #777;">Why not add a review today?</p>
-							<button class="btn btn-primary" onclick="window.location.href = '/Frontend/FoodSpotRecommendations/add_review_from_main_page.html'" style="margin-top: 20px;">Add a Review</button>
+							<button class="btn btn-primary" onclick="window.location.href = '/Codebase/Frontend/FoodSpotRecommendations/add_review_from_main_page.html'" style="margin-top: 20px;">Add a Review</button>
 						</div>
 					`;
 					reviewContainer.append(noReviewsHtml);
@@ -354,7 +354,7 @@
 											<button class="btn btn-secondary dropdown-toggle" type="button" id="optionsButton" data-bs-toggle="dropdown" aria-expanded="false">
 											</button>
 											<ul class="dropdown-menu" aria-labelledby="optionsButton">
-													<a class="dropdown-item" href="#" onclick="window.location.href = '/Frontend/FoodSpotRecommendations/edit_review.html?recommendation_id=${review.id}&restaurant_name=${review.restaurant_name}&restaurant_location=${review.restaurant_location}'">Edit this Review</a>
+													<a class="dropdown-item" href="#" onclick="window.location.href = '/Codebase/Frontend/FoodSpotRecommendations/edit_review.html?recommendation_id=${review.id}&restaurant_name=${review.restaurant_name}&restaurant_location=${review.restaurant_location}'">Edit this Review</a>
 													<li><a class="dropdown-item" href="#" onclick="confirmDelete(${review.id})">Delete this Review</a></li>
 											</ul>
 									</div>

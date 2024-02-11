@@ -98,7 +98,7 @@
                         <div style="position: relative; padding: 5px 0 0 10px; text-wrap: nowrap;">
                           <span>${formatDate(booking.ride_details.end_date)}</span>
                         </div>
-                        <a href="/Frontend/Vehicle Pooling/my_bookings_detail.html?booking_id=${booking.id}" class="stretched-link"></a>
+                        <a href="/Codebase/Frontend/Vehicle Pooling/my_bookings_detail.html?booking_id=${booking.id}" class="stretched-link"></a>
                       </div>
                     </li>
                   </ul>
@@ -136,7 +136,7 @@
         <div style="text-align: center; margin-top: 50px;">
           <p style="font-size: 20px; color: #555; font-weight: bold;">You haven't booked any rides yet.</p>
           <p style="font-size: 16px; color: #777;">Why not explore and book a ride today?</p>
-          <a href="/Frontend/Vehicle Pooling/search_ride.html" class="btn btn-primary" style="margin-top: 20px;">Search for a Ride</a>
+          <a href="/Codebase/Frontend/Vehicle Pooling/search_ride.html" class="btn btn-primary" style="margin-top: 20px;">Search for a Ride</a>
         </div>
       `;
 
@@ -170,7 +170,7 @@
     }
 
     $(function () {
-      $('#navbar-placeholder').load('/Frontend/navbar.html', function () {
+      $('#navbar-placeholder').load('/Codebase/Frontend/navbar.html', function () {
         const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
 
         if (loggedInUser) {

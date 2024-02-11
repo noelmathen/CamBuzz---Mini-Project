@@ -130,7 +130,7 @@
 
   <script>
     $(function() {
-      $('#navbar-placeholder').load('/Frontend/navbar.html', function() {
+      $('#navbar-placeholder').load('/Codebase/Frontend/navbar.html', function() {
         // Retrieve user information from local storage
         const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
 
@@ -234,7 +234,7 @@
         success: function(response) {
           console.log('Event updated successfully:', response);
           alert(response.detail)
-          window.location.href = '/Frontend/eventhub/ehorgmp.html';
+          window.location.href = '/Codebase/Frontend/eventhub/ehorgmp.html';
         },
         error: function(error) {
           console.error('Error updating event:', error);

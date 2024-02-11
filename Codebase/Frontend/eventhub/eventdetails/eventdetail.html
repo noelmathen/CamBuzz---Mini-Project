@@ -166,7 +166,7 @@
 
   <script>
     $(function () {
-      $('#navbar-placeholder').load('/Frontend/navbar.html', function () {
+      $('#navbar-placeholder').load('/Codebase/Frontend/navbar.html', function () {
         const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
         if (loggedInUser) {
           updateDynamicFeatures(loggedInUser);
@@ -275,7 +275,7 @@
           success: function(response_data) {
               console.log('Event deleted successfully:', response_data);
               alert(response_data.detail);
-              window.location.href = '/Frontend/eventhub/ehorgmp.html';
+              window.location.href = '/Codebase/Frontend/eventhub/ehorgmp.html';
           },
           error: function(error) {
               console.error('Error deleting event:', error);
@@ -287,7 +287,7 @@
     
     function editEvent() {
       const eventId = getEventIdFromUrl(); // You need to implement this function to get the event ID from the URL
-      window.location.href = `/Frontend/eventhub/editevent.html?event_id=${eventId}`;
+      window.location.href = `/Codebase/Frontend/eventhub/editevent.html?event_id=${eventId}`;
     }
     
     function getEventIdFromUrl() {

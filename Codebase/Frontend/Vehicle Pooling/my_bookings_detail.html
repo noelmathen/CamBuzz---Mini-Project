@@ -380,7 +380,7 @@
   <!-- Your script for updating dynamic features -->
   <script>
     $(function () {
-      $('#navbar-placeholder').load('/Frontend/navbar.html', function () {
+      $('#navbar-placeholder').load('/Codebase/Frontend/navbar.html', function () {
         const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
         if (loggedInUser) {
           updateDynamicFeatures(loggedInUser);
@@ -576,7 +576,7 @@
       // Function to handle the "Close" button click event in the success modal
       $('#successModal').on('hidden.bs.modal', function (e) {
         // Redirect to the my_bookings.html page after the modal is closed
-        window.location.href = '/Frontend/Vehicle Pooling/my_bookings.html';
+        window.location.href = '/Codebase/Frontend/Vehicle Pooling/my_bookings.html';
       });
     }
   </script>

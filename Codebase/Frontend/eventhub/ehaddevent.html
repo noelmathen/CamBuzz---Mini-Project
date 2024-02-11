@@ -115,7 +115,7 @@
 
   <script>
     $(function () {
-      $('#navbar-placeholder').load('/Frontend/navbar.html', function () {
+      $('#navbar-placeholder').load('/Codebase/Frontend/navbar.html', function () {
         // Retrieve user information from local storage
         const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
 
@@ -146,7 +146,7 @@
           success: function (data) {
             console.log(data.detail);
             alert(data.detail);
-            window.location.replace('/Frontend/eventhub/ehorgmp.html');
+            window.location.replace('/Codebase/Frontend/eventhub/ehorgmp.html');
           },
           error: function (error) {
             console.error('Error adding event:', error);

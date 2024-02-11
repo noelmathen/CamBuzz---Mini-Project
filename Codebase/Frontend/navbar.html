@@ -95,9 +95,9 @@
 
   <!-- Navbar -->
   <nav class="navbar navbar-dark navbar-expand-sm" style="background-color: #0e1827;">
-    <a class="navbar-brand" href="/Frontend/homepage.html"
+    <a class="navbar-brand" href="/Codebase/Frontend/homepage.html"
       style="background-color: #0e1827; display: inline-block; text-align: center;">
-      <img src="/Frontend/img/CamBuzz_logo.png" height="50" class="d-inline-block align-top" alt=""><br />
+      <img src="/Codebase/Frontend/img/CamBuzz_logo.png" height="50" class="d-inline-block align-top" alt=""><br />
       CamBuzz
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
@@ -172,12 +172,12 @@
       const userToken = loggedInUser.token;
       if (userType === 'Student') {
         createDropdownItem(profileDropdown, 'My Profile', '');
-        createDropdownItem(profileDropdown, 'My Rides', '/Frontend/Vehicle Pooling/my_rides.html');
-        createDropdownItem(profileDropdown, 'My Bookings', '/Frontend/Vehicle Pooling/my_bookings.html');
-        createDropdownItem(profileDropdown, 'My Reviews', '/Frontend/FoodSpotRecommendations/my_recommendations.html');
+        createDropdownItem(profileDropdown, 'My Rides', '/Codebase/Frontend/Vehicle Pooling/my_rides.html');
+        createDropdownItem(profileDropdown, 'My Bookings', '/Codebase/Frontend/Vehicle Pooling/my_bookings.html');
+        createDropdownItem(profileDropdown, 'My Reviews', '/Codebase/Frontend/FoodSpotRecommendations/my_recommendations.html');
       } else if (userType === 'Organisation') {
-        createDropdownItem(profileDropdown, 'My Profile', '/Frontend/User Profiles/orgprofile.html');
-        createDropdownItem(profileDropdown, 'My Events', '/Frontend/eventhub/myevents.html');
+        createDropdownItem(profileDropdown, 'My Profile', '/Codebase/Frontend/User Profiles/orgprofile.html');
+        createDropdownItem(profileDropdown, 'My Events', '/Codebase/Frontend/eventhub/myevents.html');
       }
 
       createDropdownItem(profileDropdown, 'Logout', '#');
@@ -197,9 +197,9 @@
       const userType = loggedInUser.userType;
       if (text === 'My Profile') {
         if (userType === 'Student') {
-          linkItem.href = '/Frontend/User Profiles/studprofile.html';
+          linkItem.href = '/Codebase/Frontend/User Profiles/studprofile.html';
         } else if (userType === 'Organisation') {
-          linkItem.href = '/Frontend/User Profiles/orgprofile.html';
+          linkItem.href = '/Codebase/Frontend/User Profiles/orgprofile.html';
         }
       } else {
         linkItem.href = href;
@@ -261,7 +261,7 @@
             localStorage.removeItem('loggedInUser');
             console.log('Logout successful!');
             alert('Logout successful!');
-            window.location.href = '/Frontend/index.html';
+            window.location.href = '/Codebase/Frontend/index.html';
           } else {
             console.error('Logout failed:', response.statusText);
             alert('Logout failed. Please try again.');

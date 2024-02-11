@@ -338,7 +338,7 @@
   <script>
     // Success Modal
     $('#successModal').on('hidden.bs.modal', function (e) {
-      window.location.href = '/Frontend/Vehicle%20Pooling/search_ride.html';
+      window.location.href = '/Codebase/Frontend/Vehicle%20Pooling/search_ride.html';
     });
 
     function showConfirmBookModal() {
@@ -388,7 +388,7 @@
           // Show the success modal after a delay (to allow time for the email to be sent)
           //setTimeout(function () {
             $('#successModal').modal('show');
-            const successMessage = `You have successfully booked ${numSeats} seat(s) of ${data.ride.owner_name}'s ride from ${data.ride.from_location} to ${data.ride.to_location} on ${data.ride.start_date}. View (or modify) your bookings at <a href="/Frontend/Vehicle%20Pooling/my_bookings.html" target="_blank">Your Bookings</a>`;
+            const successMessage = `You have successfully booked ${numSeats} seat(s) of ${data.ride.owner_name}'s ride from ${data.ride.from_location} to ${data.ride.to_location} on ${data.ride.start_date}. View (or modify) your bookings at <a href="/Codebase/Frontend/Vehicle%20Pooling/my_bookings.html" target="_blank">Your Bookings</a>`;
             $('#successModalMessage').html(successMessage);
           //}, 2000); // Adjust the delay time as needed
         },
@@ -412,7 +412,7 @@
     
     $(function () {
       $('#seatCount').attr('max', 6);
-      $('#navbar-placeholder').load('/Frontend/navbar.html', function () {
+      $('#navbar-placeholder').load('/Codebase/Frontend/navbar.html', function () {
         const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
         if (loggedInUser) {
           updateDynamicFeatures(loggedInUser);
