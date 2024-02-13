@@ -65,17 +65,19 @@ For any issues or inquiries, please contact [noelmathen03@gmail.com].
 
 ## Screenshots of project
 
-![Screenshot (255)](https://github.com/noelmathen/CamBuzz---Mini-Project/assets/140234564/0cef1dde-b4db-4578-b444-f64dd4168263)
-![Screenshot (250)](https://github.com/noelmathen/CamBuzz---Mini-Project/assets/140234564/575d8332-a837-4985-96bc-180368e876ae)
-![Screenshot (244)](https://github.com/noelmathen/CamBuzz---Mini-Project/assets/140234564/89cb6182-cd4d-437b-b46d-b68d373e94ca)
-![Screenshot (232)](https://github.com/noelmathen/CamBuzz---Mini-Project/assets/140234564/240f9886-6a10-47ba-baa2-0555eeb2a8fb)
-![Screenshot (221)](https://github.com/noelmathen/CamBuzz---Mini-Project/assets/140234564/be67c6f0-c4f3-4c81-9571-c85443567c2f)
-![Screenshot (216)](https://github.com/noelmathen/CamBuzz---Mini-Project/assets/140234564/35194f6d-727c-411d-94b1-a1d7620e61e2)
-![Screenshot (188)](https://github.com/noelmathen/CamBuzz---Mini-Project/assets/140234564/b93999ed-29c4-4110-8798-c4efa5089de3)
-![Screenshot (185)](https://github.com/noelmathen/CamBuzz---Mini-Project/assets/140234564/4fb5964f-a77c-4fcf-8766-9dcd20ef3b43)
-![Screenshot (178)](https://github.com/noelmathen/CamBuzz---Mini-Project/assets/140234564/169457e1-131b-44e3-b7ff-82b0127dfc6a)
-![Screenshot (175)](https://github.com/noelmathen/CamBuzz---Mini-Project/assets/140234564/a2e85fea-a525-42df-9fd7-54ac398b2579)
-![Screenshot (174)](https://github.com/noelmathen/CamBuzz---Mini-Project/assets/140234564/117be1c6-be44-4084-bae5-3a261e9c55f6)
+Sure, here are the image links arranged in ascending order:
+
 ![Screenshot (168)](https://github.com/noelmathen/CamBuzz---Mini-Project/assets/140234564/5c9e8d02-7d7c-438d-8fc5-7b6eb80facc4)
-![Screenshot (287)](https://github.com/noelmathen/CamBuzz---Mini-Project/assets/140234564/8fd5ea75-a3b9-4adc-a7da-ee836aa58d61)
+![Screenshot (174)](https://github.com/noelmathen/CamBuzz---Mini-Project/assets/140234564/117be1c6-be44-4084-bae5-3a261e9c55f6)
+![Screenshot (175)](https://github.com/noelmathen/CamBuzz---Mini-Project/assets/140234564/a2e85fea-a525-42df-9fd7-54ac398b2579)
+![Screenshot (178)](https://github.com/noelmathen/CamBuzz---Mini-Project/assets/140234564/169457e1-131b-44e3-b7ff-82b0127dfc6a)
+![Screenshot (185)](https://github.com/noelmathen/CamBuzz---Mini-Project/assets/140234564/4fb5964f-a77c-4fcf-8766-9dcd20ef3b43)
+![Screenshot (188)](https://github.com/noelmathen/CamBuzz---Mini-Project/assets/140234564/b93999ed-29c4-4110-8798-c4efa5089de3)
+![Screenshot (216)](https://github.com/noelmathen/CamBuzz---Mini-Project/assets/140234564/35194f6d-727c-411d-94b1-a1d7620e61e2)
+![Screenshot (221)](https://github.com/noelmathen/CamBuzz---Mini-Project/assets/140234564/be67c6f0-c4f3-4c81-9571-c85443567c2f)
+![Screenshot (232)](https://github.com/noelmathen/CamBuzz---Mini-Project/assets/140234564/240f9886-6a10-47ba-baa2-0555eeb2a8fb)
+![Screenshot (244)](https://github.com/noelmathen/CamBuzz---Mini-Project/assets/140234564/89cb6182-cd4d-437b-b46d-b68d373e94ca)
+![Screenshot (250)](https://github.com/noelmathen/CamBuzz---Mini-Project/assets/140234564/575d8332-a837-4985-96bc-180368e876ae)
+![Screenshot (255)](https://github.com/noelmathen/CamBuzz---Mini-Project/assets/140234564/0cef1dde-b4db-4578-b444-f64dd4168263)
 ![Screenshot (272)](https://github.com/noelmathen/CamBuzz---Mini-Project/assets/140234564/5d0a680a-ef8f-401c-aec6-ca41d041182a)
+![Screenshot (287)](https://github.com/noelmathen/CamBuzz---Mini-Project/assets/140234564/8fd5ea75-a3b9-4adc-a7da-ee836aa58d61)
