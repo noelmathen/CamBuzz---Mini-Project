@@ -65,8 +65,6 @@ For any issues or inquiries, please contact [noelmathen03@gmail.com].
 
 ## Screenshots of project
 
-Sure, here are the image links arranged in ascending order:
-
 ![Screenshot (168)](https://github.com/noelmathen/CamBuzz---Mini-Project/assets/140234564/5c9e8d02-7d7c-438d-8fc5-7b6eb80facc4)
 ![Screenshot (174)](https://github.com/noelmathen/CamBuzz---Mini-Project/assets/140234564/117be1c6-be44-4084-bae5-3a261e9c55f6)
 ![Screenshot (175)](https://github.com/noelmathen/CamBuzz---Mini-Project/assets/140234564/a2e85fea-a525-42df-9fd7-54ac398b2579)
